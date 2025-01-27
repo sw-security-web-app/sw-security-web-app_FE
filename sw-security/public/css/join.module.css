@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.header {
+  flex: 1;
+  border-bottom: 1px solid grey;
+}
+.headerItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.login {
+  width: 100;
+  background-color: green;
+  font-size: 20;
+}
+.content {
+  flex: 10;
+  justify-content: center;
+  background-color: blue;
+  align-items: center;
+}
+.inner {
+  width: 70%;
+  background-color: red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.select {
+  display: flex;
+  flex-direction: column;
+}
