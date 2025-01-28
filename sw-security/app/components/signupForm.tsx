@@ -1,13 +1,24 @@
 import { useLocation } from "@remix-run/react";
 import signupStyle from "../../public/css/signup.module.css";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function SignUpForm() {
   const location = useLocation(); // 현재 경로 가져오기
+  const [role, setRole] = useState("");
 
   // 경로에 따라서서 폼을 렌더링
   const isAdmin = location.pathname.startsWith("/adminSignUp");
   const isEmployee = location.pathname.startsWith("/employeeSignUp");
+
+  useEffect(() => {
+    if (location.pathname.startsWith("/adminSignUp")) {
+      setRole("MANAGER");
+    } else if (location.pathname.startsWith("/employeeSignUp")) {
+      setRole("EMPLOYEE");
+    } else {
+      setRole("GENERAL"); // 기본값 (개인)
+    }
+  }, [location.pathname]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -48,6 +59,7 @@ export default function SignUpForm() {
         },
         body: JSON.stringify({
           ...formData,
+          role: role,
         }),
       });
 
