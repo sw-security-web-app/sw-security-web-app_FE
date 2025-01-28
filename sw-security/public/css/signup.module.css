@@ -1,0 +1,10 @@
+.emailDiv {
+  display: flex;
+  flex-direction: row;
+}
+label {
+  display: inline-block;
+  width: 150px;
+  margin-right: 10px;
+  text-align: right;
+}

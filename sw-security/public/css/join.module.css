@@ -14,23 +14,46 @@
 }
 .login {
   width: 100;
-  background-color: green;
+  /* background-color: green; */
   font-size: 20;
 }
 .content {
-  flex: 10;
+  display: flex;
+  flex: 15;
   justify-content: center;
-  background-color: blue;
+  /* background-color: blue; */
   align-items: center;
 }
 .inner {
-  width: 70%;
-  background-color: red;
+  width: 80%;
+  height: 50%;
+  /* background-color: red; */
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
 }
 .select {
   display: flex;
   flex-direction: column;
+  /* background-color: blue; */
+  width: 30%;
+  align-items: center;
+}
+
+.imgContainer {
+  background-color: grey;
+  height: 70%;
+  width: 70%;
+  position: relative;
+  top: 40px;
+  overflow: hidden;
+  transition: transform 0.2s ease; /* 부드럽게 크기가 커지도록 */
+}
+.imgContainer:hover {
+  transform: scale(1.1);
+}
+.img {
+  height: 100%;
+  width: 100%;
+  transition: transform 0.3s ease;
 }

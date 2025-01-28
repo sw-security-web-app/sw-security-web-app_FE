@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.header {
+  flex: 1;
+  border-bottom: 1px solid grey;
+}
+/* .logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} */
+.content {
+  display: flex;
+  flex: 15;
+  justify-content: center;
+  /* background-color: blue; */
+  align-items: center;
+}
