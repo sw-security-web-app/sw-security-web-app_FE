@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.img {
+  width: 45px;
+  height: 45px;
+  /* object-fit: cover; */
+  border-radius: 12px;
+  background-color: white;
+}
+
+.text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #cb62ff;
+  margin-left: 10px;
+  text-align: center;
+}

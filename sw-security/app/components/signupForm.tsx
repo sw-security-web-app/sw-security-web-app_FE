@@ -5,6 +5,8 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 export default function SignUpForm() {
   const location = useLocation(); // 현재 경로 가져오기
   const [role, setRole] = useState("");
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
 
   // 경로에 따라서서 폼을 렌더링
   const isAdmin = location.pathname.startsWith("/adminSignUp");
@@ -16,7 +18,7 @@ export default function SignUpForm() {
     } else if (location.pathname.startsWith("/employeeSignUp")) {
       setRole("EMPLOYEE");
     } else {
-      setRole("GENERAL"); // 기본값 (개인)
+      setRole("GENERAL");
     }
   }, [location.pathname]);
 
@@ -39,6 +41,19 @@ export default function SignUpForm() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const validPassword = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    handleChange(e);
+    const password = e.target.value;
+    // 비밀번호 조건 체크 (숫자, 영어, 특수문자, 8자 이상)
+    const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(
+      password
+    );
+    setPasswordValid(isValid);
+    setIsTouched(true); // 비밀번호 입력 시작 시 상태 변경
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -81,9 +96,6 @@ export default function SignUpForm() {
   function confirmCode() {
     //서버랑 통신해서 인증번호 확인하는 코드 !
   }
-  function confirmPassword() {
-    //비밀번호 같은지 확인하는 코드 !
-  }
   return (
     <form onSubmit={handleSubmit}>
       <div className={signupStyle.emailDiv}>
@@ -94,6 +106,8 @@ export default function SignUpForm() {
           type="email"
           id="email"
           placeholder="텍스트를 입력해주세요."
+          name="email"
+          value={formData.email}
           onChange={handleChange}
           required
         />
@@ -123,6 +137,8 @@ export default function SignUpForm() {
         <input
           id="name"
           type="text"
+          name="name"
+          value={formData.name}
           placeholder="텍스트를 입력해주세요."
           onChange={handleChange}
           required
@@ -135,10 +151,26 @@ export default function SignUpForm() {
         <input
           id="password"
           type="password"
+          name="password"
+          value={formData.password}
           placeholder="텍스트를 입력해주세요."
-          onChange={handleChange}
+          onChange={validPassword}
           required
         />
+        {/* 조건부 렌더링 */}
+        <div>
+          {isTouched &&
+            (passwordValid ? (
+              <span style={{ color: "green", fontSize: "12px" }}>
+                사용 가능한 비밀번호입니다.
+              </span>
+            ) : (
+              <span style={{ color: "red", fontSize: "12px" }}>
+                비밀번호는 숫자, 영어, 특수문자를 포함하여 8자 이상이어야
+                합니다.
+              </span>
+            ))}
+        </div>
       </div>
       <div className={signupStyle.passwordConfirmDiv}>
         <label htmlFor="passwordConfirm">
@@ -148,6 +180,8 @@ export default function SignUpForm() {
           id="passwordConfirm"
           type="password"
           placeholder="텍스트를 입력해주세요."
+          name="passwordConfirm"
+          value={formData.passwordConfirm}
           onChange={handleChange}
           required
         />
@@ -162,6 +196,8 @@ export default function SignUpForm() {
             <input
               id="companyName"
               type="text"
+              name="companyName"
+              value={formData.companyName}
               placeholder="텍스트를 입력해주세요."
               onChange={handleChange}
               required
@@ -175,6 +211,8 @@ export default function SignUpForm() {
               id="departmentName"
               type="text"
               placeholder="텍스트를 입력해주세요."
+              name="departmentName"
+              value={formData.departmentName}
               onChange={handleChange}
               required
             />
@@ -186,6 +224,7 @@ export default function SignUpForm() {
             <select
               id="position"
               name="position"
+              value={formData.position}
               onChange={handleChange}
               required
             >
@@ -208,6 +247,8 @@ export default function SignUpForm() {
             <input
               id="companyCode"
               type="text"
+              name="companyCode"
+              value={formData.companyCode}
               placeholder="텍스트를 입력해주세요."
               onChange={handleChange}
               required
@@ -220,6 +261,7 @@ export default function SignUpForm() {
             <select
               id="position"
               name="position"
+              value={formData.position}
               onChange={handleChange}
               required
             >
