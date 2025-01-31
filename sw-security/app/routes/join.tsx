@@ -25,7 +25,9 @@ export default function Join() {
         <div className={joinStyle.inner}>
           <div className={joinStyle.textContainer}>
             <div className={joinStyle.text1Container}>
-              <span className={joinStyle.text1}>시작하기</span>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <span className={joinStyle.text1}>시작하기</span>
+              </Link>
             </div>
             <div className={joinStyle.text2Container}>
               <span className={joinStyle.text2}>가입 유형 선택</span>
