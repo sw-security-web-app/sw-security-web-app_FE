@@ -1,10 +1,138 @@
-.emailDiv {
+label {
+  text-align: left;
+  /* background-color: blue; */
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.formContainer {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  width: 30vw;
+  position: relative;
+  top: -4vh;
+}
+.form {
+  width: 100%;
+}
+input {
+  border-radius: 12px;
+  height: 4.5vh;
+  /* width: 100%; */
+  box-sizing: border-box; /* padding과 border 포함해서 너비 계산 */
+  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  border: none;
+  background-color: #2a2c2f;
+  caret-color: #ffffff;
+  padding-left: 15px;
+  color: #ffffff;
+}
+
+select {
+  border-radius: 12px;
+  height: 4.5vh;
+  box-sizing: border-box; /* padding과 border 포함해서 너비 계산 */
+  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  border: none;
+  background-color: #2a2c2f; /* 배경색 */
+  caret-color: #ffffff;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #969696;
+  font-weight: 400;
+  appearance: none; /* 기본 화살표 숨기기 */
+  background: url("../../public/img/arrow-down.svg") no-repeat right center,
+    #2a2c2f; /* 커스텀 화살표와 배경색 */
+  background-position: calc(100% - 10px) center; /* 화살표의 오른쪽에 10px margin 주기 */
+}
+
+input::placeholder {
+  font-size: 14px;
+  color: #969696;
+  font-weight: 400;
+}
+
+/* select option {
+  font-size: 14px;
+  color: #969696;
+  font-weight: 400;
+} */
+.titleContainer {
+  padding: 5px 0 5px 0;
+}
+.title {
+  font-size: 30px;
+  color: #ffffff;
+  font-weight: 600;
+}
+.nameDiv,
+.emailDiv,
+.emailAuthDiv,
+.passwordDiv,
+.passwordConfirmDiv,
+.companyDiv,
+.departmentDiv,
+.positionDiv,
+.companyCodeDiv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 10px 15px;
+  margin-left: 10px;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  background-color: #5e6269;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease; /* 부드러운 전환 */
+}
+
+.btn:hover {
+  background-color: #70757d; /* 마우스를 올리면 조금 밝게 */
+}
+
+.btn:active {
+  background-color: #4c5056; /* 클릭하면 살짝 어두워짐 */
+  transform: scale(0.95); /* 살짝 눌리는 느낌 */
+}
+
+.emailDiv div,
+.emailAuthDiv div {
   display: flex;
   flex-direction: row;
 }
-label {
-  display: inline-block;
-  width: 150px;
-  margin-right: 10px;
-  text-align: right;
+.inputContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.signUpBtn {
+  background-color: #cb62ff;
+  font-size: 16px;
+  color: #0d0d0d;
+  border: none;
+  border-radius: 12px;
+  width: 100%;
+  height: 5vh;
+  margin-top: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.signUpBtn:hover {
+  background-color: #d378ff;
+}
+
+.signUpBtn:active {
+  background-color: #b14ce3;
 }

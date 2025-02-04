@@ -1,10 +1,12 @@
 import { Link } from "@remix-run/react";
-
+import loginStyle from "../../public/css/login.module.css";
 export default function Login() {
   return (
-    <div>
-      <h1>로그인</h1>
-      <form>
+    <div className={loginStyle.formConatainer}>
+      <div className={loginStyle.titleContainer}>
+        <span className={loginStyle.title}>로그인</span>
+      </div>
+      <form className={loginStyle.form}>
         <div className="emailDiv">
           <label htmlFor="email">이메일</label>
           <input type="email" name="email" />

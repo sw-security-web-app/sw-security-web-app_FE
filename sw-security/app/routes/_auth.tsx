@@ -1,18 +1,16 @@
 import { Link, Outlet } from "@remix-run/react";
 import authStyle from "../../public/css/auth.module.css";
+import defaultStyle from "../../public/css/default.module.css";
+import SignUpHeader from "~/components/signUpHeader";
 
 export default function Join() {
   return (
-    <div className={authStyle.container}>
-      <div className={authStyle.header}>
-        <div className={authStyle.logo}>
-          <div>
-            <Link to="/">로고</Link>
-          </div>
+    <div className={defaultStyle.container}>
+      <SignUpHeader />
+      <div className={defaultStyle.content}>
+        <div className={authStyle.inner}>
+          <Outlet />
         </div>
-      </div>
-      <div className={authStyle.content}>
-        <Outlet />
       </div>
     </div>
   );
