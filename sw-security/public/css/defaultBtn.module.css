@@ -1,0 +1,24 @@
+.button {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  background-color: #cb62ff;
+  color: #0d0d0d;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+.small {
+  width: 90px;
+  height: 45px;
+}
+
+.medium {
+  width: 120px;
+  height: 48px;
+}
+
+.large {
+  width: 546px;
+  height: 52px;
+}

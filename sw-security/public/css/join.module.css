@@ -1,36 +1,113 @@
-.container {
+.textContainer {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-}
-.header {
-  flex: 1;
-  border-bottom: 1px solid grey;
-}
-.headerItems {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.login {
-  width: 100;
-  background-color: green;
-  font-size: 20;
-}
-.content {
-  flex: 10;
-  justify-content: center;
-  background-color: blue;
+  /* background-color: red; */
+  width: 100%;
   align-items: center;
+  position: relative; /* 다른 요소들이 다이아몬드 위에 위치하도록 함 */
+  z-index: 1;
+  margin-top: 100px;
 }
-.inner {
-  width: 70%;
-  background-color: red;
+.selectContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /* background-color: aqua; */
+  position: relative;
+  z-index: 2;
+  margin-top: 60px;
+  height: 350px;
+  width: 95%;
+
+  align-items: center;
+
+  justify-content: space-around;
 }
 .select {
   display: flex;
   flex-direction: column;
+  background-color: #0d0d0d;
+  width: 32%;
+  align-items: center;
+  border-radius: 12px;
+  height: 100%;
+  text-decoration: none;
+  opacity: 0.8;
+  position: relative;
+  overflow: hidden;
+}
+
+.select::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 0.5px;
+  border-radius: 12px;
+  background: linear-gradient(to bottom right, #a837bb, #0d0d0d);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.text1Container {
+  background-color: #0d0d0d;
+  border-radius: 99px;
+  width: 90px;
+  height: 35px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 15px 1px #cb62ff;
+}
+.text1 {
+  color: #cb62ff;
+  font-size: 14px;
+  /* margin: 10px 10px; */
+  font-weight: 600;
+}
+.text2Container {
+  /* background-color: green; */
+  margin-top: 10px;
+}
+.text2 {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 40px;
+}
+.text3Container {
+  margin-top: 20px;
+}
+
+.text3 {
+  color: #969696;
+  font-size: 18px;
+  font-weight: 500;
+}
+.diamond {
+  position: absolute;
+  width: 370px;
+  height: 550px;
+  background: linear-gradient(to right, transparent, #e862ff);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* 기본 마름모 */
+  transform: scaleX(2) scaleY(0.5); /* 가로로 길게, 세로로 짧게 */
+  top: 50%; /* 화면 세로 중앙에 배치 */
+  left: 50%; /* 화면 가로 중앙에 배치 */
+  transform: translate(-50%, -50%) scaleX(2) scaleY(0.5); /* 중앙 정렬 */
+  opacity: 0.4; /* 전체 다이아몬드의 투명도를 30%로 설정 */
+  z-index: 0;
+}
+.diamond:nth-child(2) {
+  width: 260px;
+  height: 400px;
+  top: 37%;
+}
+.diamond:nth-child(3) {
+  width: 470px;
+  height: 700px;
+  top: 62%;
+}
+.tag {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 25px;
 }
