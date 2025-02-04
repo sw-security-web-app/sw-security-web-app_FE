@@ -1,0 +1,260 @@
+.logoContainer {
+  width: 23vh;
+  height: 23vh;
+  background-color: #0d0d0d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: inset 0 0 15px 3px rgba(203, 98, 255, 0.4);
+
+  border-radius: 23%;
+  margin-top: 30px;
+}
+.logoContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 23%;
+  background-color: #0d0d0d;
+  padding: 1px; /* 테두리 두께 */
+  background: linear-gradient(
+    to bottom,
+    rgba(203, 98, 255, 0.7) 0%,
+    rgba(0, 0, 0, 0) 90%
+  );
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.logo {
+  width: 19vh;
+  height: 19vh;
+  background-color: #ffffff;
+  border-radius: 20%;
+}
+.startPoint {
+  position: relative;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* 세로 정렬 */
+  width: 200px;
+  height: 9vh;
+}
+.circle1 {
+  position: absolute;
+  width: 75vw;
+  height: 95vh;
+  /* max-width: 1300px; */
+  /* max-height: 900px; */
+  background: linear-gradient(
+    180deg,
+    rgba(203, 98, 255, 0) 50%,
+    rgba(202, 98, 255, 0.45) 100%
+  );
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  bottom: 0;
+  z-index: 0; /* 버튼 뒤에 배치 */
+}
+
+.circle1::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 1px; /* 테두리 두께 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 60%,
+    rgba(203, 98, 255, 0.5) 90%,
+    rgba(203, 98, 255, 0) 100%
+  );
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.textContainer {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.nameContainer {
+  margin-top: 20px;
+}
+.name {
+  font-size: 80px;
+  color: #cb62ff;
+  font-weight: bold;
+}
+.introContainer {
+  margin-top: 10px;
+  text-align: center;
+  width: 800px;
+}
+.intro {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 18px;
+}
+/* .startBtnContainer {
+  width: 120px;
+  height: 50px;
+  background-color: red;
+  border-radius: 99px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background: linear-gradient(#0d0d0d 0%, #cb62ff 100%) !important;
+  box-shadow: inset 0 0 10px 5px #cb62ff;
+  border: none;
+} */
+.startBtnContainer {
+  width: 12vw; /* 반응형 크기 조정 */
+  max-width: 120px;
+  height: 6vh;
+  max-height: 50px;
+  background: linear-gradient(
+    rgba(13, 13, 13, 0.8) 0%,
+    rgba(203, 98, 255) 100%
+  );
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1px solid #000000;
+  box-shadow: inset 0 0 20px 7px rgba(203, 98, 255, 0.6);
+  position: absolute; /* circle1보다 앞쪽에 위치 */
+  z-index: 1; /* circle1 뒤에 배치 */
+  bottom: -3vh;
+}
+
+.startBtn {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+.dotContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* 줄 간격 */
+  z-index: 0;
+  top: 67vh;
+}
+
+.dotRow {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  gap: 45px; /* 원들 사이 간격 */
+}
+
+.dot {
+  width: 0.7vw;
+  height: 0.7vw;
+  background-color: rgba(202.67, 98, 255, 0.45); /* 원의 색상 */
+  border-radius: 50%;
+}
+.eclipseBlur {
+  position: absolute;
+  width: 30vw; /* 원하는 크기로 조정 */
+  height: 25vh;
+  background-color: rgba(203, 98, 255, 0.5);
+  /* background-color: red; */
+  border-radius: 50%; /* 타원 (원) 형태 유지 */
+  filter: blur(120px);
+  bottom: -12.5vh;
+}
+.circle2 {
+  position: absolute;
+  width: 120vw;
+  height: 110vh;
+  /* max-height: 900px; */
+  border-radius: 50%;
+  bottom: 0;
+  z-index: 0;
+  background-color: transparent;
+}
+
+.circle2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 5px; /* 테두리 두께 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(203, 98, 255, 1) 70%,
+    rgba(203, 98, 255, 0) 100%
+  );
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.circle3 {
+  position: absolute;
+  width: 120vw;
+  height: 110vh;
+  /* max-height: 900px; */
+  border-radius: 50%;
+  top: 0;
+  z-index: 0;
+  background-color: transparent;
+  background: linear-gradient(
+    to top,
+    rgba(203, 98, 255, 0) 88%,
+    rgba(202, 98, 255, 0.4) 100%
+  );
+}
+
+.circle3::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 5px; /* 테두리 두께 */
+  background: linear-gradient(
+    to bottom,
+    rgba(203, 98, 255, 0.4) 0%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 100%
+  );
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.startBottomPoint {
+  position: relative;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* 세로 정렬 */
+  width: 200px;
+  height: 9vh;
+}
+.eclipseBlurBlack {
+  position: absolute;
+  width: 50vw; /* 원하는 크기로 조정 */
+  height: 30vh;
+  background-color: rgba(13, 13, 13, 1);
+  /* background-color: red; */
+  border-radius: 50%; /* 타원 (원) 형태 유지 */
+  filter: blur(120px);
+  top: 5vh;
+}

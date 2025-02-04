@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #0d0d0d;
+  /* min-height: 100dvh; */
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex: 15;
+  justify-content: center;
+  /* background-color: blue; */
+  /* align-items: center; */
+  position: relative;
+  /* overflow: hidden; */
+  /* height: 100%; */
+}
+.inner {
+  width: 60%;
+  /* min-height: 100dvh; */
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  height: 100%;
+}

@@ -1,34 +1,20 @@
 import { Link } from "@remix-run/react";
 import joinStyle from "../../public/css/join.module.css";
-import DefaultButton from "../components/defautlButton";
-import Logo from "~/components/logo";
+import defaultStyle from "../../public/css/default.module.css";
+import LoginHeader from "~/components/loginHeader";
 
 export default function Join() {
   return (
-    <div className={joinStyle.container}>
-      <div className={joinStyle.header}>
-        <div className={joinStyle.headerItems}>
-          <Logo />
-          <div className={joinStyle.login}>
-            <Link to="/login">
-              <DefaultButton
-                text="로그인"
-                fontWeight={700}
-                size="small"
-                onClick={() => {}}
-              />
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className={joinStyle.content}>
-        <div className={joinStyle.inner}>
+    <div className={defaultStyle.container}>
+      <LoginHeader />
+      <div className={defaultStyle.content}>
+        <div className={defaultStyle.inner}>
           <div className={joinStyle.textContainer}>
-            <div className={joinStyle.text1Container}>
-              <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <div className={joinStyle.text1Container}>
                 <span className={joinStyle.text1}>시작하기</span>
-              </Link>
-            </div>
+              </div>
+            </Link>
             <div className={joinStyle.text2Container}>
               <span className={joinStyle.text2}>가입 유형 선택</span>
             </div>
@@ -39,9 +25,9 @@ export default function Join() {
             </div>
           </div>
           {/* 다이아몬드 세 개 */}
+          {/* <div className={joinStyle.diamond}></div>
           <div className={joinStyle.diamond}></div>
-          <div className={joinStyle.diamond}></div>
-          <div className={joinStyle.diamond}></div>
+          <div className={joinStyle.diamond}></div> */}
           <div className={joinStyle.selectContainer}>
             <Link to="/individualSignUp" className={joinStyle.select}>
               <div className={joinStyle.imgContainer}>
