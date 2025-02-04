@@ -1,10 +1,5 @@
-import SignUpForm from "~/components/signupForm";
+import SignUpForm from "~/components/signUpForm";
 
 export default function Admin() {
-  return (
-    <div>
-      <h1>Admin</h1>
-      <SignUpForm />
-    </div>
-  );
+  return <SignUpForm />;
 }

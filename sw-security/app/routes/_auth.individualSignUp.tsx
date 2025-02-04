@@ -1,10 +1,5 @@
-import SignUpForm from "~/components/signupForm";
+import SignUpForm from "~/components/signUpForm";
 
 export default function Individual() {
-  return (
-    <div>
-      <h1>개인</h1>
-      <SignUpForm />
-    </div>
-  );
+  return <SignUpForm />;
 }
