@@ -24,36 +24,48 @@ export default function Join() {
               </span>
             </div>
           </div>
+          <div className={joinStyle.circlePoint}>
+            <div className={joinStyle.circle} />
+          </div>
           {/* 다이아몬드 세 개 */}
           {/* <div className={joinStyle.diamond}></div>
           <div className={joinStyle.diamond}></div>
           <div className={joinStyle.diamond}></div> */}
           <div className={joinStyle.selectContainer}>
             <Link to="/individualSignUp" className={joinStyle.select}>
-              <div className={joinStyle.imgContainer}>
-                {/* <img
-                    src="../../public/img/test.png"
-                    className={joinStyle.img}
-                  /> */}
+              <div className={joinStyle.tagContainer}>
+                <span className={joinStyle.tag}>개인</span>
+                <span className={joinStyle.addTag}>14세 이상 개인 사용자</span>
               </div>
-              <div className={joinStyle.tag}>개인</div>
+              <div className={joinStyle.imgContainer}>
+                <img
+                  src="../../public/img/individual.svg"
+                  className={joinStyle.img}
+                />
+              </div>
             </Link>
             <Link to="/adminSignUp" className={joinStyle.select}>
+              <div className={joinStyle.tagContainer}>
+                <span className={joinStyle.tag}>관리자</span>
+                <span className={joinStyle.addTag}>직원 관리 기능 제공</span>
+              </div>
               <div className={joinStyle.imgContainer}>
-                {/* <img
-                    src="../../public/img/test.png"
-                    className={joinStyle.img}
-                  /> */}
-                <div className={joinStyle.tag}>관리자</div>
+                <img
+                  src="../../public/img/admin.svg"
+                  className={joinStyle.img}
+                />
               </div>
             </Link>
             <Link to="/employeeSignUp" className={joinStyle.select}>
+              <div className={joinStyle.tagContainer}>
+                <span className={joinStyle.tag}>직원</span>
+                <span className={joinStyle.addTag}>기업에 소속된 사용자</span>
+              </div>
               <div className={joinStyle.imgContainer}>
-                {/* <img
-                    src="../../public/img/test.png"
-                    className={joinStyle.img}
-                  /> */}
-                <div className={joinStyle.tag}>직원</div>
+                <img
+                  src="../../public/img/employee.svg"
+                  className={joinStyle.img}
+                />
               </div>
             </Link>
           </div>

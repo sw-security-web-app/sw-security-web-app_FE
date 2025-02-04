@@ -13,42 +13,77 @@
   flex-direction: row;
   /* background-color: aqua; */
   position: relative;
-  z-index: 2;
-  margin-top: 60px;
-  height: 350px;
-  width: 95%;
-
+  height: 45vh;
+  width: 100%;
   align-items: center;
-
-  justify-content: space-around;
+  z-index: 1;
+  justify-content: space-between;
 }
 .select {
   display: flex;
   flex-direction: column;
-  background-color: #0d0d0d;
-  width: 32%;
-  align-items: center;
-  border-radius: 12px;
+  /* background-color: #0d0d0d; */
+  background: radial-gradient(
+    circle at top,
+    rgba(42, 44, 47, 0.16) 50%,
+    #cb62ff 85%,
+    white 100%
+  );
+  backdrop-filter: blur(100px);
+  width: 31%;
+  /* align-items: center; */
+  border-radius: 8%;
   height: 100%;
   text-decoration: none;
-  opacity: 0.8;
   position: relative;
   overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s ease; /* 모든 상태 변화에 부드러운 애니메이션 추가 */
 }
-
 .select::before {
   content: "";
   position: absolute;
   inset: 0;
-  padding: 0.5px;
-  border-radius: 12px;
-  background: linear-gradient(to bottom right, #a837bb, #0d0d0d);
+  padding: 2px;
+  border-radius: 8%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(203, 98, 255, 0.2) 40%,
+    rgba(203, 98, 255, 1) 100%
+  );
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  transition: all 0.3s ease;
 }
-
+.select:hover {
+  padding: 25px;
+  /* transform: scale(1.15); */
+  box-shadow: 0 0 10px rgba(203, 98, 255, 0.6);
+  border: 3px solid #cb62ff;
+}
+.select:hover::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(203, 98, 255, 0) 100%
+  );
+}
+.select img {
+  transition: transform 0.3s ease;
+}
+.select:hover img {
+  transform: scale(1.2);
+}
+.select .tagContainer {
+  transition: transform 0.3s ease;
+}
+.select:hover .tagContainer {
+  transform: scale(1.2);
+}
 .text1Container {
   background-color: #0d0d0d;
   border-radius: 99px;
@@ -83,17 +118,17 @@
   font-size: 18px;
   font-weight: 500;
 }
-.diamond {
+/* .diamond {
   position: absolute;
   width: 370px;
   height: 550px;
   background: linear-gradient(to right, transparent, #e862ff);
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* 기본 마름모 */
-  transform: scaleX(2) scaleY(0.5); /* 가로로 길게, 세로로 짧게 */
-  top: 50%; /* 화면 세로 중앙에 배치 */
-  left: 50%; /* 화면 가로 중앙에 배치 */
-  transform: translate(-50%, -50%) scaleX(2) scaleY(0.5); /* 중앙 정렬 */
-  opacity: 0.4; /* 전체 다이아몬드의 투명도를 30%로 설정 */
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); 
+  transform: scaleX(2) scaleY(0.5); 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%) scaleX(2) scaleY(0.5); 
+  opacity: 0.4; 
   z-index: 0;
 }
 .diamond:nth-child(2) {
@@ -105,9 +140,60 @@
   width: 470px;
   height: 700px;
   top: 62%;
-}
+} */
 .tag {
   color: #ffffff;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 30px;
+}
+.addTag {
+  color: #969696;
+  font-weight: 500;
+  font-size: 15px;
+  margin-top: 10px;
+}
+.circle {
+  position: absolute;
+  width: 120vw;
+  height: 110vh;
+  /* max-height: 900px; */
+  border-radius: 50%;
+  top: 30.4vh;
+  background-color: transparent;
+  background: linear-gradient(
+    to top,
+    rgba(203, 98, 255, 0) 75%,
+    rgba(202, 98, 255, 0.2) 96%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  z-index: -1;
+}
+.circlePoint {
+  position: relative;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* 세로 정렬 */
+  width: 200px;
+  height: 8vh;
+  z-index: 0;
+}
+.imgContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.img {
+  position: absolute;
+  bottom: 0;
+}
+.tagContainer {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  margin-left: 30px;
 }
