@@ -27,6 +27,7 @@ export default function SignUpForm() {
     email: "",
     name: "",
     password: "",
+    phoneNumber: "",
     companyName: "", // 관리자 폼에서 회사명
     companyDept: "", // 관리자 폼에서 부서명
     companyPosition: "", // 직책
@@ -50,6 +51,7 @@ export default function SignUpForm() {
     }));
   };
 
+  //check가 필요한 것들 체크하는 함수
   const contentCheck = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setChechData((prevData) => ({
@@ -58,6 +60,7 @@ export default function SignUpForm() {
     }));
   };
 
+  //비밀번호 유효성 검사
   const validPassword = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -71,6 +74,7 @@ export default function SignUpForm() {
     setIsTouched(true); // 비밀번호 입력 시작 시 상태 변경
   };
 
+  //회원가입 시 서버와 통신
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //빈문자열 null로 변환
@@ -190,7 +194,22 @@ export default function SignUpForm() {
             </button>
           </div>
         </div>
-
+        <div className={signupStyle.phoneNumberDiv}>
+          <label htmlFor="phoneNumber">
+            핸드폰 번호
+            <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+          </label>
+          <input
+            id="phoneNumber"
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            pattern="010[0-9]{8}"
+            placeholder="숫자만 입력해주세요"
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div className={signupStyle.passwordDiv}>
           <label htmlFor="password">
             비밀번호<span style={{ color: "red", marginLeft: "5px" }}>*</span>

@@ -1,3 +1,92 @@
-.formConatainer {
-  background-color: red;
+.loginForm label {
+  text-align: left;
+  /* background-color: blue; */
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.formContainer {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  width: 30vw;
+  /* position: relative;
+  top: -4vh; */
+  margin-bottom: 100px;
+}
+.loginForm {
+  width: 100%;
+  /* background-color: red; */
+}
+input {
+  border-radius: 12px;
+  height: 4.5vh;
+  /* width: 100%; */
+  box-sizing: border-box; /* padding과 border 포함해서 너비 계산 */
+  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  border: none;
+  background-color: #2a2c2f;
+  caret-color: #ffffff;
+  padding-left: 15px;
+  color: #ffffff;
+}
+
+input::placeholder {
+  font-size: 14px;
+  color: #969696;
+  font-weight: 400;
+}
+.titleContainer {
+  margin: 20px 0;
+}
+.title {
+  font-size: 30px;
+  color: #ffffff;
+  font-weight: 600;
+}
+.inputContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.loginBtn {
+  background-color: #cb62ff;
+  font-size: 16px;
+  color: #0d0d0d;
+  border: none;
+  border-radius: 12px;
+  width: 100%;
+  height: 5vh;
+  margin-top: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.loginBtn:hover {
+  background-color: #d378ff;
+}
+
+.loginBtn:active {
+  background-color: #b14ce3;
+}
+.emailDiv,
+.passwordDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.findId {
+  color: #969696;
+  font-weight: 500;
+  font-size: 13px;
+}
+.findIdDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }

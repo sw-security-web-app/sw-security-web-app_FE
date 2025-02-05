@@ -2,10 +2,11 @@ label {
   text-align: left;
   /* background-color: blue; */
   color: #ffffff;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 13px;
   margin-bottom: 10px;
 }
+
 .formContainer {
   /* background-color: red; */
   display: flex;
@@ -13,8 +14,8 @@ label {
   /* justify-content: center; */
   align-items: center;
   width: 30vw;
-  position: relative;
-  top: -4vh;
+  /* position: relative;
+  top: -4vh; */
 }
 .form {
   width: 100%;
@@ -40,7 +41,7 @@ select {
   border: none;
   background-color: #2a2c2f; /* 배경색 */
   caret-color: #ffffff;
-  padding-left: 10px;
+  padding-left: 15px;
   font-size: 14px;
   color: #969696;
   font-weight: 400;
@@ -62,7 +63,7 @@ input::placeholder {
   font-weight: 400;
 } */
 .titleContainer {
-  padding: 5px 0 5px 0;
+  margin: 17px 0;
 }
 .title {
   font-size: 30px;
@@ -72,6 +73,7 @@ input::placeholder {
 .nameDiv,
 .emailDiv,
 .emailAuthDiv,
+.phoneNumberDiv,
 .passwordDiv,
 .passwordConfirmDiv,
 .companyDiv,
@@ -80,7 +82,7 @@ input::placeholder {
 .companyCodeDiv {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .btn {
