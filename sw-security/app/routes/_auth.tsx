@@ -5,9 +5,9 @@ import SignUpHeader from "~/components/signUpHeader";
 
 export default function Join() {
   return (
-    <div className={defaultStyle.container}>
+    <div className={authStyle.container}>
       <SignUpHeader />
-      <div className={defaultStyle.content}>
+      <div className={authStyle.content}>
         <div className={authStyle.inner}>
           <Outlet />
         </div>

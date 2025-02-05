@@ -9,3 +9,21 @@
   height: 100%;
   justify-content: center;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  background-color: #0d0d0d;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex: 15;
+  justify-content: center;
+  /* background-color: blue; */
+  /* align-items: center; */
+  position: relative;
+  /* overflow: hidden; */
+  height: 100%;
+}

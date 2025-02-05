@@ -137,6 +137,14 @@
   position: absolute; /* circle1보다 앞쪽에 위치 */
   z-index: 1; /* circle1 뒤에 배치 */
   bottom: -3vh;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.startBtnContainer:hover {
+  transform: scale(1.05); /* 살짝 커지는 효과 */
+}
+.startBtnContainer:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 0 15px 5px rgba(203, 98, 255, 0.4);
 }
 
 .startBtn {
