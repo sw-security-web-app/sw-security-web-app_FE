@@ -8,42 +8,6 @@ export default function Index() {
     <div className={defaultStyle.container}>
       <LoginHeader />
       <div className={defaultStyle.content}>
-        <div className={indexStyle.dotContainer}>
-          {/* 첫 번째 줄 (2개) */}
-          <div className={indexStyle.dotRow}>
-            {Array.from({ length: 2 }, (_, index) => (
-              <div key={index} className={indexStyle.dot} />
-            ))}
-          </div>
-
-          {/* 두 번째 줄 (6개) */}
-          <div className={indexStyle.dotRow}>
-            {Array.from({ length: 6 }, (_, index) => (
-              <div key={index} className={indexStyle.dot} />
-            ))}
-          </div>
-
-          {/* 세 번째 줄 (8개) */}
-          <div className={indexStyle.dotRow}>
-            {Array.from({ length: 8 }, (_, index) => (
-              <div key={index} className={indexStyle.dot} />
-            ))}
-          </div>
-
-          {/* 네 번째 줄 (8개) */}
-          <div className={indexStyle.dotRow}>
-            {Array.from({ length: 8 }, (_, index) => (
-              <div key={index} className={indexStyle.dot} />
-            ))}
-          </div>
-
-          {/* 마지막 줄 (10개) */}
-          <div className={indexStyle.dotRow}>
-            {Array.from({ length: 10 }, (_, index) => (
-              <div key={index} className={indexStyle.dot} />
-            ))}
-          </div>
-        </div>
         <div className={defaultStyle.inner}>
           <div className={indexStyle.logoContainer}>
             <div className={indexStyle.logo}></div>
@@ -76,6 +40,42 @@ export default function Index() {
           <div className={indexStyle.startBottomPoint}>
             <div className={indexStyle.circle3} />
             <div className={indexStyle.eclipseBlurBlack} />
+            <div className={indexStyle.dotContainer}>
+              {/* 첫 번째 줄 (2개) */}
+              <div className={indexStyle.dotRow}>
+                {Array.from({ length: 2 }, (_, index) => (
+                  <div key={index} className={indexStyle.dot} />
+                ))}
+              </div>
+
+              {/* 두 번째 줄 (6개) */}
+              <div className={indexStyle.dotRow}>
+                {Array.from({ length: 6 }, (_, index) => (
+                  <div key={index} className={indexStyle.dot} />
+                ))}
+              </div>
+
+              {/* 세 번째 줄 (8개) */}
+              <div className={indexStyle.dotRow}>
+                {Array.from({ length: 8 }, (_, index) => (
+                  <div key={index} className={indexStyle.dot} />
+                ))}
+              </div>
+
+              {/* 네 번째 줄 (8개) */}
+              <div className={indexStyle.dotRow}>
+                {Array.from({ length: 8 }, (_, index) => (
+                  <div key={index} className={indexStyle.dot} />
+                ))}
+              </div>
+
+              {/* 마지막 줄 (10개) */}
+              <div className={indexStyle.dotRow}>
+                {Array.from({ length: 10 }, (_, index) => (
+                  <div key={index} className={indexStyle.dot} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

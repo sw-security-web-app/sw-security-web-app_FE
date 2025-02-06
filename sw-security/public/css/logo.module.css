@@ -5,17 +5,17 @@
   align-items: center;
 }
 .img {
-  width: 45px;
-  height: 45px;
+  width: 2.8vw;
+  height: 2.8vw;
   /* object-fit: cover; */
-  border-radius: 12px;
+  border-radius: 0.67rem;
   background-color: white;
 }
 
 .text {
-  font-size: 32px;
+  font-size: 1.8rem;
   font-weight: bold;
   color: #cb62ff;
-  margin-left: 10px;
+  margin-left: 0.7vw;
   text-align: center;
 }

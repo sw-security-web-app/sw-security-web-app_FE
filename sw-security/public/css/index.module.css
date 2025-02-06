@@ -6,10 +6,10 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  box-shadow: inset 0 0 15px 3px rgba(203, 98, 255, 0.4);
+  box-shadow: inset 0 0 0.83rem 0.2rem rgba(203, 98, 255, 0.4);
 
   border-radius: 23%;
-  margin-top: 30px;
+  margin-top: 1.6rem;
 }
 .logoContainer::before {
   content: "";
@@ -17,7 +17,7 @@
   inset: 0;
   border-radius: 23%;
   background-color: #0d0d0d;
-  padding: 1px; /* 테두리 두께 */
+  padding: 0.06rem;
   background: linear-gradient(
     to bottom,
     rgba(203, 98, 255, 0.7) 0%,
@@ -41,8 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column; /* 세로 정렬 */
-  width: 200px;
+  flex-direction: column;
+  width: 10vw;
   height: 9vh;
 }
 .circle1 {
@@ -57,9 +57,9 @@
     rgba(202, 98, 255, 0.45) 100%
   );
   border-radius: 50%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
   bottom: 0;
-  z-index: 0; /* 버튼 뒤에 배치 */
+  z-index: 0;
 }
 
 .circle1::before {
@@ -67,7 +67,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  padding: 2px; /* 테두리 두께 */
+  padding: 0.1rem;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1) 0%,
@@ -87,100 +87,89 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 1.2rem;
 }
 .nameContainer {
-  margin-top: 20px;
+  margin-top: 1.2rem;
 }
 .name {
-  font-size: 80px;
+  font-size: 4.45rem;
   color: #cb62ff;
   font-weight: bold;
 }
 .introContainer {
-  margin-top: 10px;
+  margin-top: 0.56rem;
   text-align: center;
-  width: 800px;
+  width: 48vw;
 }
 .intro {
   color: #ffffff;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1rem;
+  z-index: 1;
 }
-/* .startBtnContainer {
-  width: 120px;
-  height: 50px;
-  background-color: red;
-  border-radius: 99px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  background: linear-gradient(#0d0d0d 0%, #cb62ff 100%) !important;
-  box-shadow: inset 0 0 10px 5px #cb62ff;
-  border: none;
-} */
 .startBtnContainer {
-  width: 12vw; /* 반응형 크기 조정 */
-  max-width: 120px;
+  width: 7.3vw;
+  /* max-width: 120px; */
   height: 6vh;
-  max-height: 50px;
+  /* max-height: 50px; */
   background: linear-gradient(
     rgba(13, 13, 13, 0.8) 0%,
     rgba(203, 98, 255) 100%
   );
-  border-radius: 99px;
+  border-radius: 5.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.1px solid #000000;
-  box-shadow: inset 0 0 20px 7px rgba(203, 98, 255, 0.6);
-  position: absolute; /* circle1보다 앞쪽에 위치 */
-  z-index: 1; /* circle1 뒤에 배치 */
+  border: 0.006rem solid #000000;
+  box-shadow: inset 0 0 1.12rem 0.39rem rgba(203, 98, 255, 0.6);
+  position: absolute;
+  z-index: 1;
   bottom: -3vh;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 .startBtnContainer:hover {
-  transform: scale(1.05); /* 살짝 커지는 효과 */
+  transform: scale(1.05);
 }
 .startBtnContainer:active {
   transform: scale(0.95);
-  box-shadow: inset 0 0 15px 5px rgba(203, 98, 255, 0.4);
+  box-shadow: inset 0 0 0.83rem 0.28rem rgba(203, 98, 255, 0.4);
 }
 
 .startBtn {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 600;
 }
 .dotContainer {
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 40px; /* 줄 간격 */
+  gap: 2.23rem;
   z-index: 0;
-  top: 67vh;
+  top: 3rem;
 }
 
 .dotRow {
   display: flex;
-  justify-content: center; /* 가운데 정렬 */
-  gap: 45px; /* 원들 사이 간격 */
+  justify-content: center;
+  gap: 2.5rem;
 }
 
 .dot {
   width: 0.7vw;
   height: 0.7vw;
-  background-color: rgba(202.67, 98, 255, 0.45); /* 원의 색상 */
+  background-color: rgba(202.67, 98, 255, 0.45);
   border-radius: 50%;
 }
 .eclipseBlur {
   position: absolute;
-  width: 30vw; /* 원하는 크기로 조정 */
+  width: 30vw;
   height: 25vh;
   background-color: rgba(203, 98, 255, 0.5);
   /* background-color: red; */
-  border-radius: 50%; /* 타원 (원) 형태 유지 */
-  filter: blur(120px);
+  border-radius: 50%;
+  filter: blur(6.67rem);
   bottom: -12.5vh;
 }
 .circle2 {
@@ -199,7 +188,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  padding: 5px; /* 테두리 두께 */
+  padding: 0.28rem;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.8) 0%,
@@ -233,7 +222,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  padding: 5px; /* 테두리 두께 */
+  padding: 0.28rem;
   background: linear-gradient(
     to bottom,
     rgba(203, 98, 255, 0.4) 0%,
@@ -252,17 +241,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column; /* 세로 정렬 */
-  width: 200px;
+  flex-direction: column;
+  width: 10vw;
   height: 9vh;
 }
 .eclipseBlurBlack {
   position: absolute;
-  width: 50vw; /* 원하는 크기로 조정 */
+  width: 50vw;
   height: 30vh;
   background-color: rgba(13, 13, 13, 1);
   /* background-color: red; */
-  border-radius: 50%; /* 타원 (원) 형태 유지 */
-  filter: blur(120px);
+  border-radius: 50%;
+  filter: blur(6.67rem);
   top: 5vh;
 }

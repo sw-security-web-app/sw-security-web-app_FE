@@ -3,8 +3,8 @@ label {
   /* background-color: blue; */
   color: #ffffff;
   font-weight: 500;
-  font-size: 13px;
-  margin-bottom: 10px;
+  font-size: 0.73rem;
+  margin-bottom: 1.2vh;
 }
 
 .formContainer {
@@ -21,38 +21,38 @@ label {
   width: 100%;
 }
 input {
-  border-radius: 12px;
+  border-radius: 0.67rem;
   height: 4.5vh;
   /* width: 100%; */
-  box-sizing: border-box; /* padding과 border 포함해서 너비 계산 */
-  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  box-sizing: border-box;
+  flex-grow: 1;
   border: none;
   background-color: #2a2c2f;
   caret-color: #ffffff;
-  padding-left: 15px;
+  padding-left: 0.8vw;
   color: #ffffff;
 }
 
 select {
-  border-radius: 12px;
+  border-radius: 0.67rem;
   height: 4.5vh;
-  box-sizing: border-box; /* padding과 border 포함해서 너비 계산 */
-  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  box-sizing: border-box;
+  flex-grow: 1;
   border: none;
-  background-color: #2a2c2f; /* 배경색 */
+  background-color: #2a2c2f;
   caret-color: #ffffff;
-  padding-left: 15px;
-  font-size: 14px;
+  padding-left: 0.7vw;
+  font-size: 0.78rem;
   color: #969696;
   font-weight: 400;
-  appearance: none; /* 기본 화살표 숨기기 */
+  appearance: none;
   background: url("../../public/img/arrow-down.svg") no-repeat right center,
-    #2a2c2f; /* 커스텀 화살표와 배경색 */
-  background-position: calc(100% - 10px) center; /* 화살표의 오른쪽에 10px margin 주기 */
+    #2a2c2f;
+  background-position: calc(100% - 0.8vw) center;
 }
 
 input::placeholder {
-  font-size: 14px;
+  font-size: 0.78rem;
   color: #969696;
   font-weight: 400;
 }
@@ -63,10 +63,10 @@ input::placeholder {
   font-weight: 400;
 } */
 .titleContainer {
-  margin: 17px 0;
+  margin: 1.5vh 0;
 }
 .title {
-  font-size: 30px;
+  font-size: 1.67rem;
   color: #ffffff;
   font-weight: 600;
 }
@@ -82,29 +82,29 @@ input::placeholder {
 .companyCodeDiv {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 1.3vh;
 }
 
 .btn {
-  border-radius: 12px;
-  padding: 10px 15px;
-  margin-left: 10px;
-  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  border-radius: 0.67rem;
+  padding: 1vh 1vw;
+  margin-left: 0.5vw;
+  white-space: nowrap;
   background-color: #5e6269;
   border: none;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 0.78rem;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease; /* 부드러운 전환 */
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .btn:hover {
-  background-color: #70757d; /* 마우스를 올리면 조금 밝게 */
+  background-color: #70757d;
 }
 
 .btn:active {
-  background-color: #4c5056; /* 클릭하면 살짝 어두워짐 */
-  transform: scale(0.95); /* 살짝 눌리는 느낌 */
+  background-color: #4c5056;
+  transform: scale(0.95);
 }
 
 .emailDiv div,
@@ -119,13 +119,13 @@ input::placeholder {
 }
 .signUpBtn {
   background-color: #cb62ff;
-  font-size: 16px;
+  font-size: 0.89rem;
   color: #0d0d0d;
   border: none;
-  border-radius: 12px;
+  border-radius: 0.67rem;
   width: 100%;
   height: 5vh;
-  margin-top: 30px;
+  margin-top: 3vh;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease;

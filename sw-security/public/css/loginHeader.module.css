@@ -8,11 +8,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 15px 40px;
+  padding: 1.7vh 2.3vw;
   align-items: center;
 }
-.login {
-  width: 100;
-  /* background-color: green; */
-  font-size: 20;
-}
+/* .login {
+  background-color: green;
+} */

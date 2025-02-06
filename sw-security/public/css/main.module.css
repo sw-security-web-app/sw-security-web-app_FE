@@ -1,0 +1,112 @@
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  width: 100%;
+  align-items: center;
+  position: relative; /* 다른 요소들이 다이아몬드 위에 위치하도록 함 */
+  z-index: 1;
+  margin-top: 100px;
+}
+.text1Container {
+  background-color: #0d0d0d;
+  border-radius: 99px;
+  width: 110px;
+  height: 35px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 15px 1px #cb62ff;
+}
+.text1 {
+  color: #cb62ff;
+  font-size: 14px;
+  /* margin: 10px 10px; */
+  font-weight: 600;
+}
+.text2Container {
+  /* background-color: green; */
+  margin-top: 10px;
+}
+.text2 {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 40px;
+}
+.text3Container {
+  margin-top: 20px;
+}
+
+.text3 {
+  color: #969696;
+  font-size: 18px;
+  font-weight: 500;
+}
+.eclipseBlur {
+  position: absolute;
+  width: 95vw;
+  height: 70vh;
+  background-color: rgba(203, 98, 255, 0.2);
+  top: 0;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+}
+.eclipseDiv {
+  position: absolute;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* 세로 정렬 */
+  width: 200px;
+  height: 9vh;
+  top: 50%;
+  z-index: 0;
+}
+.aiSelectContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 35vh;
+  /* background-color: blue; */
+  margin-top: 10vh;
+  z-index: 1;
+  justify-content: space-around;
+}
+.aiSelect {
+  width: 35vh;
+  height: 35vh;
+  border-radius: 100%;
+  background: radial-gradient(
+    circle at top,
+    rgba(42, 44, 47, 0.4) 50%,
+    rgba(122, 71, 151, 1) 70%,
+    rgba(203, 98, 255, 1) 83%,
+    rgba(240, 210, 255, 1) 100%
+  );
+  backdrop-filter: blur(100px);
+
+  position: relative; /* 부모 요소를 기준으로 ::before 위치 설정 */
+  box-sizing: border-box; /* 패딩 포함 크기 설정 */
+}
+
+.aiSelect::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(203, 98, 255, 1) 0%,
+    rgba(13, 13, 13, 0.5) 68%
+  );
+
+  padding: 1px;
+  box-sizing: border-box; /* 패딩이 크기에 영향을 주지 않도록 설정 */
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
