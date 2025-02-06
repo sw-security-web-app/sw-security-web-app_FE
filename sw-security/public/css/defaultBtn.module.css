@@ -9,16 +9,18 @@
 }
 
 .small {
-  width: 5.3vw;
-  height: 5vh;
+  /* width: 5.3vw; */
+  /* height: 5vh; */
+  width: 5.56rem;
+  height: 2.6rem;
 }
 
 .medium {
   width: 120px;
-  height: 5vh;
+  height: 2.6rem;
 }
 
 .large {
   width: 30vw;
-  height: 5vh;
+  height: 2.6rem;
 }

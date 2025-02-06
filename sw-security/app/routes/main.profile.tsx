@@ -1,3 +1,10 @@
+import ProfileForm from "~/components/profileForm";
+
 export default function Profile() {
-  return <h1>Profile</h1>;
+  return (
+    <div>
+      <h1>Profile</h1>
+      <ProfileForm />
+    </div>
+  );
 }

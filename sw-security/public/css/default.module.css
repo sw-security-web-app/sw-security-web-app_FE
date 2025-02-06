@@ -22,7 +22,8 @@ html {
   height: 100%;
 }
 .inner {
-  width: 60%;
+  /* width: 60%; */
+  width: 63.89rem;
   /* min-height: 100dvh; */
   /* background-color: green; */
   display: flex;

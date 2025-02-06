@@ -1,13 +1,14 @@
 .logoContainer {
-  width: 23vh;
-  height: 23vh;
+  /* width: 23vh;
+  height: 23vh; */
+  width: 11.1rem;
+  height: 11.1rem;
   background-color: #0d0d0d;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   box-shadow: inset 0 0 0.83rem 0.2rem rgba(203, 98, 255, 0.4);
-
   border-radius: 23%;
   margin-top: 1.6rem;
 }
@@ -30,8 +31,10 @@
   mask-composite: exclude;
 }
 .logo {
-  width: 19vh;
-  height: 19vh;
+  /* width: 19vh;
+  height: 19vh; */
+  width: 9.4rem;
+  height: 9.4rem;
   background-color: #ffffff;
   border-radius: 20%;
 }
@@ -109,9 +112,11 @@
   z-index: 1;
 }
 .startBtnContainer {
-  width: 7.3vw;
+  /* width: 7.3vw; */
+  width: 7.5rem;
   /* max-width: 120px; */
-  height: 6vh;
+  /* height: 6vh; */
+  height: 3.1rem;
   /* max-height: 50px; */
   background: linear-gradient(
     rgba(13, 13, 13, 0.8) 0%,
@@ -125,7 +130,7 @@
   box-shadow: inset 0 0 1.12rem 0.39rem rgba(203, 98, 255, 0.6);
   position: absolute;
   z-index: 1;
-  bottom: -3vh;
+  bottom: -1.55rem;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 .startBtnContainer:hover {
@@ -157,15 +162,19 @@
 }
 
 .dot {
-  width: 0.7vw;
-  height: 0.7vw;
+  /* width: 0.7vw; */
+  /* height: 0.7vw; */
+  width: 11px;
+  height: 11px;
   background-color: rgba(202.67, 98, 255, 0.45);
   border-radius: 50%;
 }
 .eclipseBlur {
   position: absolute;
-  width: 30vw;
-  height: 25vh;
+  /* width: 30vw; */
+  width: 32.2rem;
+  /* height: 25vh; */
+  height: 12.78rem;
   background-color: rgba(203, 98, 255, 0.5);
   /* background-color: red; */
   border-radius: 50%;

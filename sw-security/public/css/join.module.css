@@ -13,8 +13,10 @@
   flex-direction: row;
   /* background-color: aqua; */
   position: relative;
-  height: 45vh;
+  /* height: 45vh; */
+  height: 22.78rem;
   width: 100%;
+  /* width: 63.89rem; */
   align-items: center;
   z-index: 1;
   justify-content: space-between;
@@ -87,8 +89,10 @@
 .text1Container {
   background-color: #0d0d0d;
   border-radius: 4.4rem;
-  width: 5.5vw;
-  height: 3.9vh;
+  /* width: 5.5vw; */
+  width: 5.83rem;
+  /* height: 4vh; */
+  height: 2.1rem;
   justify-content: center;
   display: flex;
   align-items: center;

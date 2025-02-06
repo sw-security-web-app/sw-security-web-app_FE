@@ -12,8 +12,10 @@
   align-items: center;
 }
 .profile {
-  width: 2.9vw;
-  height: 2.9vw;
+  /* width: 2.9vw;
+  height: 2.9vw; */
+  width: 2.9rem;
+  height: 2.9rem;
   /* object-fit: cover; */
   border-radius: 100%;
   background-color: #ffffff;
@@ -26,6 +28,7 @@
 }
 .nickname {
   color: #cccccc;
-  font-size: 0.95rem;
-  margin-right: 0.8vw;
+  font-size: 1rem;
+  /* margin-right: 0.8vw; */
+  margin-right: 0.83rem;
 }

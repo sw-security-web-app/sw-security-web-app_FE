@@ -6,40 +6,42 @@
   align-items: center;
   position: relative; /* 다른 요소들이 다이아몬드 위에 위치하도록 함 */
   z-index: 1;
-  margin-top: 100px;
+  margin-top: 11vh;
 }
 .text1Container {
   background-color: #0d0d0d;
-  border-radius: 99px;
-  width: 110px;
-  height: 35px;
+  border-radius: 4.4rem;
+  /* width: 6.5vw; */
+  width: 7rem;
+  /* height: 4vh; */
+  height: 2.1rem;
   justify-content: center;
   display: flex;
   align-items: center;
-  box-shadow: 0px 0px 15px 1px #cb62ff;
+  box-shadow: 0 0 0.83rem 0.06rem #cb62ff;
 }
 .text1 {
   color: #cb62ff;
-  font-size: 14px;
+  font-size: 0.78rem;
   /* margin: 10px 10px; */
   font-weight: 600;
 }
 .text2Container {
   /* background-color: green; */
-  margin-top: 10px;
+  margin-top: 2vh;
 }
 .text2 {
   color: #ffffff;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 2.2rem;
 }
 .text3Container {
-  margin-top: 20px;
+  margin-top: 2.1vh;
 }
 
 .text3 {
   color: #969696;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 500;
 }
 .eclipseBlur {
@@ -49,17 +51,17 @@
   background-color: rgba(203, 98, 255, 0.2);
   top: 0;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(5.56rem);
   z-index: 0;
 }
 .eclipseDiv {
   position: absolute;
-  background-color: red;
+  /* background-color: red; */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column; /* 세로 정렬 */
-  width: 200px;
+  width: 5vw;
   height: 9vh;
   top: 50%;
   z-index: 0;
@@ -68,27 +70,37 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 35vh;
+  /* height: 35vh; */
+  height: 18rem;
   /* background-color: blue; */
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
+  margin-top: 5rem;
   z-index: 1;
   justify-content: space-around;
 }
 .aiSelect {
-  width: 35vh;
-  height: 35vh;
+  /* width: 35vh; */
+  /* height: 35vh; */
+  width: 18rem;
+  height: 18rem;
   border-radius: 100%;
   background: radial-gradient(
     circle at top,
-    rgba(42, 44, 47, 0.4) 50%,
-    rgba(122, 71, 151, 1) 70%,
-    rgba(203, 98, 255, 1) 83%,
+    rgba(42, 44, 47, 0.1) 20%,
+    rgba(70, 40, 90, 0.2) 40%,
+    rgba(122, 71, 151, 0.5) 60%,
+    rgba(180, 100, 200, 0.8) 80%,
+    rgba(203, 98, 255, 1) 90%,
     rgba(240, 210, 255, 1) 100%
   );
-  backdrop-filter: blur(100px);
+  backdrop-filter: blur(11.12rem); /* 블러 강도를 더 높여서 흐릿하게 */
 
-  position: relative; /* 부모 요소를 기준으로 ::before 위치 설정 */
-  box-sizing: border-box; /* 패딩 포함 크기 설정 */
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .aiSelect::before {
@@ -102,11 +114,26 @@
     rgba(13, 13, 13, 0.5) 68%
   );
 
-  padding: 1px;
+  padding: 0.06rem;
   box-sizing: border-box; /* 패딩이 크기에 영향을 주지 않도록 설정 */
 
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+}
+.tagContainer {
+  /* margin-top: 2vh; */
+  margin-top: 1rem;
+}
+
+.tag {
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+.img {
+  /* width: 14vh; */
+  width: 130px;
+  height: 130px;
 }
