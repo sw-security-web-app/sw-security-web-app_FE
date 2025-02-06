@@ -1,0 +1,146 @@
+.inner {
+  display: flex;
+  align-items: center;
+}
+.profileContainer {
+  /* background-color: red; */
+  width: 32.2rem;
+  margin-bottom: 5.56rem;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  /* background-color: blue; */
+  margin-bottom: 2.22rem;
+}
+.nameContainer,
+.emailContainer,
+.companyContainer,
+.deptContainer,
+.positionContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.7rem;
+}
+label {
+  text-align: left;
+  /* background-color: blue; */
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.73rem;
+  /* margin-bottom: 1.2vh; */
+  margin-bottom: 0.56rem;
+}
+.titleContainer {
+  /* margin: 1.5vh 0; */
+  margin: 0.8rem 0;
+  text-align: center;
+}
+.title {
+  font-size: 1.67rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+.nameDiv,
+.emailDiv,
+.companyDiv,
+.deptDiv,
+.positionDiv {
+  border-radius: 0.67rem;
+  /* height: 4.5vh; */
+  height: 2.33rem;
+  /* width: 100%; */
+  box-sizing: border-box;
+  border: none;
+  background-color: #484b50;
+  /* padding-left: 0.8vw; */
+  padding-left: 0.89rem;
+  color: #8c919b;
+  display: flex;
+  align-items: center;
+}
+.name,
+.email,
+.company,
+.dept,
+.position {
+  font-weight: 500;
+  font-size: 0.78rem;
+}
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+button {
+  border-radius: 0.67rem;
+  font-weight: 600;
+  font-size: 0.94rem;
+  border: none;
+  width: 15rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+.exitBtn {
+  background-color: #1b1c1e;
+  color: #ffffff;
+}
+.logOutBtn {
+  background-color: #ffffff;
+  color: #1b1c1e;
+}
+.exitBtn:hover {
+  background-color: #ff4d4d;
+  color: white;
+}
+.exitBtn:active {
+  background-color: #cc0000;
+  transform: scale(0.95);
+}
+
+.logOutBtn:hover {
+  background-color: #d0d0d0;
+  color: #1b1c1e;
+}
+
+.logOutBtn:active {
+  background-color: #b0b0b0;
+  color: #1b1c1e;
+  transform: scale(0.95);
+}
+
+.adminOptionsContainer {
+  display: flex;
+  flex-direction: row;
+  background-color: #1b1c1e;
+  border-radius: 0.67rem;
+  height: 7rem;
+  align-items: center;
+  margin-bottom: 1.67rem;
+}
+.showEmployeeListContainer,
+.learningAIContainer {
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  width: 50%;
+  padding-left: 1.5rem;
+}
+.showEmployeeListContainer {
+  border-right: 1px solid #2a2c2f;
+}
+.learningAIContainer {
+  border-left: 1px solid #2a2c2f;
+}
+.img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.tag {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.tagContainer {
+  margin-top: 10px;
+}
