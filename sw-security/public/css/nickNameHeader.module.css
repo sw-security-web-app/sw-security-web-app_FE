@@ -1,0 +1,34 @@
+.header {
+  flex: 1;
+  /* border-bottom: 1px solid grey; */
+  /* background-color: red; */
+  z-index: 2;
+}
+.headerItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1.7vh 2.3vw;
+  align-items: center;
+}
+.profile {
+  /* width: 2.9vw;
+  height: 2.9vw; */
+  width: 2.9rem;
+  height: 2.9rem;
+  /* object-fit: cover; */
+  border-radius: 100%;
+  background-color: #ffffff;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.nickname {
+  color: #cccccc;
+  font-size: 1rem;
+  /* margin-right: 0.8vw; */
+  margin-right: 0.83rem;
+}
