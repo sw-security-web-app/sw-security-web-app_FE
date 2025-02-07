@@ -1,7 +1,7 @@
 import { Link, Outlet } from "@remix-run/react";
-import authStyle from "../../public/css/auth.module.css";
-import defaultStyle from "../../public/css/default.module.css";
+import authStyle from "../css/auth.module.css";
 import SignUpHeader from "~/components/signUpHeader";
+import "../css/styles.module.css";
 
 export default function Join() {
   return (

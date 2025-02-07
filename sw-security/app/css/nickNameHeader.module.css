@@ -8,14 +8,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1.7vh 2.3vw;
+  /* padding: 1.7vh 2.3vw; */
+  padding: 1.1rem 2.78rem;
   align-items: center;
 }
 .profile {
   /* width: 2.9vw;
   height: 2.9vw; */
-  width: 2.9rem;
-  height: 2.9rem;
+  width: 2.8rem;
+  height: 2.8rem;
   /* object-fit: cover; */
   border-radius: 100%;
   background-color: #ffffff;

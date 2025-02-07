@@ -105,6 +105,8 @@ input::placeholder {
   font-size: 0.78rem;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  width: 8.3rem;
+  height: 2.33rem;
 }
 
 .btn:hover {

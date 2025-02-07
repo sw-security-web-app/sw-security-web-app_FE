@@ -112,20 +112,46 @@ button {
 .adminOptionsContainer {
   display: flex;
   flex-direction: row;
-  background-color: #1b1c1e;
-  border-radius: 0.67rem;
+  /* background-color: #1b1c1e; */
+  /* border-radius: 0.67rem; */
+  /* background-color: green; */
   height: 7rem;
+  width: 100%;
   align-items: center;
   margin-bottom: 1.67rem;
+}
+.firstBackground,
+.secondBackground {
+  background-color: #1b1c1e;
+  /* background-color: blue; */
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.firstBackground {
+  border-top-left-radius: 0.67rem;
+  border-bottom-left-radius: 0.67rem;
+}
+.firstBackground:hover {
+  background-color: #17181a;
+}
+.secondBackground {
+  border-top-right-radius: 0.67rem;
+  border-bottom-right-radius: 0.67rem;
+}
+.secondBackground:hover {
+  background-color: #17181a;
 }
 .showEmployeeListContainer,
 .learningAIContainer {
   display: flex;
   flex-direction: column;
   /* background-color: red; */
-  width: 50%;
+  width: 100%;
   padding-left: 1.5rem;
 }
+
 .showEmployeeListContainer {
   border-right: 1px solid #2a2c2f;
 }
