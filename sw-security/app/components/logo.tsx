@@ -1,11 +1,12 @@
 import { Link } from "@remix-run/react";
-import logoStyle from "../../public/css/logo.module.css";
+import logoStyle from "../css/logo.module.css";
 
-export default function Logo() {
+type Props = { color: string };
+export default function Logo({ color = "white" }: Props) {
   return (
     <Link to="/" style={{ textDecoration: "none" }}>
       <div className={logoStyle.container}>
-        <div className={logoStyle.img}></div>
+        <div className={logoStyle.img} style={{ backgroundColor: color }}></div>
         <div className={logoStyle.text}>LOGO</div>
       </div>
     </Link>

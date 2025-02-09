@@ -1,8 +1,10 @@
 import { useLocation } from "@remix-run/react";
-import signupStyle from "../../public/css/signup.module.css";
+import signupStyle from "../css/signup.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
+  const navigate = useNavigate();
   const location = useLocation(); // 현재 경로 가져오기
   const [role, setRole] = useState("");
   const [passwordValid, setPasswordValid] = useState(false);
@@ -35,7 +37,7 @@ export default function SignUpForm() {
   });
 
   //checkData:확인 필요한 정보들!
-  const [checkData, setChechData] = useState({
+  const [checkData, setCheckData] = useState({
     passwordConfirm: "",
     emailCodeConfirm: "",
   });
@@ -44,7 +46,7 @@ export default function SignUpForm() {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    console.log(name, value); // 콘솔 로그 추가하여 값 확인
+    // console.log(name, value); // 콘솔 로그 추가하여 값 확인
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -54,16 +56,14 @@ export default function SignUpForm() {
   //check가 필요한 것들 체크하는 함수
   const contentCheck = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setChechData((prevData) => ({
+    setCheckData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   //비밀번호 유효성 검사
-  const validPassword = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const validPassword = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
     const password = e.target.value;
     // 비밀번호 조건 체크 (숫자, 영어, 특수문자, 8자 이상)
@@ -84,7 +84,7 @@ export default function SignUpForm() {
         value === "" ? null : value,
       ])
     );
-
+    console.log(transformedData);
     // 비밀번호 확인
     if (formData.password !== checkData.passwordConfirm) {
       alert("비밀번호가 일치하지 않습니다.");
@@ -106,6 +106,7 @@ export default function SignUpForm() {
 
       if (response.ok) {
         alert("회원가입이 완료되었습니다!");
+        navigate("/login");
       } else {
         const error = await response.json();
         alert(`${error.code}\n${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
@@ -116,11 +117,57 @@ export default function SignUpForm() {
     }
   };
 
-  function sendCode() {
-    //서버랑 통신해서 이메일 보내는 코드 !
+  async function sendCode() {
+    // 이메일 입력 여부 확인
+    if (!formData.email) {
+      alert("이메일을 먼저 입력해주세요.");
+      return;
+    }
+
+    try {
+      const response = await fetch("이메일 보낼 엔드포인트", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: formData.email }),
+      });
+
+      if (response.ok) {
+        alert("인증번호가 전송되었습니다!");
+      } else {
+        const error = await response.json();
+        alert(`오류 발생: ${error.message}`);
+      }
+    } catch (error) {
+      console.error("인증번호 전송 중 오류 발생:", error);
+      alert("인증번호 전송 중 문제가 발생했습니다. 다시 시도해주세요.");
+    }
   }
-  function confirmCode() {
+
+  async function confirmCode() {
     //서버랑 통신해서 인증번호 확인하는 코드 !
+    if (!checkData.emailCodeConfirm) {
+      alert("인증번호를 입력해주세요!");
+      return;
+    }
+    try {
+      const response = await fetch("인증번호 보낼 엔드포인트", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ confirmCode: checkData.emailCodeConfirm }),
+      });
+
+      if (response.ok) {
+        alert("인증번호 확인이 완료됐습니다.");
+      } else {
+        const error = await response.json();
+        alert(`${error.message}`);
+      }
+    } catch (error) {
+      console.error("인증번호 확인 중 오류 발생", error);
+      alert("인증번호 확인 중 문제가 발생했습니다. 다시 시도해주세요.");
+    }
   }
 
   return (
@@ -344,7 +391,16 @@ export default function SignUpForm() {
             </div>
           </>
         )}
-        <button className={signupStyle.signUpBtn} type="submit">
+        {/* <button className={signupStyle.signUpBtn} type="submit">
+          회원가입
+        </button> */}
+        <button
+          className={signupStyle.signUpBtn}
+          type="button"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
           회원가입
         </button>
       </form>

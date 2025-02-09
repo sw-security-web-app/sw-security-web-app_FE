@@ -40,7 +40,7 @@
 }
 .startPoint {
   position: relative;
-  /* background-color: red; */
+  /* background-color: blue; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,6 +94,7 @@
 }
 .nameContainer {
   margin-top: 1.2rem;
+  z-index: 1;
 }
 .name {
   font-size: 4.45rem;
@@ -103,13 +104,13 @@
 .introContainer {
   margin-top: 0.56rem;
   text-align: center;
-  width: 48vw;
+  width: 45vw;
+  z-index: 1;
 }
 .intro {
   color: #ffffff;
   font-weight: 500;
   font-size: 1rem;
-  z-index: 1;
 }
 .startBtnContainer {
   /* width: 7.3vw; */

@@ -1,4 +1,4 @@
-import mainStyle from "../../public/css/main.module.css";
+import mainStyle from "../css/main.module.css";
 
 type Prop = { aiName: string };
 

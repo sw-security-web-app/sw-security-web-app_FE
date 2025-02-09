@@ -1,4 +1,5 @@
-import profileStyle from "../../public/css/profile.module.css";
+import { Link } from "@remix-run/react";
+import profileStyle from "../css/profile.module.css";
 
 export default function ProfileForm() {
   return (
@@ -39,20 +40,29 @@ export default function ProfileForm() {
         </div>
       </div>
       <div className={profileStyle.adminOptionsContainer}>
-        <div className={profileStyle.showEmployeeListContainer}>
-          <img src="../../public/img/folder.svg" className={profileStyle.img} />
-          <div className={profileStyle.tagContainer}>
-            <span className={profileStyle.tag}>직원 명단 보기</span>
-          </div>
+        <div className={profileStyle.firstBackground}>
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/main/profile/employeeList"
+            className={profileStyle.showEmployeeListContainer}
+          >
+            <img src="../img/folder.svg" className={profileStyle.img} />
+            <div className={profileStyle.tagContainer}>
+              <span className={profileStyle.tag}>직원 명단 보기</span>
+            </div>
+          </Link>
         </div>
-        <div className={profileStyle.learningAIContainer}>
-          <img
-            src="../../public/img/learning.svg"
-            className={profileStyle.img}
-          />
-          <div className={profileStyle.tagContainer}>
-            <span className={profileStyle.tag}>AI 학습시키기</span>
-          </div>
+        <div className={profileStyle.secondBackground}>
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/main/profile/learningAI"
+            className={profileStyle.learningAIContainer}
+          >
+            <img src="../img/learning.svg" className={profileStyle.img} />
+            <div className={profileStyle.tagContainer}>
+              <span className={profileStyle.tag}>AI 학습시키기</span>
+            </div>
+          </Link>
         </div>
       </div>
       <form className={profileStyle.form} method="post">

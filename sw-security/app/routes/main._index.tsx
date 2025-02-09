@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
-import mainStyle from "../../public/css/main.module.css";
-import defaultStyle from "../../public/css/default.module.css";
+import mainStyle from "../css/main.module.css";
+import defaultStyle from "../css/default.module.css";
 import NickNameHeader from "~/components/nickNameHeader";
 import AISelect from "~/components/aiSelect";
 

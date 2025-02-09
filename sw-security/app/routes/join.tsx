@@ -1,7 +1,8 @@
 import { Link } from "@remix-run/react";
-import joinStyle from "../../public/css/join.module.css";
-import defaultStyle from "../../public/css/default.module.css";
+import joinStyle from "../css/join.module.css";
+import defaultStyle from "../css/default.module.css";
 import LoginHeader from "~/components/loginHeader";
+import "../css/styles.module.css";
 
 export default function Join() {
   return (
@@ -38,10 +39,7 @@ export default function Join() {
                 <span className={joinStyle.addTag}>14세 이상 개인 사용자</span>
               </div>
               <div className={joinStyle.imgContainer}>
-                <img
-                  src="../../public/img/individual.svg"
-                  className={joinStyle.img}
-                />
+                <img src="../../img/individual.svg" className={joinStyle.img} />
               </div>
             </Link>
             <Link to="/adminSignUp" className={joinStyle.select}>
@@ -50,10 +48,7 @@ export default function Join() {
                 <span className={joinStyle.addTag}>직원 관리 기능 제공</span>
               </div>
               <div className={joinStyle.imgContainer}>
-                <img
-                  src="../../public/img/admin.svg"
-                  className={joinStyle.img}
-                />
+                <img src="../img/admin.svg" className={joinStyle.img} />
               </div>
             </Link>
             <Link to="/employeeSignUp" className={joinStyle.select}>
@@ -62,10 +57,7 @@ export default function Join() {
                 <span className={joinStyle.addTag}>기업에 소속된 사용자</span>
               </div>
               <div className={joinStyle.imgContainer}>
-                <img
-                  src="../../public/img/employee.svg"
-                  className={joinStyle.img}
-                />
+                <img src="../img/employee.svg" className={joinStyle.img} />
               </div>
             </Link>
           </div>

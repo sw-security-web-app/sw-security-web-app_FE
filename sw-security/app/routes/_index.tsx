@@ -1,7 +1,8 @@
 import { Link } from "@remix-run/react";
-import indexStyle from "../../public/css/index.module.css";
+import indexStyle from "../css/index.module.css";
 import LoginHeader from "~/components/loginHeader";
-import defaultStyle from "../../public/css/default.module.css";
+import defaultStyle from "../css/default.module.css";
+import "../css/styles.module.css";
 
 export default function Index() {
   return (
