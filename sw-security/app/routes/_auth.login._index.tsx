@@ -35,12 +35,8 @@ export default function Login() {
       // 서버로부터 받은 액세스 토큰과 리프레시 토큰
       const { accessToken, refreshToken } = res.data;
 
-      // 액세스 토큰을 localStorage에 저장
       localStorage.setItem("accessToken", accessToken);
-
-      // 리프레시 토큰은 HttpOnly 쿠키에 저장
-      // 클라이언트에서 접근할 수 없도록 쿠키에 저장하므로, 보안을 강화할 수 있음.
-      document.cookie = `refreshToken=${refreshToken}; path=/; HttpOnly; Secure; SameSite=Strict`;
+      localStorage.setItem("refreshToken", refreshToken);
 
       navigate("/main");
     } catch (error) {
