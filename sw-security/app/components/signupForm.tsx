@@ -93,7 +93,7 @@ export default function SignUpForm() {
 
     try {
       // 서버로 데이터 전송
-      const response = await fetch("회원가입 엔드포인트", {
+      const response = await fetch("http://localhost:5000/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -391,10 +391,10 @@ export default function SignUpForm() {
             </div>
           </>
         )}
-        {/* <button className={signupStyle.signUpBtn} type="submit">
+        <button className={signupStyle.signUpBtn} type="submit">
           회원가입
-        </button> */}
-        <button
+        </button>
+        {/* <button
           className={signupStyle.signUpBtn}
           type="button"
           onClick={() => {
@@ -402,7 +402,7 @@ export default function SignUpForm() {
           }}
         >
           회원가입
-        </button>
+        </button> */}
       </form>
     </div>
   );

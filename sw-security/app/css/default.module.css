@@ -16,6 +16,7 @@
   /* align-items: center; */
   position: relative;
   /* overflow: hidden; */
+  background-color: #0d0d0d;
   height: 100%;
 }
 .inner {

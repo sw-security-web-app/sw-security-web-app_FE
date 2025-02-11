@@ -24,7 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      style={{ margin: 0, padding: 0, height: "100%", fontSize: "18px;" }}
+      style={{ margin: 0, padding: 0, height: "100vh", fontSize: "18px;" }}
     >
       <head>
         <meta charSet="utf-8" />
@@ -32,7 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body style={{ margin: 0, padding: 0, height: "100%" }}>
+      <body style={{ margin: 0, padding: 0, height: "100vh" }}>
         {children}
         <ScrollRestoration />
         <Scripts />
