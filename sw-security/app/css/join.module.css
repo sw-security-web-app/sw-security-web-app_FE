@@ -49,6 +49,7 @@
 .select:focus,
 .select:focus-visible {
   outline: none !important;
+  cursor: pointer;
 }
 
 .select::before {

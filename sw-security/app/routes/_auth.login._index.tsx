@@ -7,49 +7,13 @@ import {
 } from "@remix-run/react";
 import loginStyle from "../css/login.module.css";
 import { ActionFunctionArgs, json } from "@remix-run/node";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState, useEffect, FormEvent } from "react";
 import axios from "axios";
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  try {
-    const res = await axios.post("http://localhost:5000/users", {
-      email,
-      password,
-    });
-
-    const { accessToken, refreshToken, role } = res.data;
-
-    return Response.json(
-      { success: true, accessToken, role },
-      {
-        headers: {
-          "Set-Cookie": `refreshToken=${refreshToken}; HttpOnly; Path=/; Secure; SameSite=Strict`,
-        },
-      }
-    );
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      if (error.response.status === 401) {
-        return Response.json(
-          { error: "아이디 또는 비밀번호가 잘못되었습니다." },
-          { status: 401 }
-        );
-      }
-    }
-    return Response.json(
-      { error: "알 수 없는 오류가 발생했습니다." },
-      { status: 500 }
-    );
-  }
-}
 
 export default function Login() {
   const navigate = useNavigate();
-  const actionData = useActionData<typeof action>();
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -59,22 +23,37 @@ export default function Login() {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-
-  // 로그인 성공 시 액세스 토큰을 localStorage에 저장
-  useEffect(() => {
-    if (actionData && "success" in actionData && actionData.success) {
-      localStorage.setItem("accessToken", actionData.accessToken);
-      localStorage.setItem("role", actionData.role);
-      navigate("/main");
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    console.log(formData);
+    e.preventDefault();
+    try {
+      const response = await fetch(BASE_URL + "/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+        }),
+      });
+      if (response.ok) {
+        navigate("/main");
+      } else {
+        const error = await response.json();
+        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+      }
+    } catch (error: any) {
+      console.error("에러 발생:", error);
+      alert(error.message);
     }
-  }, [actionData]);
+  };
 
   return (
     <div className={loginStyle.formContainer}>
       <div className={loginStyle.titleContainer}>
         <span className={loginStyle.title}>로그인</span>
       </div>
-      <Form method="post" className={loginStyle.loginForm}>
+      <Form onSubmit={handleSubmit} className={loginStyle.loginForm}>
         <div className={loginStyle.emailDiv}>
           <label htmlFor="email">이메일</label>
           <div className={loginStyle.inputContainer}>
@@ -85,7 +64,6 @@ export default function Login() {
               value={formData.email}
               onChange={handleChange}
               placeholder="이메일을 입력해주세요"
-              autoComplete="off"
               required
             />
           </div>
@@ -100,14 +78,11 @@ export default function Login() {
               value={formData.password}
               onChange={handleChange}
               placeholder="비밀번호를 입력해주세요"
-              autoComplete="off"
               required
             />
           </div>
         </div>
-        {actionData && "error" in actionData && (
-          <span className={loginStyle.error}>{actionData.error}</span>
-        )}
+
         <button className={loginStyle.loginBtn} type="submit">
           로그인
         </button>

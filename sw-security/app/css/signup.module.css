@@ -119,6 +119,8 @@ input::placeholder {
 }
 
 .emailDiv div,
+.emailAuthDiv div,
+.phoneNumberDiv div,
 .emailAuthDiv div {
   display: flex;
   flex-direction: row;
