@@ -67,7 +67,7 @@ input::placeholder {
   /* height: 5vh; */
   height: 2.5rem;
   /* margin-top: 3vh; */
-  margin-top: 1.67rem;
+  margin-top: 2rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -80,12 +80,15 @@ input::placeholder {
 .loginBtn:active {
   background-color: #b14ce3;
 }
-.emailDiv,
-.passwordDiv {
+.emailDiv {
   display: flex;
   flex-direction: column;
   /* margin-bottom: 2vh; */
   margin-bottom: 1rem;
+}
+.passwordDiv {
+  display: flex;
+  flex-direction: column;
 }
 .findId {
   color: #969696;
@@ -98,4 +101,8 @@ input::placeholder {
   justify-content: center;
   /* margin-top: 2.3vh; */
   margin-top: 1.28rem;
+}
+.error {
+  color: red;
+  font-size: 0.8rem;
 }

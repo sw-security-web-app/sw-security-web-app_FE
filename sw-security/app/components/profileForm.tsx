@@ -1,7 +1,81 @@
-import { Link } from "@remix-run/react";
+import { Link, useNavigate } from "@remix-run/react";
 import profileStyle from "../css/profile.module.css";
+import { useEffect, useState } from "react";
+import api from "../api/api";
+import { useStore } from "../store/store";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function ProfileForm() {
+  interface UserInfo {
+    name: string;
+    email: string;
+    companyName: string;
+    deptName: string;
+    position: string;
+  }
+
+  const { isLogin } = useStore();
+  const logout = useStore((state) => state.logout);
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [role, setRole] = useState<string | null>(null);
+
+  // const isBrowser = typeof window !== "undefined"; // 브라우저에서만 실행되도록 체크
+  // const role = isBrowser ? localStorage.getItem("role") : null; // 브라우저에서만 localStorage 접근
+  // const role = "MANAGER";
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await api.get("엔드포인트");
+      if (response.status === 200) {
+        setUserInfo(response.data);
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error) {
+      console.error("사용자 정보 가져오기 실패", error);
+    }
+  };
+
+  //유저 탈퇴 함수
+  const handleDelete = () => {};
+
+  //role을 마운트될 때 localStorage에서 가져옴
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedRole = localStorage.getItem("role");
+      setRole(storedRole);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isLogin) {
+      // 로그인되지 않았다면 로그인 페이지로 이동
+      navigate("/login");
+    } else {
+      fetchUserInfo();
+    }
+  }, [navigate]);
+
+  const handleLogOut = () => {
+    logout();
+    navigate("/login");
+  };
+
+  //로딩아이콘 띄우기
+  if (userInfo == null) {
+    return (
+      <div className={profileStyle.profileContainer}>
+        <div className={profileStyle.content}>
+          <div className={profileStyle.iconContainer}>
+            <AiOutlineLoading className={profileStyle.loadingIcon} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={profileStyle.profileContainer}>
       <div className={profileStyle.content}>
@@ -11,65 +85,76 @@ export default function ProfileForm() {
         <div className={profileStyle.nameContainer}>
           <label>이름</label>
           <div className={profileStyle.nameDiv}>
-            <span className={profileStyle.name}>아년석</span>
+            {/* <span className={profileStyle.name}>아년석</span> */}
+            <span className={profileStyle.name}>{userInfo.name}</span>
           </div>
         </div>
         <div className={profileStyle.emailContainer}>
           <label>이메일</label>
           <div className={profileStyle.emailDiv}>
-            <span className={profileStyle.email}>vero1234@naver.com</span>
+            {/* <span className={profileStyle.email}>vero1234@naver.com</span> */}
+            <span className={profileStyle.email}>{userInfo.email}</span>
           </div>
         </div>
         <div className={profileStyle.companyContainer}>
           <label>회사명</label>
           <div className={profileStyle.companyDiv}>
-            <span className={profileStyle.company}>삼성전자</span>
+            {/* <span className={profileStyle.company}>삼성전자</span> */}
+            <span className={profileStyle.company}>{userInfo.companyName}</span>
           </div>
         </div>
         <div className={profileStyle.deptContainer}>
           <label>부서명</label>
           <div className={profileStyle.deptDiv}>
-            <span className={profileStyle.dept}>SI</span>
+            {/* <span className={profileStyle.dept}>SI</span> */}
+            <span className={profileStyle.dept}>{userInfo.deptName}</span>
           </div>
         </div>
         <div className={profileStyle.positionContainer}>
           <label>직책</label>
           <div className={profileStyle.positionDiv}>
-            <span className={profileStyle.position}>BE-1년차</span>
+            {/* <span className={profileStyle.position}>BE-1년차</span> */}
+            <span className={profileStyle.position}>{userInfo.position}</span>
           </div>
         </div>
       </div>
-      <div className={profileStyle.adminOptionsContainer}>
-        <div className={profileStyle.firstBackground}>
-          <Link
-            style={{ textDecoration: "none" }}
-            to="/main/profile/employeeList"
-            className={profileStyle.showEmployeeListContainer}
-          >
-            <img src="../img/folder.svg" className={profileStyle.img} />
-            <div className={profileStyle.tagContainer}>
-              <span className={profileStyle.tag}>직원 명단 보기</span>
-            </div>
-          </Link>
+      {role === "MANAGER" && (
+        <div className={profileStyle.adminOptionsContainer}>
+          <div className={profileStyle.firstBackground}>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/main/profile/employeeList"
+              className={profileStyle.showEmployeeListContainer}
+            >
+              <img src="../img/folder.svg" className={profileStyle.img} />
+              <div className={profileStyle.tagContainer}>
+                <span className={profileStyle.tag}>직원 명단 보기</span>
+              </div>
+            </Link>
+          </div>
+          <div className={profileStyle.secondBackground}>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/main/profile/learningAI"
+              className={profileStyle.learningAIContainer}
+            >
+              <img src="../img/learning.svg" className={profileStyle.img} />
+              <div className={profileStyle.tagContainer}>
+                <span className={profileStyle.tag}>AI 학습시키기</span>
+              </div>
+            </Link>
+          </div>
         </div>
-        <div className={profileStyle.secondBackground}>
-          <Link
-            style={{ textDecoration: "none" }}
-            to="/main/profile/learningAI"
-            className={profileStyle.learningAIContainer}
-          >
-            <img src="../img/learning.svg" className={profileStyle.img} />
-            <div className={profileStyle.tagContainer}>
-              <span className={profileStyle.tag}>AI 학습시키기</span>
-            </div>
-          </Link>
-        </div>
-      </div>
-      <form className={profileStyle.form} method="post">
+      )}
+      <form className={profileStyle.form} onSubmit={handleDelete}>
         <button type="submit" className={profileStyle.exitBtn}>
           탈퇴하기
         </button>
-        <button type="submit" className={profileStyle.logOutBtn}>
+        <button
+          type="button"
+          onClick={handleLogOut}
+          className={profileStyle.logOutBtn}
+        >
           로그아웃
         </button>
       </form>

@@ -1,80 +1,63 @@
-import { json, Link, redirect } from "@remix-run/react";
+import { Link, Form, useNavigate } from "@remix-run/react";
 import loginStyle from "../css/login.module.css";
-import { Form, useActionData } from "@remix-run/react";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { ActionFunctionArgs } from "@remix-run/node";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+import { ChangeEvent, useState, FormEvent } from "react";
+import { useStore } from "../store/store";
 
 export default function Login() {
+  const login = useStore((state) => state.login);
   const navigate = useNavigate();
-  // const actionData = useActionData<typeof action>();
+  const [errorMessage, setErrorMessage] = useState("");
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    console.log(name, value); // 콘솔 로그 추가하여 값 확인
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
-    // 로그인 요청
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    console.log(formData);
+    e.preventDefault();
     try {
-      const res = await axios.post("로그인 엔드포인트", {
-        ...formData,
+      const response = await fetch(BASE_URL + "/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+        }),
       });
 
-      // 서버로부터 받은 액세스 토큰과 리프레시 토큰
-      const { accessToken, refreshToken } = res.data;
+      if (response.ok) {
+        const data = await response.json();
+        const { accessToken, userIndex, email, role } = data;
 
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-
-      navigate("/main");
-    } catch (error) {
-      console.error("로그인 실패", error);
-      alert("로그인 실패");
+        login(accessToken, userIndex, email, role); //zustand store에 상태 저장
+        navigate("/main");
+      } else {
+        const error = await response.json();
+        setErrorMessage(error.message);
+        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+      }
+    } catch (error: any) {
+      console.error("에러 발생:", error);
+      setErrorMessage(error.message);
+      // alert(`${error.message}`);
     }
   };
 
-  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //   try {
-  //     // 서버로 로그인 정보 전송
-  //     const response = await fetch("로그인 엔드포인트", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         ...formData,
-  //       }),
-  //     });
-
-  //     if (response.ok) {
-  //       return redirect("/main");
-  //     } else {
-  //       const error = await response.json();
-  //       alert(`${error.code}\n${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
-  //     }
-  //   } catch (error) {
-  //     console.error("에러 발생:", error);
-  //     alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
-  //   }
-  // };
   return (
     <div className={loginStyle.formContainer}>
       <div className={loginStyle.titleContainer}>
         <span className={loginStyle.title}>로그인</span>
       </div>
-      <form onSubmit={handleSubmit} className={loginStyle.loginForm}>
+      <Form onSubmit={handleSubmit} className={loginStyle.loginForm}>
         <div className={loginStyle.emailDiv}>
           <label htmlFor="email">이메일</label>
           <div className={loginStyle.inputContainer}>
@@ -85,7 +68,6 @@ export default function Login() {
               value={formData.email}
               onChange={handleChange}
               placeholder="이메일을 입력해주세요"
-              autoComplete="off"
               required
             />
           </div>
@@ -100,21 +82,15 @@ export default function Login() {
               value={formData.password}
               onChange={handleChange}
               placeholder="비밀번호를 입력해주세요"
-              autoComplete="off"
               required
             />
           </div>
         </div>
-        {/* <button className={loginStyle.loginBtn} type="submit">
-          로그인
-        </button> */}
-        <button
-          className={loginStyle.loginBtn}
-          type="button"
-          onClick={() => {
-            navigate("/main");
-          }}
-        >
+        {errorMessage && (
+          <span className={loginStyle.error}>{errorMessage}</span>
+        )}
+
+        <button className={loginStyle.loginBtn} type="submit">
           로그인
         </button>
         <div className={loginStyle.findIdDiv}>
@@ -122,7 +98,7 @@ export default function Login() {
             아이디를 잊으셨나요?
           </Link>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

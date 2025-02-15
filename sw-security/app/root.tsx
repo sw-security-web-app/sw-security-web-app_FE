@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { useLocalStorage } from "./store/store";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,7 +25,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      style={{ margin: 0, padding: 0, height: "100%", fontSize: "18px;" }}
+      style={{ margin: 0, padding: 0, height: "100vh", fontSize: "18px;" }}
     >
       <head>
         <meta charSet="utf-8" />
@@ -32,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body style={{ margin: 0, padding: 0, height: "100%" }}>
+      <body style={{ margin: 0, padding: 0, height: "100vh" }}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -42,5 +43,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useLocalStorage(); // 여기서 한 번만 호출
   return <Outlet />;
 }

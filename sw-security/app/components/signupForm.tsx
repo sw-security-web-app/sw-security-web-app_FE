@@ -1,12 +1,14 @@
 import { useLocation } from "@remix-run/react";
 import signupStyle from "../css/signup.module.css";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로 가져오기
-  const [role, setRole] = useState("");
+  // const [role, setRole] = useState("");
   const [passwordValid, setPasswordValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 
@@ -14,14 +16,19 @@ export default function SignUpForm() {
   const isAdmin = location.pathname.startsWith("/adminSignUp");
   const isEmployee = location.pathname.startsWith("/employeeSignUp");
 
-  useEffect(() => {
-    if (location.pathname.startsWith("/adminSignUp")) {
-      setRole("MANAGER");
-    } else if (location.pathname.startsWith("/employeeSignUp")) {
-      setRole("EMPLOYEE");
-    } else {
-      setRole("GENERAL");
-    }
+  // useEffect(() => {
+  //   if (isAdmin) {
+  //     setRole("MANAGER");
+  //   } else if (isEmployee) {
+  //     setRole("EMPLOYEE");
+  //   } else {
+  //     setRole("GENERAL");
+  //   }
+  // }, [location.pathname]);// 경로에 따른 역할 설정
+  const role = useMemo(() => {
+    if (location.pathname.startsWith("/adminSignUp")) return "MANAGER";
+    if (location.pathname.startsWith("/employeeSignUp")) return "EMPLOYEE";
+    return "GENERAL";
   }, [location.pathname]);
 
   //formData:회원가입 시 서버로 보낼 정보들!
@@ -34,12 +41,15 @@ export default function SignUpForm() {
     companyDept: "", // 관리자 폼에서 부서명
     companyPosition: "", // 직책
     invitationCode: "", // 직원 폼에서 회사 코드
+    memberStatus: "",
   });
+  // console.log(formData);
 
   //checkData:확인 필요한 정보들!
   const [checkData, setCheckData] = useState({
     passwordConfirm: "",
     emailCodeConfirm: "",
+    phoneCodeConfirm: "",
   });
 
   const handleChange = (
@@ -77,6 +87,7 @@ export default function SignUpForm() {
   //회원가입 시 서버와 통신
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    formData.memberStatus = role;
     //빈문자열 null로 변환
     const transformedData = Object.fromEntries(
       Object.entries(formData).map(([key, value]) => [
@@ -84,6 +95,7 @@ export default function SignUpForm() {
         value === "" ? null : value,
       ])
     );
+
     console.log(transformedData);
     // 비밀번호 확인
     if (formData.password !== checkData.passwordConfirm) {
@@ -93,14 +105,13 @@ export default function SignUpForm() {
 
     try {
       // 서버로 데이터 전송
-      const response = await fetch("회원가입 엔드포인트", {
+      const response = await fetch(BASE_URL + "/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...transformedData,
-          role: role,
         }),
       });
 
@@ -109,67 +120,126 @@ export default function SignUpForm() {
         navigate("/login");
       } else {
         const error = await response.json();
-        alert(`${error.code}\n${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("에러 발생:", error);
-      alert("회원가입 중 문제가 발생했습니다. 다시 시도해주세요.");
+      alert(error.message);
     }
   };
 
-  async function sendCode() {
-    // 이메일 입력 여부 확인
+  //이메일 전송송
+  async function sendEmailCode() {
     if (!formData.email) {
       alert("이메일을 먼저 입력해주세요.");
       return;
     }
-
     try {
-      const response = await fetch("이메일 보낼 엔드포인트", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
-
+      const response = await fetch(
+        BASE_URL + "/api/mail-send?email=" + formData.email,
+        {
+          method: "GET",
+        }
+      );
       if (response.ok) {
         alert("인증번호가 전송되었습니다!");
       } else {
         const error = await response.json();
-        alert(`오류 발생: ${error.message}`);
+        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("인증번호 전송 중 오류 발생:", error);
-      alert("인증번호 전송 중 문제가 발생했습니다. 다시 시도해주세요.");
+      alert(error.message);
     }
   }
 
-  async function confirmCode() {
-    //서버랑 통신해서 인증번호 확인하는 코드 !
+  //핸드폰번호 전송송
+  async function sendPhoneCode() {
+    if (!formData.phoneNumber) {
+      alert("핸드폰번호를 먼저 입력해주세요.");
+      return;
+    }
+    try {
+      const response = await fetch(BASE_URL + "/api/sms-certification/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber: formData.phoneNumber,
+          certificationCode: null,
+        }),
+      });
+      if (response.ok) {
+        alert("인증번호가 전송되었습니다!");
+      } else {
+        const error = await response.json();
+        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+      }
+    } catch (error: any) {
+      console.error("인증번호 전송 중 오류 발생:", error);
+      alert(error.message);
+    }
+  }
+
+  //이메일 인증번호 확인
+  async function confirmEmailCode() {
     if (!checkData.emailCodeConfirm) {
       alert("인증번호를 입력해주세요!");
       return;
     }
     try {
-      const response = await fetch("인증번호 보낼 엔드포인트", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ confirmCode: checkData.emailCodeConfirm }),
-      });
-
+      console.log(checkData.emailCodeConfirm);
+      const response = await fetch(
+        BASE_URL +
+          "/api/mail-check?email=" +
+          formData.email +
+          "&certificationNumber=" +
+          checkData.emailCodeConfirm,
+        {
+          method: "GET",
+        }
+      );
       if (response.ok) {
         alert("인증번호 확인이 완료됐습니다.");
       } else {
         const error = await response.json();
-        alert(`${error.message}`);
+        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
       }
-    } catch (error) {
-      console.error("인증번호 확인 중 오류 발생", error);
-      alert("인증번호 확인 중 문제가 발생했습니다. 다시 시도해주세요.");
+    } catch (error: any) {
+      alert(error.message);
     }
   }
 
+  //휴대폰 인증번호 인증
+  async function confirmPhoneCode() {
+    if (!checkData.phoneCodeConfirm) {
+      alert("인증번호를 입력해주세요!");
+      return;
+    }
+    try {
+      const response = await fetch(
+        BASE_URL + "/api/sms-certification/confirm",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phoneNumber: formData.phoneNumber,
+            certificationCode: checkData.phoneCodeConfirm,
+          }),
+        }
+      );
+      if (response.ok) {
+        alert("인증번호 확인이 완료됐습니다.");
+      } else {
+        const error = await response.json();
+        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+      }
+    } catch (error: any) {
+      console.error("인증번호 확인 중 오류 발생", error);
+      alert(error.message);
+    }
+  }
   return (
     <div className={signupStyle.formContainer}>
       <div className={signupStyle.titleContainer}>
@@ -209,7 +279,7 @@ export default function SignUpForm() {
             <button
               className={signupStyle.btn}
               type="button"
-              onClick={sendCode}
+              onClick={sendEmailCode}
             >
               인증번호 전송
             </button>
@@ -235,7 +305,7 @@ export default function SignUpForm() {
             <button
               className={signupStyle.btn}
               type="button"
-              onClick={confirmCode}
+              onClick={confirmEmailCode}
             >
               인증번호 확인
             </button>
@@ -246,16 +316,53 @@ export default function SignUpForm() {
             핸드폰 번호
             <span style={{ color: "red", marginLeft: "5px" }}>*</span>
           </label>
-          <input
-            id="phoneNumber"
-            type="tel"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            pattern="010[0-9]{8}"
-            placeholder="숫자만 입력해주세요"
-            onChange={handleChange}
-            required
-          />
+          <div>
+            <div className={signupStyle.inputContainer}>
+              <input
+                id="phoneNumber"
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                pattern="010[0-9]{8}"
+                placeholder="숫자만 입력해주세요"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button
+              className={signupStyle.btn}
+              type="button"
+              onClick={sendPhoneCode}
+            >
+              인증번호 전송
+            </button>
+          </div>
+        </div>
+        <div className={signupStyle.emailAuthDiv}>
+          <label htmlFor="phoneAuth">
+            핸드폰 인증번호
+            <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+          </label>
+          <div>
+            <div className={signupStyle.inputContainer}>
+              <input
+                id="phoneAuth"
+                type="text"
+                name="phoneCodeConfirm"
+                placeholder="핸드폰 인증번호를 입력해주세요"
+                value={checkData.phoneCodeConfirm}
+                onChange={contentCheck}
+                required
+              />
+            </div>
+            <button
+              className={signupStyle.btn}
+              type="button"
+              onClick={confirmPhoneCode}
+            >
+              인증번호 확인
+            </button>
+          </div>
         </div>
         <div className={signupStyle.passwordDiv}>
           <label htmlFor="password">
@@ -391,10 +498,10 @@ export default function SignUpForm() {
             </div>
           </>
         )}
-        {/* <button className={signupStyle.signUpBtn} type="submit">
+        <button className={signupStyle.signUpBtn} type="submit">
           회원가입
-        </button> */}
-        <button
+        </button>
+        {/* <button
           className={signupStyle.signUpBtn}
           type="button"
           onClick={() => {
@@ -402,7 +509,7 @@ export default function SignUpForm() {
           }}
         >
           회원가입
-        </button>
+        </button> */}
       </form>
     </div>
   );

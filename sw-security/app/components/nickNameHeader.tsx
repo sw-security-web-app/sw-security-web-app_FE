@@ -14,7 +14,7 @@ export default function NickNameHeader({ color = "#0d0d0d" }: Props) {
   return (
     <div className={nickNameHeader.header} style={{ backgroundColor: color }}>
       <div className={nickNameHeader.headerItems}>
-        <Logo color={logoColor} />
+        <Logo color={logoColor} to="/main" />
         <Profile nickNameColor={nickNameColor} profileColor={profileColor} />
       </div>
     </div>

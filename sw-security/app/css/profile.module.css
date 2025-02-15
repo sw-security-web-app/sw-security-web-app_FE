@@ -170,3 +170,23 @@ button {
 .tagContainer {
   margin-top: 10px;
 }
+.loadingIcon {
+  animation: spin 1s linear infinite;
+  color: white;
+  height: 20%;
+  width: 20%;
+  /* background-color: red; */
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
