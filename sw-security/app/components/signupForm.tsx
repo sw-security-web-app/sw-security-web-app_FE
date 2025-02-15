@@ -1,6 +1,6 @@
 import { useLocation } from "@remix-run/react";
 import signupStyle from "../css/signup.module.css";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
@@ -8,7 +8,7 @@ export default function SignUpForm() {
 
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로 가져오기
-  const [role, setRole] = useState("");
+  // const [role, setRole] = useState("");
   const [passwordValid, setPasswordValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 
@@ -16,14 +16,19 @@ export default function SignUpForm() {
   const isAdmin = location.pathname.startsWith("/adminSignUp");
   const isEmployee = location.pathname.startsWith("/employeeSignUp");
 
-  useEffect(() => {
-    if (isAdmin) {
-      setRole("MANAGER");
-    } else if (isEmployee) {
-      setRole("EMPLOYEE");
-    } else {
-      setRole("GENERAL");
-    }
+  // useEffect(() => {
+  //   if (isAdmin) {
+  //     setRole("MANAGER");
+  //   } else if (isEmployee) {
+  //     setRole("EMPLOYEE");
+  //   } else {
+  //     setRole("GENERAL");
+  //   }
+  // }, [location.pathname]);// 경로에 따른 역할 설정
+  const role = useMemo(() => {
+    if (location.pathname.startsWith("/adminSignUp")) return "MANAGER";
+    if (location.pathname.startsWith("/employeeSignUp")) return "EMPLOYEE";
+    return "GENERAL";
   }, [location.pathname]);
 
   //formData:회원가입 시 서버로 보낼 정보들!
@@ -38,7 +43,8 @@ export default function SignUpForm() {
     invitationCode: "", // 직원 폼에서 회사 코드
     memberStatus: "",
   });
-  console.log(formData);
+  // console.log(formData);
+
   //checkData:확인 필요한 정보들!
   const [checkData, setCheckData] = useState({
     passwordConfirm: "",
@@ -122,12 +128,12 @@ export default function SignUpForm() {
     }
   };
 
+  //이메일 전송송
   async function sendEmailCode() {
     if (!formData.email) {
       alert("이메일을 먼저 입력해주세요.");
       return;
     }
-
     try {
       const response = await fetch(
         BASE_URL + "/api/mail-send?email=" + formData.email,
@@ -135,7 +141,6 @@ export default function SignUpForm() {
           method: "GET",
         }
       );
-
       if (response.ok) {
         alert("인증번호가 전송되었습니다!");
       } else {
@@ -148,12 +153,12 @@ export default function SignUpForm() {
     }
   }
 
+  //핸드폰번호 전송송
   async function sendPhoneCode() {
     if (!formData.phoneNumber) {
       alert("핸드폰번호를 먼저 입력해주세요.");
       return;
     }
-
     try {
       const response = await fetch(BASE_URL + "/api/sms-certification/send", {
         method: "POST",
@@ -165,7 +170,6 @@ export default function SignUpForm() {
           certificationCode: null,
         }),
       });
-
       if (response.ok) {
         alert("인증번호가 전송되었습니다!");
       } else {
@@ -178,8 +182,8 @@ export default function SignUpForm() {
     }
   }
 
+  //이메일 인증번호 확인
   async function confirmEmailCode() {
-    //서버랑 통신해서 인증번호 확인하는 코드 !
     if (!checkData.emailCodeConfirm) {
       alert("인증번호를 입력해주세요!");
       return;
@@ -196,7 +200,6 @@ export default function SignUpForm() {
           method: "GET",
         }
       );
-
       if (response.ok) {
         alert("인증번호 확인이 완료됐습니다.");
       } else {
@@ -208,9 +211,8 @@ export default function SignUpForm() {
     }
   }
 
-  //휴대폰 인증
+  //휴대폰 인증번호 인증
   async function confirmPhoneCode() {
-    //서버랑 통신해서 인증번호 확인하는 코드 !
     if (!checkData.phoneCodeConfirm) {
       alert("인증번호를 입력해주세요!");
       return;
@@ -227,7 +229,6 @@ export default function SignUpForm() {
           }),
         }
       );
-
       if (response.ok) {
         alert("인증번호 확인이 완료됐습니다.");
       } else {

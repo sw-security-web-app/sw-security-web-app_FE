@@ -1,17 +1,13 @@
-import {
-  Link,
-  Form,
-  useActionData,
-  redirect,
-  useNavigate,
-} from "@remix-run/react";
+import { Link, Form, useNavigate } from "@remix-run/react";
 import loginStyle from "../css/login.module.css";
-import { ActionFunctionArgs, json } from "@remix-run/node";
-import { ChangeEvent, useState, useEffect, FormEvent } from "react";
-import axios from "axios";
+
+import { ChangeEvent, useState, FormEvent } from "react";
+import { useStore } from "../store/store";
 
 export default function Login() {
+  const login = useStore((state) => state.login);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const [formData, setFormData] = useState({
@@ -23,6 +19,7 @@ export default function Login() {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     console.log(formData);
     e.preventDefault();
@@ -36,15 +33,22 @@ export default function Login() {
           ...formData,
         }),
       });
+
       if (response.ok) {
+        const data = await response.json();
+        const { accessToken, userIndex, email, role } = data;
+
+        login(accessToken, userIndex, email, role); //zustand store에 상태 저장
         navigate("/main");
       } else {
         const error = await response.json();
-        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        setErrorMessage(error.message);
+        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
       }
     } catch (error: any) {
       console.error("에러 발생:", error);
-      alert(error.message);
+      setErrorMessage(error.message);
+      // alert(`${error.message}`);
     }
   };
 
@@ -82,6 +86,9 @@ export default function Login() {
             />
           </div>
         </div>
+        {errorMessage && (
+          <span className={loginStyle.error}>{errorMessage}</span>
+        )}
 
         <button className={loginStyle.loginBtn} type="submit">
           로그인
