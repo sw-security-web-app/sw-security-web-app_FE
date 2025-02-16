@@ -100,7 +100,7 @@
   width: 30%;
   position: relative;
 }
-input {
+.rightDiv input {
   border-radius: 5.56rem;
   height: 100%;
   width: 100%;
@@ -110,8 +110,10 @@ input {
   padding-right: 1.1rem;
   color: #b7bdc7;
   font-size: 0.85rem;
+  background-color: #ffffff;
+  caret-color: #bdc3cd;
 }
-input::placeholder {
+.rightDiv input::placeholder {
   font-size: 0.85rem;
   color: #b7bdc7;
   font-weight: 400;
@@ -204,22 +206,33 @@ td {
 .arrowButton {
   border: none;
   background-color: transparent;
-  height: 40px;
-  width: 40px;
+  height: 2.22rem;
+  width: 2.22rem;
   display: flex;
   align-items: center;
   justify-self: center;
+  cursor: pointer;
 }
+.arrowButton img {
+  color: #8c919b;
+}
+.arrowButton:disabled img {
+  filter: grayscale(100%) brightness(0.7);
+  opacity: 0.5;
+  cursor: default;
+}
+
 .page {
   color: #8c919b;
   border: none;
   background-color: transparent;
   font-size: 0.85rem;
-  height: 40px;
-  width: 40px;
+  height: 2.22rem;
+  width: 2.22rem;
   /* background-color: blue; */
-  border-radius: 6px;
-  margin: 3px;
+  border-radius: 0.34rem;
+  cursor: pointer;
+  margin: 0.17rem;
 }
 .activePage {
   border: none;
@@ -228,6 +241,141 @@ td {
   color: #ffffff;
   border-radius: 6px;
   font-size: 0.85rem;
-  height: 40px;
-  width: 40px;
+  height: 2.22rem;
+  width: 2.22rem;
+  cursor: pointer;
+}
+
+/*AI학습 스타일*/
+.learningConatainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  /* position: relative;
+  top: 2.2rem; */
+  /* justify-content: space-between; */
+  /* background-color: red; */
+}
+.titleDiv {
+  display: felx;
+  flex-direction: column;
+  height: 15%;
+  /* background-color: blue; */
+}
+.mainTitle {
+  display: flex;
+  flex-direction: row;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.mainTitle span {
+  margin-left: 0.6rem;
+  line-height: 46px;
+}
+.subTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+  /* background-color: red; */
+  justify-content: space-between;
+}
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid #e5e9f2;
+  height: 85%;
+  align-items: center;
+  width: 100%;
+  /* background-color: blue; */
+}
+textarea {
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+  height: 65%;
+  border: 2px solid #ececf2;
+  border-radius: 1rem;
+  outline: none;
+  padding: 20px 20px;
+  font-size: 1.1rem;
+}
+textarea:focus {
+  /* border-color: rgb(203, 98, 255, 0.5); */
+  border-color: #62b8ff;
+}
+textarea::placeholder {
+  font-size: 1.1rem;
+  color: #b7bdc7;
+  font-weight: 500;
+}
+.uploadBtnDiv {
+  width: 10rem;
+  height: 3rem;
+  background-color: #ffffff;
+  border-radius: 0.6rem;
+  border: 2px solid #ececf2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.uploadBtnDiv:hover {
+  background-color: #f0f0f0;
+  border-color: #dcdce4;
+}
+
+.uploadBtnDiv label {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+.uploadBtnDiv label img {
+  margin-right: 10px;
+}
+.uploadBtn {
+  display: flex;
+  flex-direction: row;
+  /* background-color: blue; */
+  font-size: 1.1rem;
+  font-weight: 600;
+  align-items: center;
+  color: #484b50;
+}
+
+.fileName {
+  margin-top: 0.5rem;
+  color: #484b50;
+  font-size: 1rem;
+}
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  /* background-color: red; */
+}
+.dataSubmitBtn {
+  background-color: #1b1c1e;
+  color: #ffffff;
+  border: none;
+  width: 18rem;
+  height: 3.5rem;
+  border-radius: 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.dataSubmitBtn:hover {
+  background-color: #333638;
+}
+
+.dataSubmitBtn:active {
+  background-color: #1a1b1d;
+  transform: scale(0.95);
 }

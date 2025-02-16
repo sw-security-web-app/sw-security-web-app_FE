@@ -13,16 +13,17 @@ export default function ProfileForm() {
     deptName: string;
     position: string;
   }
+  type Role = "MANAGER" | "EMPLOYEE" | "INDIVIDUAL";
 
   const { isLogin } = useStore();
   const logout = useStore((state) => state.logout);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  // const [role, setRole] = useState<string | null>(null);
+  const [role, setRole] = useState<Role>("MANAGER");
 
   // const isBrowser = typeof window !== "undefined"; // 브라우저에서만 실행되도록 체크
   // const role = isBrowser ? localStorage.getItem("role") : null; // 브라우저에서만 localStorage 접근
-  const role = "MANAGER";
+  // const role = "MANAGER";
 
   const fetchUserInfo = async () => {
     try {
@@ -41,11 +42,11 @@ export default function ProfileForm() {
   //유저 탈퇴 함수
   const handleDelete = () => {};
 
-  //role을 마운트될 때 localStorage에서 가져옴
+  // role을 마운트될 때 localStorage에서 가져옴
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
   //     const storedRole = localStorage.getItem("role");
-  //     setRole(storedRole);
+  //     setRole(storedRole as Role);
   //   }
   // }, []);
 
@@ -96,27 +97,31 @@ export default function ProfileForm() {
             {/* <span className={profileStyle.email}>{userInfo.email}</span> */}
           </div>
         </div>
-        <div className={profileStyle.companyContainer}>
-          <label>회사명</label>
-          <div className={profileStyle.companyDiv}>
-            <span className={profileStyle.company}>삼성전자</span>
-            {/* <span className={profileStyle.company}>{userInfo.companyName}</span> */}
-          </div>
-        </div>
-        <div className={profileStyle.deptContainer}>
-          <label>부서명</label>
-          <div className={profileStyle.deptDiv}>
-            <span className={profileStyle.dept}>SI</span>
-            {/* <span className={profileStyle.dept}>{userInfo.deptName}</span> */}
-          </div>
-        </div>
-        <div className={profileStyle.positionContainer}>
-          <label>직책</label>
-          <div className={profileStyle.positionDiv}>
-            <span className={profileStyle.position}>BE-1년차</span>
-            {/* <span className={profileSctyle.position}>{userInfo.position}</span> */}
-          </div>
-        </div>
+        {(role === "EMPLOYEE" || role === "MANAGER") && (
+          <>
+            <div className={profileStyle.companyContainer}>
+              <label>회사명</label>
+              <div className={profileStyle.companyDiv}>
+                <span className={profileStyle.company}>삼성전자</span>
+                {/* <span className={profileStyle.company}>{userInfo.companyName}</span> */}
+              </div>
+            </div>
+            <div className={profileStyle.deptContainer}>
+              <label>부서명</label>
+              <div className={profileStyle.deptDiv}>
+                <span className={profileStyle.dept}>SI</span>
+                {/* <span className={profileStyle.dept}>{userInfo.deptName}</span> */}
+              </div>
+            </div>
+            <div className={profileStyle.positionContainer}>
+              <label>직책</label>
+              <div className={profileStyle.positionDiv}>
+                <span className={profileStyle.position}>BE-1년차</span>
+                {/* <span className={profileSctyle.position}>{userInfo.position}</span> */}
+              </div>
+            </div>
+          </>
+        )}
       </div>
       {role === "MANAGER" && (
         <div className={profileStyle.adminOptionsContainer}>
