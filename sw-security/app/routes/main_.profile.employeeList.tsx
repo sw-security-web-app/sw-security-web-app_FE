@@ -2,7 +2,6 @@ import api from "~/api/api";
 import adminStyle from "../css/admin.module.css";
 import { useState, useEffect } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
-import profileStyle from "../css/profile.module.css";
 
 export default function EmployeeList() {
   interface Employees {
@@ -10,7 +9,10 @@ export default function EmployeeList() {
     position: string;
     email: string;
   }
+
   const [employees, setEmployees] = useState<Employees[]>([]);
+  const [filteredEmployees, setFilteredEmployees] = useState<Employees[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const maxRows = 7;
 
@@ -33,41 +35,8 @@ export default function EmployeeList() {
     // 임시 직원 데이터
     const employeeData = [
       { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      {
-        name: "이승민",
-        position: "FE-2년차",
-        email: "leeseungmin@company.com",
-      },
-      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
-      { name: "조한나", position: "PM", email: "chohanana@company.com" },
-      {
-        name: "김동현",
-        position: "BE-3년차",
-        email: "kimdonghyun@company.com",
-      },
-      {
-        name: "최현수",
-        position: "FE-1년차",
-        email: "choihyeonsu@company.com",
-      },
-      { name: "홍지은", position: "기획자", email: "hongjieun@company.com" },
-      { name: "오세훈", position: "PM", email: "ohsehoon@company.com" },
-      { name: "이은지", position: "디자이너", email: "leeunji@company.com" },
-      { name: "송민호", position: "BE-2년차", email: "songminho@company.com" },
-      { name: "윤서진", position: "FE-3년차", email: "yunseojin@company.com" },
-      { name: "김영수", position: "PM", email: "kimyoungsoo@company.com" },
-      { name: "배유진", position: "기획자", email: "baeyujin@company.com" },
-      {
-        name: "전수경",
-        position: "디자이너",
-        email: "jeonsookyung@company.com",
-      },
-      {
-        name: "차영준",
-        position: "BE-1년차",
-        email: "chayoungjun@company.com",
-      },
-      { name: "강지민", position: "FE-2년차", email: "kangjimin@company.com" },
+      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
+      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
       { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
       {
         name: "이승민",
@@ -86,6 +55,78 @@ export default function EmployeeList() {
         position: "FE-1년차",
         email: "choihyeonsu@company.com",
       },
+      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
+      {
+        name: "이승민",
+        position: "FE-2년차",
+        email: "leeseungmin@company.com",
+      },
+      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
+      { name: "조한나", position: "PM", email: "chohanana@company.com" },
+      {
+        name: "김동현",
+        position: "BE-3년차",
+        email: "kimdonghyun@company.com",
+      },
+      {
+        name: "최현수",
+        position: "FE-1년차",
+        email: "choihyeonsu@company.com",
+      },
+      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
+      {
+        name: "이승민",
+        position: "FE-2년차",
+        email: "leeseungmin@company.com",
+      },
+      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
+      { name: "조한나", position: "PM", email: "chohanana@company.com" },
+      {
+        name: "김동현",
+        position: "BE-3년차",
+        email: "kimdonghyun@company.com",
+      },
+      {
+        name: "최현수",
+        position: "FE-1년차",
+        email: "choihyeonsu@company.com",
+      },
+      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
+      {
+        name: "이승민",
+        position: "FE-2년차",
+        email: "leeseungmin@company.com",
+      },
+      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
+      { name: "조한나", position: "PM", email: "chohanana@company.com" },
+      {
+        name: "김동현",
+        position: "BE-3년차",
+        email: "kimdonghyun@company.com",
+      },
+      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
+      {
+        name: "이승민",
+        position: "FE-2년차",
+        email: "leeseungmin@company.com",
+      },
+      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
+      { name: "조한나", position: "PM", email: "chohanana@company.com" },
+      {
+        name: "김동현",
+        position: "BE-3년차",
+        email: "kimdonghyun@company.com",
+      },
+      {
+        name: "최현수",
+        position: "FE-1년차",
+        email: "choihyeonsu@company.com",
+      },
+      {
+        name: "최현수",
+        position: "FE-1년차",
+        email: "choihyeonsu@company.com",
+      },
       { name: "홍지은", position: "기획자", email: "hongjieun@company.com" },
       { name: "오세훈", position: "PM", email: "ohsehoon@company.com" },
       { name: "이은지", position: "디자이너", email: "leeunji@company.com" },
@@ -93,42 +134,7 @@ export default function EmployeeList() {
       { name: "윤서진", position: "FE-3년차", email: "yunseojin@company.com" },
       { name: "김영수", position: "PM", email: "kimyoungsoo@company.com" },
       { name: "배유진", position: "기획자", email: "baeyujin@company.com" },
-      {
-        name: "전수경",
-        position: "디자이너",
-        email: "jeonsookyung@company.com",
-      },
-      {
-        name: "차영준",
-        position: "BE-1년차",
-        email: "chayoungjun@company.com",
-      },
-      { name: "강지민", position: "FE-2년차", email: "kangjimin@company.com" },
-      { name: "홍지은", position: "기획자", email: "hongjieun@company.com" },
-      { name: "오세훈", position: "PM", email: "ohsehoon@company.com" },
-      { name: "이은지", position: "디자이너", email: "leeunji@company.com" },
-      { name: "송민호", position: "BE-2년차", email: "songminho@company.com" },
-      { name: "윤서진", position: "FE-3년차", email: "yunseojin@company.com" },
-      { name: "김영수", position: "PM", email: "kimyoungsoo@company.com" },
-      { name: "배유진", position: "기획자", email: "baeyujin@company.com" },
-      {
-        name: "전수경",
-        position: "디자이너",
-        email: "jeonsookyung@company.com",
-      },
-      {
-        name: "차영준",
-        position: "BE-1년차",
-        email: "chayoungjun@company.com",
-      },
-      { name: "강지민", position: "FE-2년차", email: "kangjimin@company.com" },
-      { name: "홍지은", position: "기획자", email: "hongjieun@company.com" },
-      { name: "오세훈", position: "PM", email: "ohsehoon@company.com" },
-      { name: "이은지", position: "디자이너", email: "leeunji@company.com" },
-      { name: "송민호", position: "BE-2년차", email: "songminho@company.com" },
-      { name: "윤서진", position: "FE-3년차", email: "yunseojin@company.com" },
-      { name: "김영수", position: "PM", email: "kimyoungsoo@company.com" },
-      { name: "배유진", position: "기획자", email: "baeyujin@company.com" },
+      { name: "김도연", position: "BE-2년차", email: "kimdoyeon1@company.com" },
       {
         name: "전수경",
         position: "디자이너",
@@ -142,12 +148,28 @@ export default function EmployeeList() {
       { name: "강지민", position: "FE-2년차", email: "kangjimin@company.com" },
     ];
     setEmployees(employeeData);
+    setFilteredEmployees(employeeData); // Initialize filtered employees
   }, []);
+
+  // 검색 함수
+  const searchingEmployee = () => {
+    const filtered = employees.filter((employee) =>
+      employee.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredEmployees(filtered);
+    setCurrentPage(1);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      searchingEmployee(); // Enter 키가 눌리면 검색 실행
+    }
+  };
 
   // 현재 페이지에 해당하는 직원 목록 가져오기
   const indexOfLastEmployee = currentPage * maxRows;
   const indexOfFirstEmployee = indexOfLastEmployee - maxRows;
-  const currentEmployees = employees.slice(
+  const currentEmployees = filteredEmployees.slice(
     indexOfFirstEmployee,
     indexOfLastEmployee
   );
@@ -155,19 +177,22 @@ export default function EmployeeList() {
   // 페이지 변경 함수
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-    const pageGroup = Math.ceil(pageNumber / 5);
-    const startPage = (pageGroup - 1) * 5 + 1;
-    const endPage = Math.min(startPage + 4, totalPages);
-    setPageRange({ startPage, endPage }); // 페이지 그룹 범위를 새로 설정
   };
 
   // 총 페이지 수
-  const totalPages = Math.ceil(employees.length / maxRows);
+  const totalPages = Math.ceil(filteredEmployees.length / maxRows);
 
   // 페이지 그룹 범위 상태 추가
   const [pageRange, setPageRange] = useState({ startPage: 1, endPage: 5 });
 
   // 현재 페이지 그룹 (5개씩 페이지 버튼 보이도록 설정)
+  useEffect(() => {
+    const pageGroup = Math.ceil(currentPage / 5);
+    const startPage = (pageGroup - 1) * 5 + 1;
+    const endPage = Math.min(startPage + 4, totalPages);
+    setPageRange({ startPage, endPage });
+  }, [currentPage, totalPages]);
+
   const { startPage, endPage } = pageRange;
 
   if (employees.length === 0) {
@@ -181,7 +206,7 @@ export default function EmployeeList() {
       </div>
     );
   }
-  // console.log(employees.length);
+
   return (
     <div className={adminStyle.content}>
       <div className={adminStyle.inner}>
@@ -194,8 +219,15 @@ export default function EmployeeList() {
                 <span className={adminStyle.totalCnt}>00명</span>
               </div>
               <div className={adminStyle.rightDiv}>
-                <input type="text" placeholder="이름을 입력해주세요" />
+                <input
+                  type="text"
+                  placeholder="이름을 입력해주세요"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                />
                 <img
+                  onClick={searchingEmployee}
                   className={adminStyle.searchIcon}
                   src="../../img/search.svg"
                   alt="search"
@@ -245,7 +277,12 @@ export default function EmployeeList() {
 
             {/* 페이지 버튼 */}
             {Array.from(
-              { length: endPage - startPage + 1 },
+              {
+                length: Math.min(
+                  endPage - startPage + 1,
+                  totalPages - startPage + 1
+                ),
+              },
               (_, i) => startPage + i
             ).map((page) => (
               <button
