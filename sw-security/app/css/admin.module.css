@@ -1,0 +1,233 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* background-color: #0d0d0d; */
+  /* min-height: 100dvh; */
+  overflow: hidden;
+  /* position: relative; */
+}
+.content {
+  background-color: #f9f9fa;
+  display: flex;
+  flex: 15;
+  justify-content: center;
+  height: 100%;
+}
+.inner {
+  width: 90%;
+  /* width: 63.89rem; */
+  /* min-height: 100dvh; */
+  /* background-color: green; */
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+/*직원 명단 스타일*/
+.loadingIcon {
+  animation: spin 1s linear infinite;
+  color: #b7bdc7;
+  height: 30%;
+  width: 30%;
+  /* background-color: red; */
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: red; */
+  width: 30%;
+  height: 30%;
+}
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  /* position: relative;
+  top: 2.2rem; */
+  justify-content: space-between;
+  /* background-color: red; */
+}
+.noBtnConatainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 85%;
+  /* margin-top: 2rem; */
+  /* background-color: blue; */
+}
+.listTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 2.5rem;
+  /* background-color: red; */
+}
+.leftDiv {
+  display: flex;
+  flex-direction: row;
+}
+.companyName,
+.deptName {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0d0d0d;
+  line-height: 2.5rem;
+}
+.deptName {
+  margin-left: 0.5rem;
+}
+.totalCnt {
+  font-size: 1.39rem;
+  color: #5e6269;
+  font-weight: 500;
+  align-self: flex-end;
+  margin-left: 0.56rem;
+}
+.rightDiv {
+  width: 30%;
+  position: relative;
+}
+input {
+  border-radius: 5.56rem;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0.12rem solid #bdc3cd;
+  padding-left: 0.83rem;
+  padding-right: 1.1rem;
+  color: #b7bdc7;
+  font-size: 0.85rem;
+}
+input::placeholder {
+  font-size: 0.85rem;
+  color: #b7bdc7;
+  font-weight: 400;
+  /* padding-left: 15px; */
+}
+.searchIcon {
+  position: absolute;
+  right: 1rem; /* 오른쪽 끝에서 12px 떨어지게 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.12rem;
+  height: 1.12rem;
+  cursor: pointer;
+}
+table {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  table-layout: fixed;
+  border-radius: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgb(183, 189, 199, 0.5);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+thead {
+  background-color: #2a2c2f;
+  height: 3.4rem;
+}
+
+th {
+  text-align: left;
+  font-size: 1rem;
+  color: #b7bdc7;
+  font-weight: 500;
+  padding-left: 1.67rem;
+  padding-right: 1.67rem;
+}
+
+tbody tr {
+  position: relative;
+}
+
+tbody tr td:first-child {
+  padding-left: 1.67rem;
+  padding-right: 1.67rem;
+  position: relative;
+}
+
+tbody tr td::after {
+  content: "";
+  position: absolute;
+  left: 1.67rem;
+  bottom: 0;
+  border-bottom: 0.12rem solid #e5e9f2;
+  width: calc(100% - 3.34rem);
+}
+
+tbody tr:last-child td::after {
+  content: none;
+}
+
+td {
+  color: #1b1c1e;
+  font-weight: 500;
+  font-size: 1.1rem;
+  border: none;
+}
+
+.noEmployee {
+  border: none !important;
+  position: absolute;
+  top: 45%;
+  font-size: 1.5rem;
+  color: #b7bdc7;
+  font-weight: 500;
+  width: 100%;
+  text-align: center;
+}
+
+.paginationContainer {
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 100px; */
+}
+.arrowButton {
+  border: none;
+  background-color: transparent;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+.page {
+  color: #8c919b;
+  border: none;
+  background-color: transparent;
+  font-size: 0.85rem;
+  height: 40px;
+  width: 40px;
+  /* background-color: blue; */
+  border-radius: 6px;
+  margin: 3px;
+}
+.activePage {
+  border: none;
+  background-color: transparent;
+  background-color: #2a2c2f;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  height: 40px;
+  width: 40px;
+}
