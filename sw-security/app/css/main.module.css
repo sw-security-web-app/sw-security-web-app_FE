@@ -76,14 +76,17 @@
   /* margin-top: 10vh; */
   margin-top: 5rem;
   z-index: 1;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .aiSelect {
-  /* width: 35vh; */
-  /* height: 35vh; */
-  width: 18rem;
-  height: 18rem;
-  border-radius: 100%;
+  width: 17rem;
+  height: 17rem;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: radial-gradient(
     circle at top,
     rgba(42, 44, 47, 0.1) 20%,
@@ -93,14 +96,8 @@
     rgba(203, 98, 255, 1) 90%,
     rgba(240, 210, 255, 1) 100%
   );
-  backdrop-filter: blur(11.12rem); /* 블러 강도를 더 높여서 흐릿하게 */
-
-  position: relative;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  backdrop-filter: blur(11.12rem);
+  transition: all 0.3s ease;
 }
 
 .aiSelect::before {
@@ -115,25 +112,71 @@
   );
 
   padding: 0.06rem;
-  box-sizing: border-box; /* 패딩이 크기에 영향을 주지 않도록 설정 */
+  box-sizing: border-box;
 
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
+
+.aiSelect::after {
+  content: "";
+  position: absolute;
+  inset: -2px; /* 테두리 두께 */
+  border-radius: 100%;
+  padding: 2px; /* 테두리 두께 증가 */
+  background: conic-gradient(
+    from 0deg,
+    rgba(203, 98, 255, 1),
+    rgba(240, 210, 255, 0.9),
+    rgba(203, 98, 255, 1),
+    rgba(240, 210, 255, 0.9)
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0; /* 기본적으로 숨김 */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* 애니메이션 효과 추가 */
+}
+
+.aiSelect:hover::after {
+  opacity: 1; /* hover 시 보이게 설정 */
+  animation: spinBorder 2s linear infinite; /* 회전 애니메이션 시간 단축 */
+  transform: scale(1.05); /* 테두리 크기 살짝 키우기 */
+}
+
+@keyframes spinBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.aiSelect:hover {
+  transform: scale(1.1);
+}
+
+/* 클릭 시 약간 줄어드는 효과 */
+.aiSelect:active {
+  transform: scale(0.97);
+}
+
 .tagContainer {
   /* margin-top: 2vh; */
   margin-top: 1rem;
 }
 
 .tag {
-  font-size: 2.1rem;
+  font-size: 2rem;
   font-weight: 500;
   color: #ffffff;
 }
 .img {
   /* width: 14vh; */
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
 }

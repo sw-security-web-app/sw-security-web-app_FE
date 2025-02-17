@@ -128,7 +128,7 @@ export default function SignUpForm() {
     }
   };
 
-  //이메일 전송송
+  //이메일 전송
   async function sendEmailCode() {
     if (!formData.email) {
       alert("이메일을 먼저 입력해주세요.");
@@ -153,7 +153,7 @@ export default function SignUpForm() {
     }
   }
 
-  //핸드폰번호 전송송
+  //핸드폰번호 전송
   async function sendPhoneCode() {
     if (!formData.phoneNumber) {
       alert("핸드폰번호를 먼저 입력해주세요.");
@@ -211,7 +211,7 @@ export default function SignUpForm() {
     }
   }
 
-  //휴대폰 인증번호 인증
+  //휴대폰 인증번호 확인
   async function confirmPhoneCode() {
     if (!checkData.phoneCodeConfirm) {
       alert("인증번호를 입력해주세요!");

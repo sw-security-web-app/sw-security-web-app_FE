@@ -19,10 +19,9 @@ export default function Index() {
             </div>
             <div className={indexStyle.introContainer}>
               <span className={indexStyle.intro}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-                pariatur iste sint minima, distinctio nesciunt mollitia
-                recusandae hic optio fuga cum quis quae voluptatem eos placeat
-                ratione assumenda dolore? Delectus?
+                서비스 한줄 소개 서비스 한줄 소개 서비스 한줄 소개 서비스 한줄
+                소개 서비스 한줄 소개 서비스 한줄 소개 서비스 한줄 소개 서비스
+                한줄 소개
               </span>
             </div>
           </div>
