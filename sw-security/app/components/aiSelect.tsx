@@ -1,10 +1,15 @@
+import { Link } from "@remix-run/react";
 import mainStyle from "../css/main.module.css";
 
 type Prop = { aiName: string };
 
 export default function AISelect({ aiName }: Prop) {
   return (
-    <div className={mainStyle.aiSelect}>
+    <Link
+      to={`/main/chatMain?ai=${aiName}`}
+      style={{ textDecoration: "none" }}
+      className={mainStyle.aiSelect}
+    >
       <div className={mainStyle.imgContainer}>
         <img
           src={`/img/${aiName}.svg`}
@@ -15,6 +20,6 @@ export default function AISelect({ aiName }: Prop) {
       <div className={mainStyle.tagContainer}>
         <span className={mainStyle.tag}>{aiName}</span>
       </div>
-    </div>
+    </Link>
   );
 }
