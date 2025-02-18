@@ -136,7 +136,7 @@ table {
   border-radius: 1rem;
   border-collapse: separate;
   border-spacing: 0;
-  border: 1px solid rgb(183, 189, 199, 0.5);
+  border: 0.1rem solid rgb(183, 189, 199, 0.5);
   overflow: hidden;
   margin-top: 2rem;
 }
@@ -239,7 +239,7 @@ td {
   background-color: transparent;
   background-color: #2a2c2f;
   color: #ffffff;
-  border-radius: 6px;
+  border-radius: 0.33rem;
   font-size: 0.85rem;
   height: 2.22rem;
   width: 2.22rem;
@@ -271,7 +271,7 @@ td {
 }
 .mainTitle span {
   margin-left: 0.6rem;
-  line-height: 46px;
+  line-height: 2.6rem;
 }
 .subTitle {
   font-size: 1.2rem;
@@ -287,7 +287,7 @@ td {
 .inputDiv {
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid #e5e9f2;
+  border-bottom: 0.1rem solid #e5e9f2;
   height: 85%;
   align-items: center;
   width: 100%;
@@ -298,10 +298,10 @@ textarea {
   width: 100%;
   box-sizing: border-box;
   height: 65%;
-  border: 2px solid #ececf2;
+  border: 0.1rem solid #ececf2;
   border-radius: 1rem;
   outline: none;
-  padding: 20px 20px;
+  padding: 1.1rem 1.1rem;
   font-size: 1.1rem;
 }
 textarea:focus {
@@ -318,7 +318,7 @@ textarea::placeholder {
   height: 3rem;
   background-color: #ffffff;
   border-radius: 0.6rem;
-  border: 2px solid #ececf2;
+  border: 0.1rem solid #ececf2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -337,7 +337,7 @@ textarea::placeholder {
   padding: 0;
 }
 .uploadBtnDiv label img {
-  margin-right: 10px;
+  margin-right: 0.6rem;
 }
 .uploadBtn {
   display: flex;
