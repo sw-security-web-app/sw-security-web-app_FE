@@ -4,29 +4,33 @@
   /* min-height: 100dvh; */
   /* overflow: hidden; */
   /* position: relative; */
+  overflow: hidden;
+  position: relative;
 }
 .grid {
-  background-color: red;
-  height: 100%;
+  /* background-color: red; */
+  height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 7fr;
-  /* overflow: hidden; */
+  grid-template-columns: 14rem auto;
+  overflow: hidden;
 }
 .sideBar {
   background-color: #1b1c1e;
   display: flex;
   flex-direction: column;
-  padding: 30px 20px;
-  /* height: 100%; */
+  padding: 1.7rem 1.1rem;
+  height: 100vh;
+  box-sizing: border-box; /* 패딩 포함 높이 보장 */
 }
+
 .topItemContainer {
   display: flex;
   flex-direction: column;
   height: 25%;
   /* background-color: red; */
   justify-content: space-between;
-  padding-bottom: 30px;
-  border-bottom: 1px #323232 solid;
+  padding-bottom: 1.7rem;
+  border-bottom: 0.1rem #323232 solid;
 }
 .itemDiv {
   display: flex;
@@ -34,36 +38,194 @@
   align-items: center;
 }
 .itemText {
-  font-size: 20px;
+  font-size: 1.1rem;
   color: #ffffff;
   font-weight: 600;
-  margin-left: 10px;
+  margin-left: 0.6rem;
 }
 .chatHistoryConatainer {
   display: flex;
   flex-direction: column;
   height: 60%;
   /* background-color: blue; */
-  padding-top: 30px;
-  border-bottom: 1px #323232 solid;
+  padding-top: 1.7rem;
+  border-bottom: 0.1rem #323232 solid;
 }
 .bottomItemContainer {
   height: 15%;
   /* background-color: green; */
+  position: relative;
+}
+.bottomItemContainer .itemDiv2:first-child {
+  margin-bottom: 2.8rem;
 }
 .chatTitle {
   color: #b7bdc7;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 25px;
+  margin-bottom: 1.4rem;
 }
 .itemDiv2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 25px;
+  /* margin-top: 25px; */
+  position: absolute;
+  bottom: 0;
+}
+.itemDiv2 img {
+  height: 1.3rem;
+  width: 1.3rem;
 }
 .itemText2 {
   color: #b7bdc7;
-  font-size: 18px;
+  font-size: 1rem;
+  margin-left: 0.6rem;
+}
+.contentContainer {
+  /* background-color: red; */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+/*ChatMain페이지*/
+.mainContainer {
+  /* background-color: blue; */
+  height: 100%;
+  width: 87%;
+  padding: 4.4rem 0;
+  box-sizing: border-box;
+}
+.chatHistoryConatainer {
+  flex-grow: 1; /* 중간 컨테이너가 남은 공간을 차지하도록 설정 */
+  overflow-y: auto; /* 내용이 많으면 스크롤 가능하도록 */
+}
+
+.topDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* background-color: red; */
+  padding-bottom: 1.2rem;
+  border-bottom: 0.1rem solid #e3e3e3;
+}
+.leftDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.historyText {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1b1c1e;
+  margin-left: 0.6rem;
+}
+.newChatDiv {
+  background-color: #1b1c1e;
+  height: 2.67rem;
+  width: 7.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.67rem;
+  transition: all 0.3s ease;
+}
+.newChatDiv:hover {
+  background-color: #333436;
+}
+
+.newChatDiv:active {
+  background-color: #2b2c2f;
+  transform: scale(0.95);
+}
+
+.newChatDiv img {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.newChatText {
+  color: #ffffff;
+  font-size: 0.9rem;
+  margin-left: 0.8rem;
+  font-weight: 700;
+}
+
+/*Chat페이지*/
+.aiContainer {
+  /* background-color: blue; */
+  height: 100%;
+  width: 87%;
+  padding: 4.4rem 0 2.2rem 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.chatContainer {
+  width: 100%;
+  flex-grow: 1; /* flex: 1 또는 flex-grow: 1로 남은 공간을 차지하도록 설정 */
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.messageDiv {
+  display: flex;
+  flex-direction: column;
+}
+.onlyAI {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.message {
+  /* background-color: green; */
+  /* width: 150px; */
+  /* height: 50px; */
+  max-width: 70%;
+  border-bottom-right-radius: 1.7rem;
+  border-bottom-left-radius: 1.7rem;
+  padding: 0.8rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.user {
+  background-color: #f4ddff;
+  color: #0d0d0d;
+  align-self: flex-end;
+  text-align: right;
+  border-top-left-radius: 1.7rem;
+}
+
+.ai {
+  background-color: #ececf2;
+  color: #0d0d0d;
+  align-self: flex-start;
+  text-align: left;
+  border-top-right-radius: 1.7rem;
+  margin-left: 3.64rem;
+  margin-top: 0.6rem;
+}
+.inputContainer {
+  width: 100%;
+  height: 3.9rem;
+  position: relative;
+}
+.input {
+  width: 100%;
+  border-radius: 5.6rem;
+  height: 100%;
+  box-sizing: border-box;
+  padding-left: 1.3rem;
+  padding-right: 4rem;
+  background-color: #ffffff;
+  border: 0.1rem solid #ececf2;
+  font-size: 1.1rem;
+  caret-color: #5e6269;
+  color: #5e6269;
+}
+.input ::placeholder {
+  color: #5e6269;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
