@@ -82,11 +82,12 @@ export default function LearningAI() {
               <div className={adminStyle.uploadBtnDiv}>
                 <label htmlFor="fileUpload" className={adminStyle.uploadBtn}>
                   <img src="../../img/upload.svg" />
-                  파일 업로드
+                  텍스트 파일 업로드
                 </label>
                 <input
                   id="fileUpload"
                   type="file"
+                  accept=".txt"
                   style={{ display: "none" }}
                   onChange={handleFileChange}
                 />

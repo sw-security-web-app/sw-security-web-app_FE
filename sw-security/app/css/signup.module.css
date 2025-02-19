@@ -92,7 +92,20 @@ input::placeholder {
   /* margin-bottom: 1.3vh; */
   margin-bottom: 0.7rem;
 }
-
+.departmentDiv {
+  margin-right: 6px;
+}
+.companyCodeDiv {
+  margin-right: 6px;
+}
+.positionDiv {
+  margin-left: 6px;
+}
+.departmentDiv,
+.positionDiv,
+.companyCodeDiv {
+  flex: 1;
+}
 .btn {
   border-radius: 0.67rem;
   /* padding: 1vh 1vw; */
@@ -117,7 +130,16 @@ input::placeholder {
   background-color: #4c5056;
   transform: scale(0.95);
 }
+.btn:disabled {
+  cursor: default;
+}
 
+.btn:disabled:hover {
+  background-color: #5e6269;
+}
+.btn:disabled:active {
+  transform: none;
+}
 .emailDiv div,
 .emailAuthDiv div,
 .phoneNumberDiv div,
@@ -141,6 +163,7 @@ input::placeholder {
   height: 2.5rem;
   /* margin-top: 3vh; */
   margin-top: 1.67rem;
+  margin-bottom: 1.67rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -152,4 +175,95 @@ input::placeholder {
 
 .signUpBtn:active {
   background-color: #b14ce3;
+}
+.deptPosition {
+  display: flex;
+  flex-direction: row;
+}
+.codePostion {
+  display: flex;
+  flex-direction: row;
+}
+.modalContainer {
+  background-color: #ffffff;
+  width: 28rem;
+  height: 12rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  pointer-events: auto;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* display: flex;
+  justify-content: center; */
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  z-index: 999;
+}
+.modalHeader {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  /* background-color: red; */
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 2px solid #eaeaea;
+}
+
+.headerText {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #101828;
+}
+.modalContent {
+  display: flex;
+  flex: 1;
+  padding-left: 20px;
+  align-items: center;
+  /* background-color: red; */
+}
+.contentText {
+  color: #484b50;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.modalBtnDiv {
+  flex: 1;
+  display: flex;
+  padding-right: 20px;
+  justify-content: flex-end;
+}
+.closeBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.modalBtn {
+  border: none;
+  background-color: #2a2c2f;
+  width: 120px;
+  height: 50px;
+  border-radius: 0.7rem;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.modalBtn:hover {
+  background-color: #333436;
+}
+.modalBtn:active {
+  background-color: #2b2c2f;
+  transform: scale(0.95);
 }

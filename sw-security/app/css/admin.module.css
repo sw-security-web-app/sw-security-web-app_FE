@@ -210,8 +210,9 @@ td {
   width: 2.22rem;
   display: flex;
   align-items: center;
-  justify-self: center;
+  justify-content: center;
   cursor: pointer;
+  padding: 0;
 }
 .arrowButton img {
   color: #8c919b;
@@ -314,7 +315,7 @@ textarea::placeholder {
   font-weight: 500;
 }
 .uploadBtnDiv {
-  width: 10rem;
+  width: 14rem;
   height: 3rem;
   background-color: #ffffff;
   border-radius: 0.6rem;

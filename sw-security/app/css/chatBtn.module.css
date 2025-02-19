@@ -13,3 +13,7 @@
   transform: translateY(-50%);
   cursor: pointer;
 }
+.btnContainer.loading {
+  background-color: #ccc;
+  cursor: default;
+}

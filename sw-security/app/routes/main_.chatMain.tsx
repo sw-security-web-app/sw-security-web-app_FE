@@ -1,6 +1,5 @@
 import {
   Link,
-  Navigate,
   Outlet,
   useNavigate,
   useParams,
@@ -65,23 +64,24 @@ export default function ChatMainLayout() {
             <span className={chatMainStyle.chatTitle}>대화 내용 3</span>
           </div>
           <div className={chatMainStyle.bottomItemContainer}>
-            <Link
-              to="/main/profile"
-              style={{ textDecoration: "none" }}
+            <button
+              onClick={() => {
+                navigate("/main/profile");
+              }}
               className={chatMainStyle.itemDiv2}
             >
               <img src="../../img/myProfile.svg" alt="myProfile" />
               <span className={chatMainStyle.itemText2}>내 프로필</span>
-            </Link>
+            </button>
             <button
               className={chatMainStyle.itemDiv2}
               onClick={handleLogOut}
-              style={{
-                border: "none",
-                backgroundColor: "transparent",
-                padding: "0",
-                cursor: "pointer",
-              }}
+              // style={{
+              //   border: "none",
+              //   backgroundColor: "transparent",
+              //   padding: "0",
+              //   cursor: "pointer",
+              // }}
             >
               <img src="../../img/logout.svg" alt="logout" />
               <span className={chatMainStyle.itemText2}>로그아웃</span>

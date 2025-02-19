@@ -270,7 +270,7 @@ export default function EmployeeList() {
             <button
               onClick={() => paginate(currentPage - 1)}
               className={adminStyle.arrowButton}
-              disabled={1 === currentPage}
+              disabled={1 === currentPage || currentEmployees.length === 0}
             >
               <img src="../../img/arrow-left.svg" alt="arrow" />
             </button>
@@ -298,7 +298,9 @@ export default function EmployeeList() {
 
             <button
               onClick={() => paginate(currentPage + 1)}
-              disabled={totalPages === currentPage}
+              disabled={
+                totalPages === currentPage || currentEmployees.length === 0
+              }
               className={adminStyle.arrowButton}
             >
               <img src="../../img/arrow-right.svg" alt="arrow-right" />
