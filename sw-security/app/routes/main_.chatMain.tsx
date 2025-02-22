@@ -1,6 +1,5 @@
 import {
   Link,
-  Navigate,
   Outlet,
   useNavigate,
   useParams,
@@ -10,6 +9,7 @@ import chatMainStyle from "../css/chatMain.module.css";
 import logoStyle from "../css/logo.module.css";
 import { useStore } from "../store/store";
 import { useEffect, useState } from "react";
+import Logo from "~/components/logo";
 
 export default function ChatMainLayout() {
   const [searchParams] = useSearchParams();
@@ -38,24 +38,25 @@ export default function ChatMainLayout() {
       <div className={chatMainStyle.grid}>
         <div className={chatMainStyle.sideBar}>
           <div className={chatMainStyle.topItemContainer}>
-            <div
-              className={logoStyle.img}
-              style={{ backgroundColor: "white" }}
-            ></div>
+            <img
+              src="/img/logo.svg"
+              alt="logo"
+              style={{ height: "2.8rem", width: "2.8rem" }}
+            />
             <Link
               style={{ textDecoration: "none" }}
               to={`/main/chatMain?ai=${ai}`}
               className={chatMainStyle.itemDiv}
             >
-              <img src="../../img/home.svg" alt="home" />
+              <img src="/img/home.svg" alt="home" />
               <span className={chatMainStyle.itemText}>홈</span>
             </Link>
             <div className={chatMainStyle.itemDiv}>
-              <img src="../../img/alarm.svg" alt="alarm" />
+              <img src="/img/alarm.svg" alt="alarm" />
               <span className={chatMainStyle.itemText}>알림</span>
             </div>
             <div className={chatMainStyle.itemDiv}>
-              <img src="../../img/chatHistory.svg" alt="chatHistory" />
+              <img src="/img/chatHistory.svg" alt="chatHistory" />
               <span className={chatMainStyle.itemText}>대화 기록</span>
             </div>
           </div>
@@ -65,25 +66,26 @@ export default function ChatMainLayout() {
             <span className={chatMainStyle.chatTitle}>대화 내용 3</span>
           </div>
           <div className={chatMainStyle.bottomItemContainer}>
-            <Link
-              to="/main/profile"
-              style={{ textDecoration: "none" }}
+            <button
+              onClick={() => {
+                navigate("/main/profile");
+              }}
               className={chatMainStyle.itemDiv2}
             >
-              <img src="../../img/myProfile.svg" alt="myProfile" />
+              <img src="/img/myProfile.svg" alt="myProfile" />
               <span className={chatMainStyle.itemText2}>내 프로필</span>
-            </Link>
+            </button>
             <button
               className={chatMainStyle.itemDiv2}
               onClick={handleLogOut}
-              style={{
-                border: "none",
-                backgroundColor: "transparent",
-                padding: "0",
-                cursor: "pointer",
-              }}
+              // style={{
+              //   border: "none",
+              //   backgroundColor: "transparent",
+              //   padding: "0",
+              //   cursor: "pointer",
+              // }}
             >
-              <img src="../../img/logout.svg" alt="logout" />
+              <img src="/img/logout.svg" alt="logout" />
               <span className={chatMainStyle.itemText2}>로그아웃</span>
             </button>
           </div>
