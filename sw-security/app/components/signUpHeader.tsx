@@ -7,7 +7,7 @@ export default function SignUpHeader() {
   return (
     <div className={loginHeaderStyle.header}>
       <div className={loginHeaderStyle.headerItems}>
-        <Logo color="white" to="/" />
+        <Logo to="/" />
         {/* <div className={loginHeaderStyle.none}>none</div> */}
       </div>
     </div>

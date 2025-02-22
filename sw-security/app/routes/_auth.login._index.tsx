@@ -32,13 +32,14 @@ export default function Login() {
         body: JSON.stringify({
           ...formData,
         }),
+        credentials: "include",
       });
 
       if (response.ok) {
+        console.log(response);
         const data = await response.json();
-        const { accessToken, userIndex, email, role } = data;
-
-        login(accessToken, userIndex, email, role); //zustand store에 상태 저장
+        const { accessToken } = data;
+        login(accessToken); //zustand store에 상태 저장
         navigate("/main");
       } else {
         const error = await response.json();

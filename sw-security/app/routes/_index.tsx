@@ -11,18 +11,18 @@ export default function Index() {
       <div className={defaultStyle.content}>
         <div className={defaultStyle.inner}>
           <div className={indexStyle.logoContainer}>
-            <div className={indexStyle.logo}></div>
+            <img
+              src="../../img/logo.svg"
+              alt="logo"
+              className={indexStyle.logo}
+            />
           </div>
           <div className={indexStyle.textContainer}>
             <div className={indexStyle.nameContainer}>
-              <span className={indexStyle.name}>Vero</span>
+              <span className={indexStyle.name}>VERO</span>
             </div>
             <div className={indexStyle.introContainer}>
-              <span className={indexStyle.intro}>
-                서비스 한줄 소개 서비스 한줄 소개 서비스 한줄 소개 서비스 한줄
-                소개 서비스 한줄 소개 서비스 한줄 소개 서비스 한줄 소개 서비스
-                한줄 소개
-              </span>
+              <span className={indexStyle.intro}>안전한 대화를 시작하세요</span>
             </div>
           </div>
           <div className={indexStyle.startPoint}>

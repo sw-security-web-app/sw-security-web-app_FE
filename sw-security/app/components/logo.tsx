@@ -2,16 +2,19 @@ import { Link } from "@remix-run/react";
 import logoStyle from "../css/logo.module.css";
 
 type Props = {
-  color: string;
-  to: string; // 추가된 부분
+  to: string;
 };
 
-export default function Logo({ color = "white", to = "/" }: Props) {
+export default function Logo({ to = "/" }: Props) {
   return (
     <Link to={to} style={{ textDecoration: "none" }}>
       <div className={logoStyle.container}>
-        <div className={logoStyle.img} style={{ backgroundColor: color }}></div>
-        <div className={logoStyle.text}>LOGO</div>
+        <img
+          src="../../img/logo.svg"
+          alt="logo"
+          className={logoStyle.img}
+        ></img>
+        <div className={logoStyle.text}>VERO</div>
       </div>
     </Link>
   );

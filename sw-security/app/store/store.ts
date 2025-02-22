@@ -4,15 +4,15 @@ import { create } from "zustand";
 // 상태 타입 정의
 interface Store {
   accessToken: string | null;
-  userIndex: string | null;
-  email: string | null;
-  role: string | null;
+  // userIndex: string | null;
+  // email: string | null;
+  // role: string | null;
 
   login: (
-    accessToken: string,
-    userIndex: string,
-    email: string,
-    role: string
+    accessToken: string
+    // userIndex: string,
+    // email: string,
+    // role: string
   ) => void;
   logout: () => void;
   isLogin: () => boolean;
@@ -21,23 +21,23 @@ interface Store {
 // zustand 스토어 생성
 const useStore = create<Store>((set, get) => ({
   accessToken: null,
-  userIndex: null,
-  email: null,
-  role: null,
+  // userIndex: null,
+  // email: null,
+  // role: null,
 
-  login: (accessToken, userIndex, email, role) => {
+  login: (accessToken) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("userIndex", userIndex);
-      localStorage.setItem("email", email);
-      localStorage.setItem("role", role);
+      // localStorage.setItem("userIndex", userIndex);
+      // localStorage.setItem("email", email);
+      // localStorage.setItem("role", role);
     }
 
     set(() => ({
       accessToken,
-      userIndex,
-      email,
-      role,
+      // userIndex,
+      // email,
+      // role,
     }));
   },
 
@@ -45,16 +45,16 @@ const useStore = create<Store>((set, get) => ({
   logout: () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("accessToken");
-      localStorage.removeItem("userIndex");
-      localStorage.removeItem("email");
-      localStorage.removeItem("role");
+      // localStorage.removeItem("userIndex");
+      // localStorage.removeItem("email");
+      // localStorage.removeItem("role");
     }
 
     set(() => ({
       accessToken: null,
-      userIndex: null,
-      email: null,
-      role: null,
+      // userIndex: null,
+      // email: null,
+      // role: null,
     }));
   },
 
@@ -73,15 +73,15 @@ const useLocalStorage = () => {
   useEffect(() => {
     if (isClient) {
       const accessToken = localStorage.getItem("accessToken");
-      const userIndex = localStorage.getItem("userIndex");
-      const email = localStorage.getItem("email");
-      const role = localStorage.getItem("role");
+      // const userIndex = localStorage.getItem("userIndex");
+      // const email = localStorage.getItem("email");
+      // const role = localStorage.getItem("role");
 
       useStore.setState({
         accessToken,
-        userIndex,
-        email,
-        role,
+        // userIndex,
+        // email,
+        // role,
       });
     }
   }, [isClient]);

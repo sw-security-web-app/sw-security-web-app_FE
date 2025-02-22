@@ -21,5 +21,7 @@
   color: #cb62ff;
   /* margin-left: 0.7vw; */
   margin-left: 0.83rem;
-  text-align: center;
+  text-align: center; /* letter-spacing: 0.3rem;
+  text-shadow: 0 0 10px #cb62ff, 0 0 20px #cb62ff, 0 0 40px #cb62ff,
+    0 0 80px #cb62ff; */
 }

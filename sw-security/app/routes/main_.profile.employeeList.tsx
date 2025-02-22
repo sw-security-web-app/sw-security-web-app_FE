@@ -6,158 +6,51 @@ import { AiOutlineLoading } from "react-icons/ai";
 export default function EmployeeList() {
   interface Employees {
     name: string;
-    position: string;
+    companyPosition: string;
     email: string;
   }
 
   const [employees, setEmployees] = useState<Employees[]>([]);
   const [filteredEmployees, setFilteredEmployees] = useState<Employees[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentEmployees, setCurrentEmployees] = useState<Employees[]>([]);
   const maxRows = 7;
+  const [loading, setLoading] = useState(false);
+
+  const fetchList = async (newPage: number) => {
+    setLoading(true);
+    try {
+      const response = await api.get(
+        `api/employee-list?page=${newPage}&size=${maxRows}`
+      );
+
+      if (response.status === 200) {
+        const newList = response.data.content;
+        setTotalPages(response.data.totalPages);
+        setEmployees(newList);
+        setCurrentPage(newPage);
+        setCurrentEmployees(newList);
+      }
+    } catch (error) {
+      console.error("이전 메시지 불러오기 실패:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await api.get("엔드포인트");
-    //     if (response.status === 200) {
-    //       const data = await response.data;
-    //       setEmployees(data);
-    //     } else {
-    //       const error = await response.data;
-    //       alert(error.message);
-    //     }
-    //   } catch (error) {
-    //     console.error("API 호출 오류:", error);
-    //   }
-    // };
-    // fetchData();
-    // 임시 직원 데이터
-    const employeeData = [
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      {
-        name: "이승민",
-        position: "FE-2년차",
-        email: "leeseungmin@company.com",
-      },
-      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
-      { name: "조한나", position: "PM", email: "chohanana@company.com" },
-      {
-        name: "김동현",
-        position: "BE-3년차",
-        email: "kimdonghyun@company.com",
-      },
-      {
-        name: "최현수",
-        position: "FE-1년차",
-        email: "choihyeonsu@company.com",
-      },
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      {
-        name: "이승민",
-        position: "FE-2년차",
-        email: "leeseungmin@company.com",
-      },
-      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
-      { name: "조한나", position: "PM", email: "chohanana@company.com" },
-      {
-        name: "김동현",
-        position: "BE-3년차",
-        email: "kimdonghyun@company.com",
-      },
-      {
-        name: "최현수",
-        position: "FE-1년차",
-        email: "choihyeonsu@company.com",
-      },
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      {
-        name: "이승민",
-        position: "FE-2년차",
-        email: "leeseungmin@company.com",
-      },
-      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
-      { name: "조한나", position: "PM", email: "chohanana@company.com" },
-      {
-        name: "김동현",
-        position: "BE-3년차",
-        email: "kimdonghyun@company.com",
-      },
-      {
-        name: "최현수",
-        position: "FE-1년차",
-        email: "choihyeonsu@company.com",
-      },
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      {
-        name: "이승민",
-        position: "FE-2년차",
-        email: "leeseungmin@company.com",
-      },
-      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
-      { name: "조한나", position: "PM", email: "chohanana@company.com" },
-      {
-        name: "김동현",
-        position: "BE-3년차",
-        email: "kimdonghyun@company.com",
-      },
-      { name: "김도연", position: "BE-1년차", email: "kimdoyeon1@company.com" },
-      {
-        name: "이승민",
-        position: "FE-2년차",
-        email: "leeseungmin@company.com",
-      },
-      { name: "박재희", position: "디자이너", email: "parkjaehee@company.com" },
-      { name: "조한나", position: "PM", email: "chohanana@company.com" },
-      {
-        name: "김동현",
-        position: "BE-3년차",
-        email: "kimdonghyun@company.com",
-      },
-      {
-        name: "최현수",
-        position: "FE-1년차",
-        email: "choihyeonsu@company.com",
-      },
-      {
-        name: "최현수",
-        position: "FE-1년차",
-        email: "choihyeonsu@company.com",
-      },
-      { name: "홍지은", position: "기획자", email: "hongjieun@company.com" },
-      { name: "오세훈", position: "PM", email: "ohsehoon@company.com" },
-      { name: "이은지", position: "디자이너", email: "leeunji@company.com" },
-      { name: "송민호", position: "BE-2년차", email: "songminho@company.com" },
-      { name: "윤서진", position: "FE-3년차", email: "yunseojin@company.com" },
-      { name: "김영수", position: "PM", email: "kimyoungsoo@company.com" },
-      { name: "배유진", position: "기획자", email: "baeyujin@company.com" },
-      { name: "김도연", position: "BE-2년차", email: "kimdoyeon1@company.com" },
-      {
-        name: "전수경",
-        position: "디자이너",
-        email: "jeonsookyung@company.com",
-      },
-      {
-        name: "차영준",
-        position: "BE-1년차",
-        email: "chayoungjun@company.com",
-      },
-      { name: "강지민", position: "FE-2년차", email: "kangjimin@company.com" },
-    ];
-    setEmployees(employeeData);
-    setFilteredEmployees(employeeData); // Initialize filtered employees
+    fetchList(0);
   }, []);
 
   // 검색 함수
   const searchingEmployee = () => {
-    const filtered = employees.filter((employee) =>
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredEmployees(filtered);
-    setCurrentPage(1);
+    // const filtered = employees.filter((employee) =>
+    //   employee.name.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
+    // setFilteredEmployees(filtered);
+    // setCurrentPage(0);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -166,34 +59,42 @@ export default function EmployeeList() {
     }
   };
 
-  // 현재 페이지에 해당하는 직원 목록 가져오기
-  const indexOfLastEmployee = currentPage * maxRows;
-  const indexOfFirstEmployee = indexOfLastEmployee - maxRows;
-  const currentEmployees = filteredEmployees.slice(
-    indexOfFirstEmployee,
-    indexOfLastEmployee
-  );
-
-  // 페이지 변경 함수
   const paginate = (pageNumber: number) => {
+    fetchList(pageNumber);
     setCurrentPage(pageNumber);
   };
-
-  // 총 페이지 수
-  const totalPages = Math.ceil(filteredEmployees.length / maxRows);
 
   // 페이지 그룹 범위 상태 추가
   const [pageRange, setPageRange] = useState({ startPage: 1, endPage: 5 });
 
   // 현재 페이지 그룹 (5개씩 페이지 버튼 보이도록 설정)
   useEffect(() => {
-    const pageGroup = Math.ceil(currentPage / 5);
+    let pageGroup = Math.ceil(currentPage / 5);
+    if (currentPage === 0) {
+      pageGroup = 1; // currentPage가 0인 경우 pageGroup을 1로 설정
+    }
     const startPage = (pageGroup - 1) * 5 + 1;
     const endPage = Math.min(startPage + 4, totalPages);
     setPageRange({ startPage, endPage });
   }, [currentPage, totalPages]);
 
   const { startPage, endPage } = pageRange;
+
+  const showNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1);
+      paginate(currentPage + 1);
+      // fetchList(currentPage + 1);
+    }
+  };
+
+  const showPrevPage = () => {
+    if (currentPage > 0) {
+      paginate(currentPage - 1);
+      setCurrentPage(currentPage - 1);
+      // fetchList(currentPage - 1);
+    }
+  };
 
   if (employees.length === 0) {
     return (
@@ -254,7 +155,7 @@ export default function EmployeeList() {
                       }
                     >
                       <td>{employee.name}</td>
-                      <td>{employee.position}</td>
+                      <td>{employee.companyPosition}</td>
                       <td>{employee.email}</td>
                     </tr>
                   ))
@@ -268,9 +169,9 @@ export default function EmployeeList() {
           </div>
           <div className={adminStyle.paginationContainer}>
             <button
-              onClick={() => paginate(currentPage - 1)}
+              onClick={showPrevPage}
               className={adminStyle.arrowButton}
-              disabled={1 === currentPage || currentEmployees.length === 0}
+              disabled={currentPage == 0}
             >
               <img src="../../img/arrow-left.svg" alt="arrow" />
             </button>
@@ -278,18 +179,17 @@ export default function EmployeeList() {
             {/* 페이지 버튼 */}
             {Array.from(
               {
-                length: Math.min(
-                  endPage - startPage + 1,
-                  totalPages - startPage + 1
-                ),
+                length: totalPages,
               },
               (_, i) => startPage + i
             ).map((page) => (
               <button
                 key={page}
-                onClick={() => paginate(page)}
+                onClick={() => paginate(page - 1)}
                 className={
-                  currentPage === page ? adminStyle.activePage : adminStyle.page
+                  currentPage === page - 1
+                    ? adminStyle.activePage
+                    : adminStyle.page
                 }
               >
                 {page}
@@ -297,11 +197,9 @@ export default function EmployeeList() {
             ))}
 
             <button
-              onClick={() => paginate(currentPage + 1)}
-              disabled={
-                totalPages === currentPage || currentEmployees.length === 0
-              }
+              onClick={showNextPage}
               className={adminStyle.arrowButton}
+              disabled={currentPage - 1 == totalPages}
             >
               <img src="../../img/arrow-right.svg" alt="arrow-right" />
             </button>

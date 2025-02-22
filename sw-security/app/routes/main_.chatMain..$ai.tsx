@@ -23,48 +23,48 @@ export default function Chat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
 
-  const fetchMessages = async (newPage: number) => {
-    // console.log("불러짐");
-    if (loading) return;
-    setLoading(true);
-    // try {
-    //   const startIndex = (newPage - 1) * 10;
-    //   const newMessages = mockMessages.slice(startIndex, startIndex + 10);
+  // const fetchMessages = async (newPage: number) => {
+  //   // console.log("불러짐");
+  //   if (loading) return;
+  //   setLoading(true);
+  //   // try {
+  //   //   const startIndex = (newPage - 1) * 10;
+  //   //   const newMessages = mockMessages.slice(startIndex, startIndex + 10);
 
-    //   setMessages((prev) => [...newMessages.reverse(), ...prev]); // 기존 메시지 앞에 추가
-    //   setPage(newPage);
-    // } catch (error) {
-    //   console.error("이전 메시지 불러오기 실패:", error);
-    // } finally {
-    //   setLoading(false);
-    // }
+  //   //   setMessages((prev) => [...newMessages.reverse(), ...prev]); // 기존 메시지 앞에 추가
+  //   //   setPage(newPage);
+  //   // } catch (error) {
+  //   //   console.error("이전 메시지 불러오기 실패:", error);
+  //   // } finally {
+  //   //   setLoading(false);
+  //   // }
 
-    try {
-      const response = await api.get(`주소`, {
-        params: { page: newPage, limit: 10 }, // 10개씩 불러오기
-      });
+  //   try {
+  //     const response = await api.get(`주소`, {
+  //       params: { page: newPage, limit: 10 }, // 10개씩 불러오기
+  //     });
 
-      if (response.status === 200) {
-        const newMessages: Message[] = response.data.messages;
-        setMessages((prev) => [...newMessages.reverse(), ...prev]);
-        setPage(newPage);
-      }
-    } catch (error) {
-      console.error("이전 메시지 불러오기 실패:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (response.status === 200) {
+  //       const newMessages: Message[] = response.data.messages;
+  //       setMessages((prev) => [...newMessages.reverse(), ...prev]);
+  //       setPage(newPage);
+  //     }
+  //   } catch (error) {
+  //     console.error("이전 메시지 불러오기 실패:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
-    if (chatContainerRef.current) {
-      if (chatContainerRef.current.scrollTop === 0) {
-        setIsUserScrolling(true);
-        fetchMessages(page + 1); // 페이지 증가하여 이전 메시지 가져오기
-      }
-    }
-  };
+  // const handleScroll = () => {
+  //   if (chatContainerRef.current) {
+  //     if (chatContainerRef.current.scrollTop === 0) {
+  //       setIsUserScrolling(true);
+  //       fetchMessages(page + 1); // 페이지 증가하여 이전 메시지 가져오기
+  //     }
+  //   }
+  // };
 
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
@@ -81,18 +81,19 @@ export default function Chat() {
         ai === "ChatGPT" ? { content: userInput } : { prompt: userInput };
 
       const response = await axios.post(
-        `http://172.30.1.22:8080/api/gemini/ask`,
+        `http://192.168.189.133:8080/api/gemini/ask`,
         requestBody,
         // { prompt: userInput },
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NiwiZW1haWwiOiJ0aW1lcjk3M0BuYXZlci5jb20iLCJtZW1iZXJTdGF0dXMiOiJHRU5FUkFMIiwiYWNjb3VudExvY2tlZCI6ZmFsc2UsImlhdCI6MTc0MDE5NTIzNSwiZXhwIjoxODI2NTk1MjM1fQ.2WYMh1Ve1e8cPTFqnYj8SqvA0ihqGtpN6U_xKQL4qw0`,
           },
         }
       );
       if (response.status === 200) {
-        alert("성공");
-        const aiMessage: Message = { sender: "AI", text: userInput };
+        // alert("성공");
+        const aiMessage: Message = { sender: "AI", text: response.data };
         setMessages((prev) => [...prev, aiMessage]);
       } else {
         const error = await response.data;
@@ -116,17 +117,17 @@ export default function Chat() {
       handleSendMessage();
     }
   };
-  useEffect(() => {
-    const chatDiv = chatContainerRef.current;
-    if (chatDiv) {
-      chatDiv.addEventListener("scroll", handleScroll);
-    }
-    return () => {
-      if (chatDiv) {
-        chatDiv.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, [page]);
+  // useEffect(() => {
+  //   const chatDiv = chatContainerRef.current;
+  //   if (chatDiv) {
+  //     chatDiv.addEventListener("scroll", handleScroll);
+  //   }
+  //   return () => {
+  //     if (chatDiv) {
+  //       chatDiv.removeEventListener("scroll", handleScroll);
+  //     }
+  //   };
+  // }, [page]);
 
   // 🔹 UI가 업데이트될 때 자동 스크롤
   useEffect(() => {

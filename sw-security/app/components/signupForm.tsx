@@ -4,6 +4,8 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./modal";
 
+import axios from "axios";
+
 export default function SignUpForm() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
@@ -110,7 +112,10 @@ export default function SignUpForm() {
     console.log(transformedData);
     // 비밀번호 확인
     if (formData.password !== checkData.passwordConfirm) {
-      alert("비밀번호가 일치하지 않습니다.");
+      // alert("비밀번호가 일치하지 않습니다.");
+      setModalTitle("비밀번호");
+      setModalText("비밀번호가 일치하지 않습니다.");
+      setIsOpen(true);
       return;
     }
 
@@ -127,11 +132,17 @@ export default function SignUpForm() {
       });
 
       if (response.ok) {
-        alert("회원가입이 완료되었습니다!");
+        // alert("회원가입이 완료되었습니다!");
+        setModalTitle("회원가입");
+        setModalText("회원가입이 완료되었습니다!");
+        setIsOpen(true);
         navigate("/login");
       } else {
         const error = await response.json();
-        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        setModalTitle("회원가입 오류");
+        setModalText(`${error.message}`);
+        setIsOpen(true);
       }
     } catch (error: any) {
       console.error("에러 발생:", error);
@@ -141,11 +152,13 @@ export default function SignUpForm() {
 
   //이메일 전송
   async function sendEmailCode() {
-    setModalTitle("이메일 인증");
-    setModalText("입력하신 이메일로 인증번호를 전송했습니다.");
-    setIsOpen(true);
+    // setModalTitle("이메일 인증");
+    // setModalText("입력하신 이메일로 인증번호를 전송했습니다.");
+    // setIsOpen(true);
     if (!formData.email) {
-      alert("이메일을 먼저 입력해주세요.");
+      setModalTitle("이메일 인증");
+      setModalText("이메일을 먼저 입력해주세요.");
+      setIsOpen(true);
       return;
     }
     try {
@@ -157,9 +170,15 @@ export default function SignUpForm() {
       );
       if (response.ok) {
         // alert("인증번호가 전송되었습니다!");
+        setModalTitle("이메일 인증");
+        setModalText("입력하신 이메일로 인증번호를 전송했습니다.");
+        setIsOpen(true);
       } else {
         const error = await response.json();
-        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        setModalTitle("이메일 인증 오류");
+        setModalText(`${error.message}`);
+        setIsOpen(true);
       }
     } catch (error: any) {
       console.error("인증번호 전송 중 오류 발생:", error);
@@ -169,11 +188,13 @@ export default function SignUpForm() {
 
   //핸드폰번호 전송
   async function sendPhoneCode() {
-    setModalTitle("핸드폰 인증");
-    setModalText("입력하신 핸드폰으로 인증번호를 전송했습니다.");
-    setIsOpen(true);
+    // setModalTitle("핸드폰 인증");
+    // setModalText("입력하신 핸드폰으로 인증번호를 전송했습니다.");
+    // setIsOpen(true);
     if (!formData.phoneNumber) {
-      alert("핸드폰번호를 먼저 입력해주세요.");
+      setModalTitle("핸드폰 인증");
+      setModalText("핸드폰 번호를 먼저 입력해주세요.");
+      setIsOpen(true);
       return;
     }
     try {
@@ -188,10 +209,15 @@ export default function SignUpForm() {
         }),
       });
       if (response.ok) {
-        alert("인증번호가 전송되었습니다!");
+        setModalTitle("핸드폰 인증");
+        setModalText("입력하신 핸드폰으로 인증번호를 전송했습니다.");
+        setIsOpen(true);
       } else {
         const error = await response.json();
-        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        setModalTitle("핸드폰 인증 오류");
+        setModalText(`${error.message}`);
+        setIsOpen(true);
       }
     } catch (error: any) {
       console.error("인증번호 전송 중 오류 발생:", error);
@@ -202,7 +228,10 @@ export default function SignUpForm() {
   //이메일 인증번호 확인
   async function confirmEmailCode() {
     if (!checkData.emailCodeConfirm) {
-      alert("인증번호를 입력해주세요!");
+      // alert("인증번호를 입력해주세요!");
+      setModalTitle("인증번호 확인");
+      setModalText("인증번호를 입력해주세요!");
+      setIsOpen(true);
       return;
     }
     try {
@@ -219,10 +248,16 @@ export default function SignUpForm() {
       );
       if (response.ok) {
         setIsEmailConfirm(true);
-        alert("인증번호 확인이 완료됐습니다.");
+        // alert("인증번호 확인이 완료됐습니다.");
+        setModalTitle("인증번호 확인");
+        setModalText("인증번호 확인이 완료됐습니다.");
+        setIsOpen(true);
       } else {
         const error = await response.json();
-        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        setModalTitle("인증번호 오류");
+        setModalText(`${error.message}`);
+        setIsOpen(true);
       }
     } catch (error: any) {
       alert(error.message);
@@ -232,7 +267,10 @@ export default function SignUpForm() {
   //휴대폰 인증번호 확인
   async function confirmPhoneCode() {
     if (!checkData.phoneCodeConfirm) {
-      alert("인증번호를 입력해주세요!");
+      // alert("인증번호를 입력해주세요!");
+      setModalTitle("인증번호 확인");
+      setModalText("인증번호를 입력해주세요!");
+      setIsOpen(true);
       return;
     }
     try {
@@ -249,10 +287,16 @@ export default function SignUpForm() {
       );
       if (response.ok) {
         setIsPhoneConfirm(true);
-        alert("인증번호 확인이 완료됐습니다.");
+        // alert("인증번호 확인이 완료됐습니다.");
+        setModalTitle("인증번호 확인");
+        setModalText("인증번호 확인이 완료됐습니다.");
+        setIsOpen(true);
       } else {
         const error = await response.json();
-        alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
+        setModalTitle("인증번호 오류");
+        setModalText(`${error.message}`);
+        setIsOpen(true);
       }
     } catch (error: any) {
       console.error("인증번호 확인 중 오류 발생", error);
@@ -572,3 +616,21 @@ export default function SignUpForm() {
     </>
   );
 }
+// const test = async () => {
+//   try {
+//     // 서버로 데이터 전송
+//     const response = await axios.get("http://192.168.201.133:8080/api/hello");
+
+//     if (response.status === 200) {
+//       alert(response.data);
+//     } else {
+//     }
+//   } catch (error: any) {
+//     console.error("에러 발생:", error);
+//     alert(error.message);
+//   }
+// };
+
+// export default function Test() {
+//   return <button onClick={test}>제에에ㅔ에에ㅔ발발</button>;
+// }
