@@ -114,9 +114,10 @@
   padding: 4.4rem 0;
   box-sizing: border-box;
 }
-.chatHistoryConatainer {
-  flex-grow: 1; /* 중간 컨테이너가 남은 공간을 차지하도록 설정 */
-  overflow-y: auto; /* 내용이 많으면 스크롤 가능하도록 */
+.chatHistoryContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .topDiv {
@@ -147,6 +148,7 @@
   justify-content: center;
   border-radius: 0.67rem;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 .newChatDiv:hover {
   background-color: #333436;
@@ -167,7 +169,50 @@
   margin-left: 0.8rem;
   font-weight: 700;
 }
+.chatSelectGrid {
+  margin-top: 2rem;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem; /* Grid 항목 사이의 간격 설정 */
+}
+.child {
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: column;
+}
+.dateDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  border-top-left-radius: 0.67rem;
+  border-top-right-radius: 0.67rem;
+  background-color: #1b1c1e;
+  padding: 0 1rem;
+}
+.dateDiv span {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.contentDiv {
+  flex: 4;
+  border-bottom-left-radius: 0.67rem;
+  border-bottom-right-radius: 0.67rem;
+  background-color: #ffffff;
+  border: 1px #ececf2 solid;
+  padding: 1rem;
+}
 
+.trashIcon {
+  cursor: pointer;
+}
+.trashIcon:hover {
+  transform: scale(1.1);
+}
 /*Chat페이지*/
 .aiContainer {
   /* background-color: blue; */

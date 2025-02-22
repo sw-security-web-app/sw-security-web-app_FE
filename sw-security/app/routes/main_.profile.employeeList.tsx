@@ -46,11 +46,11 @@ export default function EmployeeList() {
 
   // 검색 함수
   const searchingEmployee = () => {
-    // const filtered = employees.filter((employee) =>
-    //   employee.name.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
-    // setFilteredEmployees(filtered);
-    // setCurrentPage(0);
+    const filtered = employees.filter((employee) =>
+      employee.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredEmployees(filtered);
+    setCurrentPage(0);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {

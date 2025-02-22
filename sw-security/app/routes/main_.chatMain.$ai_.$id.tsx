@@ -2,11 +2,10 @@ import { useParams, useSearchParams } from "@remix-run/react";
 import api from "../api/api";
 import { useEffect, useRef, useState } from "react";
 import chatMainStyle from "../css/chatMain.module.css";
-import logoStyle from "../css/logo.module.css";
 import ChatBtn from "~/components/chatBtn";
 import { AiOutlineLoading } from "react-icons/ai";
-import axios from "axios";
-import { mockMessages } from "../mockMessages";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 interface Message {
   sender: "USER" | "AI";
@@ -15,6 +14,8 @@ interface Message {
 
 export default function Chat() {
   const { ai } = useParams();
+  const { id } = useParams();
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -78,23 +79,28 @@ export default function Chat() {
     setPendingMessage({ sender: "AI", text: "" });
     try {
       const requestBody =
-        ai === "ChatGPT" ? { content: userInput } : { prompt: userInput };
+        ai === "ChatGPT"
+          ? { chatRoomId: id, content: userInput }
+          : { chatRoomId: id, prompt: userInput };
 
-      const response = await axios.post(
-        `http://192.168.189.133:8080/api/gemini/ask`,
-        requestBody,
+      const response = await api.post(
+        `/api/gemini/ask`,
+        requestBody
         // { prompt: userInput },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6NiwiZW1haWwiOiJ0aW1lcjk3M0BuYXZlci5jb20iLCJtZW1iZXJTdGF0dXMiOiJHRU5FUkFMIiwiYWNjb3VudExvY2tlZCI6ZmFsc2UsImlhdCI6MTc0MDE5NTIzNSwiZXhwIjoxODI2NTk1MjM1fQ.2WYMh1Ve1e8cPTFqnYj8SqvA0ihqGtpN6U_xKQL4qw0`,
-          },
-        }
       );
       if (response.status === 200) {
-        // alert("성공");
-        const aiMessage: Message = { sender: "AI", text: response.data };
-        setMessages((prev) => [...prev, aiMessage]);
+        if (typeof response.data.prompt === "string") {
+          // response.data.prompt가 문자열인지 확인
+          const result = await marked(response.data.prompt); // await 키워드 사용
+          const sanitizedHtml = DOMPurify.sanitize(result);
+          const aiMessage: Message = { sender: "AI", text: sanitizedHtml };
+          setMessages((prev) => [...prev, aiMessage]);
+        } else {
+          const aiMessage: Message = {
+            sender: "AI",
+            text: response.data.prompt,
+          };
+        }
       } else {
         const error = await response.data;
         alert(error.message);
@@ -146,10 +152,7 @@ export default function Chat() {
           <div key={index} className={chatMainStyle.messageDiv}>
             {msg.sender === "AI" && (
               <div className={chatMainStyle.onlyAI}>
-                <img
-                  src={`../../img/${ai}.svg`}
-                  className={chatMainStyle.img}
-                />
+                <img src={`/img/${ai}.svg`} className={chatMainStyle.img} />
                 <span
                   style={{
                     fontSize: "20px",
@@ -166,15 +169,16 @@ export default function Chat() {
               className={`${chatMainStyle.message} ${
                 msg.sender === "USER" ? chatMainStyle.user : chatMainStyle.ai
               }`}
+              dangerouslySetInnerHTML={{ __html: msg.text }}
             >
-              {msg.text}
+              {/* {msg.text} */}
             </div>
           </div>
         ))}
         {pendingMessage && (
           <div className={chatMainStyle.messageDiv}>
             <div className={chatMainStyle.onlyAI}>
-              <img src={`../../img/${ai}.svg`} className={chatMainStyle.img} />
+              <img src={`/img/${ai}.svg`} className={chatMainStyle.img} />
               <span
                 style={{
                   fontSize: "20px",

@@ -14,7 +14,7 @@ export default function ChatBtn({ onClick, loading }: Props) {
       onClick={onClick}
       disabled={loading}
     >
-      <img src="../../img/chatSubmit.svg" alt="chatSubmit" />
+      <img src="/img/chatSubmit.svg" alt="chatSubmit" />
     </button>
   );
 }
