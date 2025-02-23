@@ -39,7 +39,7 @@ export default function Join() {
                 <span className={joinStyle.addTag}>14세 이상 개인 사용자</span>
               </div>
               <div className={joinStyle.imgContainer}>
-                <img src="../../img/individual.svg" className={joinStyle.img} />
+                <img src="/img/individual.svg" className={joinStyle.img} />
               </div>
             </Link>
             <Link to="/adminSignUp" className={joinStyle.select}>
@@ -48,7 +48,7 @@ export default function Join() {
                 <span className={joinStyle.addTag}>직원 관리 기능 제공</span>
               </div>
               <div className={joinStyle.imgContainer}>
-                <img src="../img/admin.svg" className={joinStyle.img} />
+                <img src="/img/admin.svg" className={joinStyle.img} />
               </div>
             </Link>
             <Link to="/employeeSignUp" className={joinStyle.select}>
@@ -57,7 +57,7 @@ export default function Join() {
                 <span className={joinStyle.addTag}>기업에 소속된 사용자</span>
               </div>
               <div className={joinStyle.imgContainer}>
-                <img src="../img/employee.svg" className={joinStyle.img} />
+                <img src="/img/employee.svg" className={joinStyle.img} />
               </div>
             </Link>
           </div>

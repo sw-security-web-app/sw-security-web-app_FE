@@ -1,0 +1,129 @@
+.container {
+  width: 60rem;
+  height: 27rem;
+  /* height: 400px; */
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.selectContainer {
+  display: flex;
+  flex-direction: row;
+  height: 4rem;
+  width: 100%;
+  margin-bottom: 80px;
+}
+.label {
+  text-align: left;
+  /* background-color: blue; */
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.73rem;
+  margin-bottom: 0.56rem;
+}
+.findId,
+.findPw {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.default {
+  background-color: #1b1c1e;
+  color: #484b50;
+  border: 1px solid #484b50;
+}
+.active {
+  border-top: 2px #cb62ff solid;
+  background-color: #0d0d0d;
+  color: #ffffff;
+}
+.findIdForm,
+.findPwForm {
+  width: 32.2rem;
+}
+.nameDiv,
+.phoneNumberDiv,
+.emailDiv,
+.phoneAuthDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.phoneNumberDiv div,
+.phoneAuthDiv div {
+  display: flex;
+  flex-direction: row;
+}
+.nameDiv input,
+.phoneNumberDiv input {
+  width: 100%;
+}
+
+.idBtn {
+  background-color: #cb62ff;
+  font-size: 0.89rem;
+  color: #0d0d0d;
+  border: none;
+  border-radius: 0.67rem;
+  width: 32.2rem;
+  /* height: 5vh; */
+  height: 2.5rem;
+  /* margin-top: 3vh; */
+  margin-top: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.idBtn:hover {
+  background-color: #d378ff;
+}
+
+.idBtn:active {
+  background-color: #b14ce3;
+}
+.inputContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.btn {
+  border-radius: 0.67rem;
+  /* padding: 1vh 1vw; */
+  padding: 0.56rem 1rem;
+  margin-left: 0.5vw;
+  white-space: nowrap;
+  background-color: #5e6269;
+  border: none;
+  color: #ffffff;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  width: 8.3rem;
+  height: 2.33rem;
+}
+
+.btn:hover {
+  background-color: #70757d;
+}
+
+.btn:active {
+  background-color: #4c5056;
+  transform: scale(0.95);
+}
+.btn:disabled {
+  cursor: default;
+}
+
+.btn:disabled:hover {
+  background-color: #5e6269;
+}
+.btn:disabled:active {
+  transform: none;
+}
