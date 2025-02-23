@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import findIdStyle from "../css/findid.module.css";
-import { useOutletContext } from "@remix-run/react";
+import { useNavigate, useOutletContext } from "@remix-run/react";
 
 export default function findId() {
+  const navigate = useNavigate();
   const [onId, setOnId] = useState(true);
   const [onPw, setOnPw] = useState(false);
   const [isPhoneConfirm, setIsPhoneConfirm] = useState(false);
@@ -17,8 +18,12 @@ export default function findId() {
     setModalTitle: (title: string) => void;
   }>();
 
-  const [formData, setFormData] = useState({
+  const [idFormData, setIdFormData] = useState({
     name: "",
+    phoneNumber: "",
+  });
+
+  const [pwFormData, setPwFormData] = useState({
     email: "",
     phoneNumber: "",
   });
@@ -36,20 +41,30 @@ export default function findId() {
       [name]: value,
     }));
   };
-  const handleChange = (
+
+  const handleIdChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    // console.log(name, value); // 콘솔 로그 추가하여 값 확인
-    setFormData((prevData) => ({
+    setIdFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  //핸드폰번호 전송
+  const handlePwChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setPwFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  //비밀번호 재발급-핸드폰번호 전송
   async function sendPhoneCode() {
-    if (!formData.phoneNumber) {
+    if (!pwFormData.phoneNumber) {
       setModalTitle("핸드폰 인증");
       setModalText("핸드폰 번호를 먼저 입력해주세요.");
       setIsOpen(true);
@@ -62,13 +77,13 @@ export default function findId() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          phoneNumber: formData.phoneNumber,
+          phoneNumber: pwFormData.phoneNumber,
           certificationCode: null,
         }),
       });
       if (response.ok) {
         setModalTitle("핸드폰 인증");
-        setModalText("입력하신 핸드폰으로 인증번호를 전송했습니다.");
+        setModalText("인증번호를 전송했습니다!");
         setIsOpen(true);
       } else {
         const error = await response.json();
@@ -80,10 +95,11 @@ export default function findId() {
       console.error("인증번호 전송 중 오류 발생:", error);
       alert(error.message);
     }
-  } //휴대폰 인증번호 확인
+  }
+
+  //비밀번호 재발급-휴대폰 인증번호 확인
   async function confirmPhoneCode() {
     if (!checkData.phoneCodeConfirm) {
-      // alert("인증번호를 입력해주세요!");
       setModalTitle("인증번호 확인");
       setModalText("인증번호를 입력해주세요!");
       setIsOpen(true);
@@ -96,20 +112,18 @@ export default function findId() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            phoneNumber: formData.phoneNumber,
+            phoneNumber: pwFormData.phoneNumber,
             certificationCode: checkData.phoneCodeConfirm,
           }),
         }
       );
       if (response.ok) {
         setIsPhoneConfirm(true);
-        // alert("인증번호 확인이 완료됐습니다.");
         setModalTitle("인증번호 확인");
         setModalText("인증번호 확인이 완료됐습니다.");
         setIsOpen(true);
       } else {
         const error = await response.json();
-        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
         setModalTitle("인증번호 오류");
         setModalText(`${error.message}`);
         setIsOpen(true);
@@ -119,6 +133,68 @@ export default function findId() {
       alert(error.message);
     }
   }
+
+  //아이디찾기 form 제출
+  const findId = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(BASE_URL + "/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...idFormData,
+        }),
+      });
+
+      if (response.ok) {
+        setModalTitle("아이디 찾기");
+        setModalText("아이디가 전송되었습니다!");
+        setIsOpen(true);
+        navigate("/login");
+      } else {
+        const error = await response.json();
+        setModalTitle("아이디 찾기 오류");
+        setModalText(`${error.message}`);
+        setIsOpen(true);
+      }
+    } catch (error: any) {
+      console.error("에러 발생:", error);
+      alert(error.message);
+    }
+  };
+
+  //비밀번호찾기 form 제출
+  const findPw = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(BASE_URL + "/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...pwFormData,
+        }),
+      });
+
+      if (response.ok) {
+        setModalTitle("임시 비밀번호 재발급");
+        setModalText("임시 비밀번호가 전송되었습니다!");
+        setIsOpen(true);
+        navigate("/login");
+      } else {
+        const error = await response.json();
+        setModalTitle("임시 비밀번호 재발급 오류");
+        setModalText(`${error.message}`);
+        setIsOpen(true);
+      }
+    } catch (error: any) {
+      console.error("에러 발생:", error);
+      alert(error.message);
+    }
+  };
   return (
     <div className={findIdStyle.container}>
       <div className={findIdStyle.selectContainer}>
@@ -142,11 +218,11 @@ export default function findId() {
             setOnId(false);
           }}
         >
-          <span>비밀번호 재설정</span>
+          <span>임시 비밀번호 발급</span>
         </div>
       </div>
       {onId ? (
-        <form className={findIdStyle.findIdForm}>
+        <form onSubmit={findId} className={findIdStyle.findIdForm}>
           <div className={findIdStyle.nameDiv}>
             <label htmlFor="name" className={findIdStyle.label}>
               이름<span style={{ color: "red", marginLeft: "5px" }}>*</span>
@@ -155,9 +231,9 @@ export default function findId() {
               id="name"
               type="text"
               name="name"
-              value={formData.name}
+              value={idFormData.name}
               placeholder="이름을 입력해주세요"
-              onChange={handleChange}
+              onChange={handleIdChange}
               required
             />
           </div>
@@ -170,10 +246,10 @@ export default function findId() {
               id="phoneNumber"
               type="tel"
               name="phoneNumber"
-              value={formData.phoneNumber}
+              value={idFormData.phoneNumber}
               pattern="010[0-9]{8}"
               placeholder="숫자만 입력해주세요"
-              onChange={handleChange}
+              onChange={handleIdChange}
               required
             />
           </div>
@@ -182,7 +258,7 @@ export default function findId() {
           </button>
         </form>
       ) : (
-        <form className={findIdStyle.findPwForm}>
+        <form onSubmit={findPw} className={findIdStyle.findPwForm}>
           <div className={findIdStyle.phoneNumberDiv}>
             <label htmlFor="phoneNumber">
               핸드폰 번호
@@ -194,10 +270,10 @@ export default function findId() {
                   id="phoneNumber"
                   type="tel"
                   name="phoneNumber"
-                  value={formData.phoneNumber}
+                  value={pwFormData.phoneNumber}
                   pattern="010[0-9]{8}"
                   placeholder="숫자만 입력해주세요"
-                  onChange={handleChange}
+                  onChange={handlePwChange}
                   required
                 />
               </div>
@@ -264,15 +340,15 @@ export default function findId() {
                   id="email"
                   placeholder="이메일을 입력해주세요"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={pwFormData.email}
+                  onChange={handlePwChange}
                   required
                 />
               </div>
             </div>
           </div>
-          <button className={findIdStyle.idBtn} type="submit">
-            확인
+          <button className={findIdStyle.pwBtn} type="submit">
+            임시 비밀번호 전송
           </button>
         </form>
       )}

@@ -65,7 +65,8 @@
   width: 100%;
 }
 
-.idBtn {
+.idBtn,
+.pwBtn {
   background-color: #cb62ff;
   font-size: 0.89rem;
   color: #0d0d0d;
