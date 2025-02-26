@@ -2,9 +2,6 @@ import { useLocation, useOutletContext } from "@remix-run/react";
 import signupStyle from "../css/signup.module.css";
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "./modal";
-
-import axios from "axios";
 
 export default function SignUpForm() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -387,7 +384,7 @@ export default function SignUpForm() {
                     <span style={{ color: "#00FF80", fontSize: "0.78rem" }}>
                       인증 완료
                     </span>
-                    <img src="../../img/confirmCheck.svg" alt="confirmCheck" />
+                    <img src="/img/confirmCheck.svg" alt="confirmCheck" />
                   </div>
                 )}
               </button>
@@ -420,7 +417,7 @@ export default function SignUpForm() {
               </button>
             </div>
           </div>
-          <div className={signupStyle.emailAuthDiv}>
+          <div className={signupStyle.phoneAuthDiv}>
             <label htmlFor="phoneAuth">
               핸드폰 인증번호
               <span style={{ color: "red", marginLeft: "5px" }}>*</span>
@@ -457,7 +454,7 @@ export default function SignUpForm() {
                     <span style={{ color: "#00FF80", fontSize: "0.78rem" }}>
                       인증 완료
                     </span>
-                    <img src="../../img/confirmCheck.svg" alt="confirmCheck" />
+                    <img src="/img/confirmCheck.svg" alt="confirmCheck" />
                   </div>
                 )}
               </button>
