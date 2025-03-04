@@ -136,6 +136,15 @@ const distribution = new aws.cloudfront.Distribution("distribution", {
   },
   orderedCacheBehaviors: [
     {
+      pathPattern: "/favicon.ico",
+      allowedMethods: ["GET", "HEAD"],
+      cachedMethods: ["GET", "HEAD"],
+      compress: true,
+      cachePolicyId: cachingOptimizedPolicyId,
+      targetOriginId: "S3Origin",
+      viewerProtocolPolicy: "redirect-to-https",
+    },
+    {
       pathPattern: "/img/*",
       allowedMethods: ["GET", "HEAD"],
       cachedMethods: ["GET", "HEAD"],
@@ -146,6 +155,15 @@ const distribution = new aws.cloudfront.Distribution("distribution", {
     },
     {
       pathPattern: "/assets/*",
+      allowedMethods: ["GET", "HEAD"],
+      cachedMethods: ["GET", "HEAD"],
+      compress: true,
+      cachePolicyId: cachingOptimizedPolicyId,
+      targetOriginId: "S3Origin",
+      viewerProtocolPolicy: "redirect-to-https",
+    },
+    {
+      pathPattern: "/VERO_OG.png",
       allowedMethods: ["GET", "HEAD"],
       cachedMethods: ["GET", "HEAD"],
       compress: true,

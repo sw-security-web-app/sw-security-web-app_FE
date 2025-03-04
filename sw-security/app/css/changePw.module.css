@@ -1,0 +1,87 @@
+.inner {
+  display: flex;
+  align-items: center;
+}
+.changeContainer {
+  /* background-color: red; */
+  width: 32.2rem;
+  margin-bottom: 5.56rem;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  /* background-color: blue; */
+  /* margin-bottom: 2.22rem; */
+}
+.titleContainer {
+  /* margin: 1.5vh 0; */
+  margin: 0.8rem 0;
+  text-align: center;
+}
+.title {
+  font-size: 1.67rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+.label {
+  text-align: left;
+  /* background-color: blue; */
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.73rem;
+  margin-bottom: 0.56rem;
+}
+.changeForm {
+  width: 32.2rem;
+}
+
+.emailDiv,
+.prevPwDiv,
+.newPwDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.inputContainer input {
+  border-radius: 0.67rem;
+  /* height: 4.5vh; */
+  height: 2.33rem;
+  /* width: 100%; */
+  box-sizing: border-box;
+  flex-grow: 1;
+  border: none;
+  background-color: #2a2c2f;
+  caret-color: #ffffff;
+  /* padding-left: 0.8vw; */
+  padding-left: 0.89rem;
+  color: #ffffff;
+  width: 100%;
+}
+.inputContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.btn {
+  background-color: #cb62ff;
+  font-size: 0.89rem;
+  color: #0d0d0d;
+  border: none;
+  border-radius: 0.67rem;
+  width: 32.2rem;
+  /* height: 5vh; */
+  height: 2.5rem;
+  /* margin-top: 3vh; */
+  margin-top: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.btn:hover {
+  background-color: #d378ff;
+}
+
+.btn:active {
+  background-color: #b14ce3;
+}
