@@ -5,7 +5,8 @@
     "**/.server/**/*.ts",
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
-    "**/.client/**/*.tsx"
+    "**/.client/**/*.tsx",
+    "server.js"
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
@@ -14,7 +15,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "target": "ES2022",
     "strict": true,

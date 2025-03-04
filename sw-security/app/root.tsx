@@ -36,8 +36,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
       style={{ margin: 0, padding: 0, height: "100%", fontSize: "18px" }}
     >
       <head>
+        <link rel="icon" type="image/ico" href="/favicon.ico" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="VERO" />
+        <meta
+          property="og:url"
+          content="https://d1ujq2bm8j3hx9.cloudfront.net/"
+        />
+        <meta
+          property="og:description"
+          content="VERO를 통해 안전한 대화를 시작하세요."
+        />
+        <meta property="og:image" content="/VERO_OG.png" />
 
         <Meta />
         <Links />
@@ -59,6 +70,5 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  useLocalStorage(); // 여기서 한 번만 호출
   return <Outlet />;
 }

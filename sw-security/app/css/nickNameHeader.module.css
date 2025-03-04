@@ -33,3 +33,52 @@
   /* margin-right: 0.8vw; */
   margin-right: 0.83rem;
 }
+
+.profileContainer {
+  position: relative;
+}
+
+.modal {
+  position: absolute;
+  padding-top: 1rem;
+  top: 100%;
+  right: 0;
+  width: 10rem;
+  /* border-radius: 50px; */
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profileContainer:hover .modal {
+  display: block;
+}
+
+.modalContent {
+  padding: 15px 10px;
+  color: #fff;
+  background-color: #484b50;
+  border-top-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
+
+.modal ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal li {
+  padding: 12px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.modal li:hover {
+  background-color: #5c6369;
+  border-radius: 12px;
+}
+
+ul {
+  margin: 0;
+}
