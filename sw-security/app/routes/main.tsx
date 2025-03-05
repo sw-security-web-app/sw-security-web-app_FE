@@ -12,7 +12,7 @@ export default function MainLayout() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-  useAuthRedirect();
+  // useAuthRedirect();
 
   return (
     <>
