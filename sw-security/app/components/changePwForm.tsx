@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import changePwStyle from "../css/changePw.module.css";
 import { useOutletContext } from "@remix-run/react";
+import api from "~/api/api";
 export default function ChangePwForm() {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { setIsOpen } = useOutletContext<{
@@ -12,16 +13,28 @@ export default function ChangePwForm() {
   const { setModalTitle } = useOutletContext<{
     setModalTitle: (title: string) => void;
   }>();
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
-    prevPassword: "",
+    password: "",
     newPassword: "",
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  //비밀번호 유효성 검사
+  const validPassword = (e: ChangeEvent<HTMLInputElement>) => {
+    handleChange(e);
+    const password = e.target.value;
+    // 비밀번호 조건 체크 (숫자, 영어, 특수문자, 8자 이상)
+    const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(
+      password
+    );
+    setPasswordValid(isValid);
+    setIsTouched(true); // 비밀번호 입력 시작 시 상태 변경
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -30,24 +43,21 @@ export default function ChangePwForm() {
   };
 
   const changePw = async (e: FormEvent<HTMLFormElement>) => {
+    console.log(formData);
     e.preventDefault();
     try {
-      const response = await fetch(BASE_URL + "비밀번호 변경", {
-        method: "POST",
+      const response = await api.put("/api/auth/change-password", formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-        }),
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         setModalTitle("비밀번호 변경");
         setModalText("비밀번호가 변경됐습니다!");
         setIsOpen(true);
       } else {
-        const error = await response.json();
+        const error = await response.data;
         setModalTitle("비밀번호 변경 오류");
         setModalText(`${error.message}`);
         setIsOpen(true);
@@ -66,7 +76,8 @@ export default function ChangePwForm() {
         <form onSubmit={changePw} className={changePwStyle.changeForm}>
           <div className={changePwStyle.emailDiv}>
             <label htmlFor="email" className={changePwStyle.label}>
-              이메일<span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              이메일
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={changePwStyle.inputContainer}>
@@ -83,18 +94,18 @@ export default function ChangePwForm() {
             </div>
           </div>
           <div className={changePwStyle.prevPwDiv}>
-            <label htmlFor="prevPassword" className={changePwStyle.label}>
+            <label htmlFor="password" className={changePwStyle.label}>
               기존 비밀번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={changePwStyle.inputContainer}>
                 <input
                   type="password"
-                  id="prevPassword"
+                  id="password"
                   placeholder="기존 비밀번호를 입력해주세요"
-                  name="prevPassword"
-                  value={formData.prevPassword}
+                  name="password"
+                  value={formData.password}
                   onChange={handleChange}
                   required
                 />
@@ -104,7 +115,7 @@ export default function ChangePwForm() {
           <div className={changePwStyle.newPwDiv}>
             <label htmlFor="newPassword" className={changePwStyle.label}>
               새 비밀번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={changePwStyle.inputContainer}>
@@ -114,10 +125,23 @@ export default function ChangePwForm() {
                   placeholder="새 비밀번호를 입력해주세요"
                   name="newPassword"
                   value={formData.newPassword}
-                  onChange={handleChange}
+                  onChange={validPassword}
                   required
                 />
               </div>
+            </div>
+            <div>
+              {isTouched &&
+                (passwordValid ? (
+                  <span style={{ color: "green", fontSize: "0.67rem" }}>
+                    사용 가능한 비밀번호입니다.
+                  </span>
+                ) : (
+                  <span style={{ color: "red", fontSize: "0.67rem" }}>
+                    비밀번호는 숫자, 영어, 특수문자를 포함하여 8자 이상이어야
+                    합니다.
+                  </span>
+                ))}
             </div>
           </div>
           <button className={changePwStyle.btn} type="submit">

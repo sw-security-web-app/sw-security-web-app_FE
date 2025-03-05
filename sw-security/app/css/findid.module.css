@@ -13,7 +13,7 @@
   flex-direction: row;
   height: 4rem;
   width: 100%;
-  margin-bottom: 80px;
+  margin-bottom: 4.4rem;
 }
 .label {
   text-align: left;
@@ -36,10 +36,10 @@
 .default {
   background-color: #1b1c1e;
   color: #484b50;
-  border: 1px solid #484b50;
+  border: 0.1rem solid #484b50;
 }
 .active {
-  border-top: 2px #cb62ff solid;
+  border-top: 0.12rem #cb62ff solid;
   background-color: #0d0d0d;
   color: #ffffff;
 }

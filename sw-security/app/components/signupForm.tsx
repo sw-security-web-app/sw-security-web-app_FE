@@ -310,7 +310,7 @@ export default function SignUpForm() {
         <form onSubmit={handleSubmit} className={signupStyle.form}>
           <div className={signupStyle.nameDiv}>
             <label htmlFor="name">
-              이름<span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              이름<span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <input
               id="name"
@@ -324,7 +324,7 @@ export default function SignUpForm() {
           </div>
           <div className={signupStyle.emailDiv}>
             <label htmlFor="email">
-              이메일<span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              이메일<span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={signupStyle.inputContainer}>
@@ -350,7 +350,7 @@ export default function SignUpForm() {
           <div className={signupStyle.emailAuthDiv}>
             <label htmlFor="emailAuth">
               이메일 인증번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={signupStyle.inputContainer}>
@@ -393,7 +393,7 @@ export default function SignUpForm() {
           <div className={signupStyle.phoneNumberDiv}>
             <label htmlFor="phoneNumber">
               핸드폰 번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={signupStyle.inputContainer}>
@@ -420,7 +420,7 @@ export default function SignUpForm() {
           <div className={signupStyle.phoneAuthDiv}>
             <label htmlFor="phoneAuth">
               핸드폰 인증번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={signupStyle.inputContainer}>
@@ -462,7 +462,7 @@ export default function SignUpForm() {
           </div>
           <div className={signupStyle.passwordDiv}>
             <label htmlFor="password">
-              비밀번호<span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              비밀번호<span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <input
               id="password"
@@ -477,11 +477,11 @@ export default function SignUpForm() {
             <div>
               {isTouched &&
                 (passwordValid ? (
-                  <span style={{ color: "green", fontSize: "12px" }}>
+                  <span style={{ color: "green", fontSize: "0.67rem" }}>
                     사용 가능한 비밀번호입니다.
                   </span>
                 ) : (
-                  <span style={{ color: "red", fontSize: "12px" }}>
+                  <span style={{ color: "red", fontSize: "0.67rem" }}>
                     비밀번호는 숫자, 영어, 특수문자를 포함하여 8자 이상이어야
                     합니다.
                   </span>
@@ -491,7 +491,7 @@ export default function SignUpForm() {
           <div className={signupStyle.passwordConfirmDiv}>
             <label htmlFor="passwordConfirm">
               비밀번호 확인
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <input
               id="passwordConfirm"
@@ -509,7 +509,7 @@ export default function SignUpForm() {
               <div className={signupStyle.companyDiv}>
                 <label htmlFor="companyName">
                   회사명 입력
-                  <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+                  <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
                 </label>
                 <input
                   id="companyName"
@@ -525,7 +525,7 @@ export default function SignUpForm() {
                 <div className={signupStyle.departmentDiv}>
                   <label htmlFor="departmentName">
                     부서명 입력
-                    <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+                    <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
                   </label>
                   <input
                     id="departmentName"
@@ -540,7 +540,7 @@ export default function SignUpForm() {
                 <div className={signupStyle.positionDiv}>
                   <label htmlFor="position">
                     직책 선택
-                    <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+                    <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
                   </label>
                   <select
                     id="position"
@@ -550,10 +550,19 @@ export default function SignUpForm() {
                     required
                   >
                     <option value="">직책을 선택하세요</option>
-                    <option value="manager">매니저</option>
-                    <option value="developer">개발자</option>
-                    <option value="designer">디자이너</option>
-                    <option value="intern">인턴</option>
+                    <option value="CEO">사장</option>
+                    <option value="VICE_PRESIDENT">부사장</option>
+                    <option value="EXECUTIVE_DIRECTOR">전무</option>
+                    <option value="MANAGING_DIRECTOR">상무</option>
+                    <option value="DIRECTOR">이사</option>
+                    <option value="GENERAL_MANAGER">부장</option>
+                    <option value="DEPUTY_GENERAL_MANAGER">차장</option>
+                    <option value="MANAGER">과장</option>
+                    <option value="ASSISTANT_MANAGER">대리</option>
+                    <option value="SENIOR_STAFF">주임</option>
+                    <option value="STAFF">사원</option>
+                    <option value="INTERN">인턴</option>
+                    <option value="OTHER">기타</option>
                   </select>
                 </div>
               </div>
@@ -588,10 +597,19 @@ export default function SignUpForm() {
                   required
                 >
                   <option value="">직책을 선택하세요</option>
-                  <option value="manager">매니저</option>
-                  <option value="developer">개발자</option>
-                  <option value="designer">디자이너</option>
-                  <option value="intern">인턴</option>
+                  <option value="CEO">사장</option>
+                  <option value="VICE_PRESIDENT">부사장</option>
+                  <option value="EXECUTIVE_DIRECTOR">전무</option>
+                  <option value="MANAGING_DIRECTOR">상무</option>
+                  <option value="DIRECTOR">이사</option>
+                  <option value="GENERAL_MANAGER">부장</option>
+                  <option value="DEPUTY_GENERAL_MANAGER">차장</option>
+                  <option value="MANAGER">과장</option>
+                  <option value="ASSISTANT_MANAGER">대리</option>
+                  <option value="SENIOR_STAFF">주임</option>
+                  <option value="STAFF">사원</option>
+                  <option value="INTERN">인턴</option>
+                  <option value="OTHER">기타</option>
                 </select>
               </div>
             </div>

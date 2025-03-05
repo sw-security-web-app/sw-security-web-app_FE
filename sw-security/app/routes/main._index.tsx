@@ -1,10 +1,20 @@
-import { Link } from "@remix-run/react";
+import { Link, useNavigate, useOutletContext } from "@remix-run/react";
 import mainStyle from "../css/main.module.css";
 import defaultStyle from "../css/default.module.css";
 import NickNameHeader from "~/components/nickNameHeader";
 import AISelect from "~/components/aiSelect";
+import { useEffect } from "react";
 
 export default function Join() {
+  const navigate = useNavigate();
+  const isLogin = useOutletContext;
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+      return;
+    }
+  }, [isLogin, navigate]);
   return (
     <div className={defaultStyle.inner}>
       <div className={mainStyle.textContainer}>

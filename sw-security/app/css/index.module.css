@@ -103,8 +103,8 @@
   color: white;
   font-weight: bold;
   letter-spacing: 0.3rem;
-  text-shadow: 0 0 10px #cb62ff, 0 0 20px #cb62ff, 0 0 40px #cb62ff,
-    0 0 80px #cb62ff;
+  text-shadow: 0 0 0.6rem #cb62ff, 0 0 1.1rem #cb62ff, 0 0 2.2rem #cb62ff,
+    0 0 4.4rem #cb62ff;
 }
 .introContainer {
   margin-top: 0.56rem;
@@ -187,8 +187,8 @@
 .dot {
   /* width: 0.7vw; */
   /* height: 0.7vw; */
-  width: 11px;
-  height: 11px;
+  width: 0.6rem;
+  height: 0.6rem;
   background-color: rgba(202.67, 98, 255, 0.45);
   border-radius: 50%;
 }

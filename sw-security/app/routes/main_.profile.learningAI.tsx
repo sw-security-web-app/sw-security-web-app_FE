@@ -21,7 +21,9 @@ export default function LearningAI() {
     e.preventDefault();
     const formData = new FormData();
     if (text) {
-      formData.append("text", text);
+      const jsonData = JSON.stringify(text);
+      const blob = new Blob([jsonData], { type: "application/json" });
+      formData.append("requestDto", blob);
     }
     if (fileName) {
       const fileInput = document.getElementById(
@@ -33,7 +35,7 @@ export default function LearningAI() {
       }
     }
     try {
-      const response = await api.post("엔드포인트", formData, {
+      const response = await api.post("api/company-send", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -73,8 +75,8 @@ export default function LearningAI() {
                   color: "#484B50",
                   fontSize: "2rem",
                   fontWeight: "bold",
-                  marginTop: "15px",
-                  marginBottom: "20px",
+                  marginTop: "0.83rem",
+                  marginBottom: "1.1rem",
                 }}
               >
                 OR

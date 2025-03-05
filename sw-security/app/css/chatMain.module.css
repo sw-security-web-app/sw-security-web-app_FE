@@ -64,7 +64,7 @@
 .bottomItemContainer button {
   padding: 0;
   width: 70%;
-  height: 40px;
+  height: 2.2rem;
   border-radius: 0;
   background-color: transparent;
   border: none;
@@ -203,7 +203,7 @@
   border-bottom-left-radius: 0.67rem;
   border-bottom-right-radius: 0.67rem;
   background-color: #ffffff;
-  border: 1px #ececf2 solid;
+  border: 0.1rem #ececf2 solid;
   padding: 1rem;
 }
 
@@ -217,18 +217,21 @@
 .aiContainer {
   /* background-color: blue; */
   height: 100%;
-  width: 87%;
+  /* width: 87%; */
+  width: 100%;
   padding: 4.4rem 0 2.2rem 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .chatContainer {
   width: 100%;
   flex-grow: 1; /* flex: 1 또는 flex-grow: 1로 남은 공간을 차지하도록 설정 */
   overflow-y: auto;
   box-sizing: border-box;
-  padding-bottom: 10px;
+  padding-bottom: 0.6rem;
+  padding: 0 3rem;
 }
 .img {
   width: 2.8rem;
@@ -253,7 +256,7 @@
   padding: 0.8rem 1.1rem;
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 1.1rem;
   word-wrap: break-word;
 }
 .user {
@@ -280,7 +283,7 @@
   font-weight: 500;
 }
 .inputContainer {
-  width: 100%;
+  width: 95%;
   height: 3.9rem;
   min-height: 3.9rem;
   position: relative;
