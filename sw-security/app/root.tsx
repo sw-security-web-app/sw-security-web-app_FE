@@ -36,6 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       style={{ margin: 0, padding: 0, height: "100%", fontSize: "18px" }}
     >
       <head>
+        {/* <link rel="stylesheet" href="../css/styles.module.css" /> */}
         <link rel="icon" type="image/ico" href="/favicon.ico" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

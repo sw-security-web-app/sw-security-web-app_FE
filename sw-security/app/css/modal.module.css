@@ -1,0 +1,130 @@
+.modalContainer {
+  background-color: #ffffff;
+  width: 28rem;
+  height: 12rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  pointer-events: auto;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* display: flex;
+   justify-content: center; */
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  z-index: 999;
+}
+.modalHeader {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  /* background-color: red; */
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 0 1.1rem; */
+  padding-left: 1.1rem;
+  padding-right: 0.4rem;
+  border-bottom: 0.12rem solid #eaeaea;
+}
+
+.headerText {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #101828;
+}
+.modalContent {
+  display: flex;
+  flex: 1;
+  padding-left: 1.1rem;
+  align-items: center;
+  /* background-color: red; */
+}
+.contentText {
+  color: #484b50;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.modalBtnDiv {
+  flex: 1;
+  display: flex;
+  padding-right: 1.1rem;
+  justify-content: flex-end;
+}
+.closeBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.modalBtn {
+  border: none;
+  background-color: #2a2c2f;
+  width: 6.67rem;
+  height: 2.8rem;
+  border-radius: 0.7rem;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.modalBtn:hover {
+  background-color: #333436;
+}
+.modalBtn:active {
+  background-color: #2b2c2f;
+  transform: scale(0.95);
+}
+
+.cancelModalBtn,
+.deleteModalBtn {
+  border: none;
+  /* background-color: #2a2c2f; */
+  width: 6.67rem;
+  height: 2.8rem;
+  border-radius: 0.7rem;
+  /* color: #ffffff; */
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.cancelModalBtn {
+  background-color: #ececf2;
+  color: #1b1c1e;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cancelModalBtn:hover {
+  background-color: #d1d2e0;
+  color: #1b1c1e;
+}
+
+.cancelModalBtn:active {
+  background-color: #b7b8c4;
+  color: #1b1c1e;
+}
+
+.deleteModalBtn {
+  background-color: #ff0000;
+  color: #ffffff;
+  margin-left: 0.6rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.deleteModalBtn:hover {
+  background-color: #e60000;
+  color: #ffffff;
+}
+
+.deleteModalBtn:active {
+  background-color: #b40000;
+  color: #ffffff;
+}

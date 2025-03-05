@@ -123,9 +123,9 @@
 .aiSelect::after {
   content: "";
   position: absolute;
-  inset: -2px; /* 테두리 두께 */
+  inset: -0.12rem; /* 테두리 두께 */
   border-radius: 100%;
-  padding: 2px; /* 테두리 두께 증가 */
+  padding: 0.12rem; /* 테두리 두께 증가 */
   background: conic-gradient(
     from 0deg,
     rgba(203, 98, 255, 1),
@@ -141,20 +141,20 @@
   transition: opacity 0.3s ease, transform 0.3s ease; /* 애니메이션 효과 추가 */
 }
 
-.aiSelect:hover::after {
-  opacity: 1; /* hover 시 보이게 설정 */
-  animation: spinBorder 2s linear infinite; /* 회전 애니메이션 시간 단축 */
-  transform: scale(1.05); /* 테두리 크기 살짝 키우기 */
-}
+/* .aiSelect:hover::after {
+  opacity: 1;
+  animation: spinBorder 2s linear infinite;
+  transform: scale(1.05);
+} */
 
-@keyframes spinBorder {
+/* @keyframes spinBorder {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
   }
-}
+} */
 
 .aiSelect:hover {
   transform: scale(1.1);
@@ -177,6 +177,6 @@
 }
 .img {
   /* width: 14vh; */
-  width: 120px;
-  height: 120px;
+  width: 6.7rem;
+  height: 6.7rem;
 }

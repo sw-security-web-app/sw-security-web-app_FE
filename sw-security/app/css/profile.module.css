@@ -72,7 +72,8 @@ label {
   flex-direction: row;
   justify-content: space-between;
 }
-button {
+.exitBtn,
+.logOutBtn {
   border-radius: 0.67rem;
   font-weight: 600;
   font-size: 0.94rem;
@@ -153,10 +154,10 @@ button {
 }
 
 .showEmployeeListContainer {
-  border-right: 1px solid #2a2c2f;
+  border-right: 0.1rem solid #2a2c2f;
 }
 .learningAIContainer {
-  border-left: 1px solid #2a2c2f;
+  border-left: 0.1rem solid #2a2c2f;
 }
 .img {
   width: 2.5rem;
@@ -168,7 +169,7 @@ button {
   font-size: 1rem;
 }
 .tagContainer {
-  margin-top: 10px;
+  margin-top: 0.56rem;
 }
 .loadingIcon {
   animation: spin 1s linear infinite;

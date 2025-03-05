@@ -1,3 +1,4 @@
+import api from "~/api/api";
 import modalStyle from "../css/modal.module.css";
 
 type Props = {
@@ -6,7 +7,22 @@ type Props = {
   title: string;
 };
 
-export default function Modal({ setIsOpen, text, title }: Props) {
+export default function CautionModal({ setIsOpen, text, title }: Props) {
+  const handleDelete = async () => {
+    try {
+      const response = await api.post("/api/delete");
+      if (response.status === 200) {
+        alert("탈퇴가 완료됐습니다.");
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error) {
+      console.error("Error");
+    } finally {
+      setIsOpen(false);
+    }
+  };
   return (
     <div className={modalStyle.modalContainer}>
       <div className={modalStyle.modalHeader}>
@@ -27,10 +43,13 @@ export default function Modal({ setIsOpen, text, title }: Props) {
       </div>
       <div className={modalStyle.modalBtnDiv}>
         <button
-          className={modalStyle.modalBtn}
+          className={modalStyle.cancelModalBtn}
           onClick={() => setIsOpen(false)}
         >
-          확인
+          취소
+        </button>
+        <button className={modalStyle.deleteModalBtn} onClick={handleDelete}>
+          탈퇴
         </button>
       </div>
     </div>

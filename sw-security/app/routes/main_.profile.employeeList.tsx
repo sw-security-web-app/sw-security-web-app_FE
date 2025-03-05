@@ -11,27 +11,31 @@ export default function EmployeeList() {
   }
 
   const [employees, setEmployees] = useState<Employees[]>([]);
-  const [filteredEmployees, setFilteredEmployees] = useState<Employees[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [currentEmployees, setCurrentEmployees] = useState<Employees[]>([]);
-  const maxRows = 7;
   const [loading, setLoading] = useState(false);
+  const [companyName, setCompanyName] = useState("");
+  const [companyDept, setCompanyDept] = useState("");
+  const [totalElements, setTotalElements] = useState(0);
+  const maxRows = 7;
 
   const fetchList = async (newPage: number) => {
     setLoading(true);
     try {
-      const response = await api.get(
-        `api/employee-list?page=${newPage}&size=${maxRows}`
-      );
+      const url = searchTerm
+        ? `api/employee-list?search=${searchTerm}&page=${newPage}&size=${maxRows}`
+        : `api/employee-list?page=${newPage}&size=${maxRows}`;
+      const response = await api.get(url);
 
       if (response.status === 200) {
+        console.log(response.data.totalPages);
         const newList = response.data.content;
         setTotalPages(response.data.totalPages);
         setEmployees(newList);
         setCurrentPage(newPage);
-        setCurrentEmployees(newList);
+        setTotalElements(response.data.totalElements);
+        // setCurrentEmployees(newList);
       }
     } catch (error) {
       console.error("이전 메시지 불러오기 실패:", error);
@@ -39,18 +43,29 @@ export default function EmployeeList() {
       setLoading(false);
     }
   };
+  const fetchCompnayInfo = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get(`api/company-info`);
 
+      if (response.status === 200) {
+        setCompanyName(response.data.companyName);
+        setCompanyDept(response.data.companyDept);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     fetchList(0);
+    fetchCompnayInfo();
   }, []);
 
   // 검색 함수
   const searchingEmployee = () => {
-    const filtered = employees.filter((employee) =>
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredEmployees(filtered);
-    setCurrentPage(0);
+    fetchList(0);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -64,39 +79,19 @@ export default function EmployeeList() {
     setCurrentPage(pageNumber);
   };
 
-  // 페이지 그룹 범위 상태 추가
-  const [pageRange, setPageRange] = useState({ startPage: 1, endPage: 5 });
-
-  // 현재 페이지 그룹 (5개씩 페이지 버튼 보이도록 설정)
-  useEffect(() => {
-    let pageGroup = Math.ceil(currentPage / 5);
-    if (currentPage === 0) {
-      pageGroup = 1; // currentPage가 0인 경우 pageGroup을 1로 설정
-    }
-    const startPage = (pageGroup - 1) * 5 + 1;
-    const endPage = Math.min(startPage + 4, totalPages);
-    setPageRange({ startPage, endPage });
-  }, [currentPage, totalPages]);
-
-  const { startPage, endPage } = pageRange;
-
   const showNextPage = () => {
     if (currentPage < totalPages - 1) {
-      setCurrentPage(currentPage + 1);
       paginate(currentPage + 1);
-      // fetchList(currentPage + 1);
     }
   };
 
   const showPrevPage = () => {
     if (currentPage > 0) {
       paginate(currentPage - 1);
-      setCurrentPage(currentPage - 1);
-      // fetchList(currentPage - 1);
     }
   };
 
-  if (employees.length === 0) {
+  if (loading) {
     return (
       <div className={adminStyle.content}>
         <div className={adminStyle.inner}>
@@ -115,9 +110,9 @@ export default function EmployeeList() {
           <div className={adminStyle.noBtnConatainer}>
             <div className={adminStyle.listTop}>
               <div className={adminStyle.leftDiv}>
-                <span className={adminStyle.companyName}>삼성전자</span>
-                <span className={adminStyle.deptName}>00부서</span>
-                <span className={adminStyle.totalCnt}>00명</span>
+                <span className={adminStyle.companyName}>{companyName}</span>
+                <span className={adminStyle.deptName}>{companyDept}부서</span>
+                <span className={adminStyle.totalCnt}>{totalElements}명</span>
               </div>
               <div className={adminStyle.rightDiv}>
                 <input
@@ -144,14 +139,12 @@ export default function EmployeeList() {
                 </tr>
               </thead>
               <tbody>
-                {currentEmployees.length > 0 ? (
-                  currentEmployees.map((employee, index) => (
+                {employees.length > 0 ? (
+                  employees.map((employee, index) => (
                     <tr
                       key={index}
                       className={
-                        index === currentEmployees.length - 1
-                          ? adminStyle.lastRow
-                          : ""
+                        index === employees.length - 1 ? adminStyle.lastRow : ""
                       }
                     >
                       <td>{employee.name}</td>
@@ -160,9 +153,11 @@ export default function EmployeeList() {
                     </tr>
                   ))
                 ) : (
-                  <div className={adminStyle.noEmployee}>
-                    직원 정보가 없습니다.
-                  </div>
+                  <tr>
+                    <td colSpan={3} className={adminStyle.noEmployee}>
+                      직원 정보가 없습니다.
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
@@ -181,7 +176,7 @@ export default function EmployeeList() {
               {
                 length: totalPages,
               },
-              (_, i) => startPage + i
+              (_, i) => 1 + i
             ).map((page) => (
               <button
                 key={page}
@@ -199,7 +194,9 @@ export default function EmployeeList() {
             <button
               onClick={showNextPage}
               className={adminStyle.arrowButton}
-              disabled={currentPage - 1 == totalPages}
+              disabled={
+                currentPage == totalPages - 1 || currentPage == totalPages
+              }
             >
               <img src="../../img/arrow-right.svg" alt="arrow-right" />
             </button>

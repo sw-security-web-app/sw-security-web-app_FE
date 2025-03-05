@@ -47,7 +47,7 @@
   /* border-radius: 50px; */
   z-index: 1000;
   display: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.1);
 }
 
 .profileContainer:hover .modal {
@@ -55,12 +55,12 @@
 }
 
 .modalContent {
-  padding: 15px 10px;
+  padding: 0.83rem 0.6rem;
   color: #fff;
   background-color: #484b50;
-  border-top-left-radius: 18px;
-  border-bottom-right-radius: 18px;
-  border-bottom-left-radius: 18px;
+  border-top-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 }
 
 .modal ul {
@@ -69,14 +69,14 @@
 }
 
 .modal li {
-  padding: 12px;
+  padding: 0.67rem;
   cursor: pointer;
   color: #ffffff;
 }
 
 .modal li:hover {
   background-color: #5c6369;
-  border-radius: 12px;
+  border-radius: 0.67rem;
 }
 
 ul {

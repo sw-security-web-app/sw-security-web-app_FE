@@ -8,7 +8,7 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 
 interface Message {
-  sender: "USER" | "AI";
+  sender: "question" | "answer";
   text: string;
 }
 
@@ -20,72 +20,90 @@ export default function Chat() {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<Message | null>(null);
-  const [page, setPage] = useState(1);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const [lastIndex, setLastIndex] = useState<Long>();
+  const [apiName, setAPIName] = useState("");
 
-  // const fetchMessages = async (newPage: number) => {
-  //   // console.log("불러짐");
-  //   if (loading) return;
-  //   setLoading(true);
-  //   // try {
-  //   //   const startIndex = (newPage - 1) * 10;
-  //   //   const newMessages = mockMessages.slice(startIndex, startIndex + 10);
+  const fetchMessages = async (lastIndex: Long) => {
+    if (loading) return;
+    setLoading(true);
+    console.log(lastIndex);
+    try {
+      const response = await api.get(`/api/chat/detail/${id}`, {
+        params: { size: 10, id: lastIndex, type: ai },
+      });
 
-  //   //   setMessages((prev) => [...newMessages.reverse(), ...prev]); // 기존 메시지 앞에 추가
-  //   //   setPage(newPage);
-  //   // } catch (error) {
-  //   //   console.error("이전 메시지 불러오기 실패:", error);
-  //   // } finally {
-  //   //   setLoading(false);
-  //   // }
+      if (response.status === 200) {
+        setLastIndex(response.data.lastChatId);
 
-  //   try {
-  //     const response = await api.get(`주소`, {
-  //       params: { page: newPage, limit: 10 }, // 10개씩 불러오기
-  //     });
+        // 각 채팅 항목에 대해 메시지를 처리
+        const newMessages: Message[] = [];
+        response.data.array.forEach((chat: any) => {
+          if (chat.message) {
+            const question = chat.message.question;
+            const answer = chat.message.answer;
 
-  //     if (response.status === 200) {
-  //       const newMessages: Message[] = response.data.messages;
-  //       setMessages((prev) => [...newMessages.reverse(), ...prev]);
-  //       setPage(newPage);
-  //     }
-  //   } catch (error) {
-  //     console.error("이전 메시지 불러오기 실패:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+            if (question) {
+              newMessages.push({ sender: "question", text: question });
+            }
+            if (answer) {
+              newMessages.push({ sender: "answer", text: answer });
+            }
+          }
+        });
+
+        setMessages((prev) => [...newMessages, ...prev]);
+      }
+    } catch (error) {
+      console.error("이전 메시지 불러오기 실패:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // const handleScroll = () => {
-  //   if (chatContainerRef.current) {
-  //     if (chatContainerRef.current.scrollTop === 0) {
-  //       setIsUserScrolling(true);
-  //       fetchMessages(page + 1); // 페이지 증가하여 이전 메시지 가져오기
-  //     }
-  //   }
-  // };
-
+  const handleScroll = () => {
+    if (chatContainerRef.current) {
+      if (chatContainerRef.current.scrollTop === 0 && !loading) {
+        setIsUserScrolling(true);
+        fetchMessages(lastIndex as Long);
+      }
+    }
+  };
+  useEffect(() => {
+    if (ai == "ChatGPT") {
+      setAPIName("chat-gpt");
+    } else if (ai == "Claude") {
+      setAPIName("claude");
+    } else {
+      setAPIName("gemini");
+    }
+  }, []);
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
     setLoading(true);
 
-    const userMessage: Message = { sender: "USER", text: userInput };
+    const userMessage: Message = { sender: "question", text: userInput };
     setMessages((prev) => [...prev, userMessage]);
     setUserInput("");
 
     // AI 응답이 도착할 때까지 로딩 메시지 추가
-    setPendingMessage({ sender: "AI", text: "" });
+    setPendingMessage({ sender: "answer", text: "" });
     try {
       const requestBody =
         ai === "ChatGPT"
-          ? { chatRoomId: id, content: userInput }
+          ? { prompt: userInput, model: "gpt-3.5-turbo", chatRoomId: id }
           : { chatRoomId: id, prompt: userInput };
+      const header = ai === "ChatGPT" ? { "X-ChatRoom-Id": id } : {};
 
       const response = await api.post(
-        `/api/gemini/ask`,
-        requestBody
+        `/api/${apiName}/ask`,
+        requestBody,
+        { headers: header }
+
         // { prompt: userInput },
       );
       if (response.status === 200) {
@@ -93,13 +111,14 @@ export default function Chat() {
           // response.data.prompt가 문자열인지 확인
           const result = await marked(response.data.prompt); // await 키워드 사용
           const sanitizedHtml = DOMPurify.sanitize(result);
-          const aiMessage: Message = { sender: "AI", text: sanitizedHtml };
+          const aiMessage: Message = { sender: "answer", text: sanitizedHtml };
           setMessages((prev) => [...prev, aiMessage]);
         } else {
           const aiMessage: Message = {
-            sender: "AI",
+            sender: "answer",
             text: response.data.prompt,
           };
+          setMessages((prev) => [...prev, aiMessage]);
         }
       } else {
         const error = await response.data;
@@ -108,7 +127,7 @@ export default function Chat() {
     } catch (error) {
       console.error("에러 발생");
       const aiMessage: Message = {
-        sender: "AI",
+        sender: "answer",
         text: "적합하지 않은 질문입니다. 다른 질문을 입력해주세요.",
       };
       setMessages((prev) => [...prev, aiMessage]);
@@ -123,42 +142,42 @@ export default function Chat() {
       handleSendMessage();
     }
   };
-  // useEffect(() => {
-  //   const chatDiv = chatContainerRef.current;
-  //   if (chatDiv) {
-  //     chatDiv.addEventListener("scroll", handleScroll);
-  //   }
-  //   return () => {
-  //     if (chatDiv) {
-  //       chatDiv.removeEventListener("scroll", handleScroll);
-  //     }
-  //   };
-  // }, [page]);
-
-  // 🔹 UI가 업데이트될 때 자동 스크롤
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    const chatDiv = chatContainerRef.current;
+    if (chatDiv) {
+      chatDiv.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      if (chatDiv) {
+        chatDiv.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [lastIndex]);
 
-  // useEffect(() => {
-  //   fetchMessages(1); // 첫 번째 페이지 메시지 불러오기
-  //   // console.log(mockMessages);
-  // }, []);
+  useEffect(() => {
+    if (!isFetching) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isFetching]);
+
+  useEffect(() => {
+    fetchMessages(lastIndex as Long); // 첫 번째 페이지 메시지 불러오기
+  }, []);
 
   return (
     <div className={chatMainStyle.aiContainer}>
       <div ref={chatContainerRef} className={chatMainStyle.chatContainer}>
         {messages.map((msg, index) => (
           <div key={index} className={chatMainStyle.messageDiv}>
-            {msg.sender === "AI" && (
+            {msg.sender === "answer" && (
               <div className={chatMainStyle.onlyAI}>
                 <img src={`/img/${ai}.svg`} className={chatMainStyle.img} />
                 <span
                   style={{
-                    fontSize: "20px",
+                    fontSize: "1.1rem",
                     fontWeight: "600",
                     color: "#CB62FF",
-                    marginLeft: "15px",
+                    marginLeft: "0.83rem",
                   }}
                 >
                   {ai}
@@ -167,7 +186,9 @@ export default function Chat() {
             )}
             <div
               className={`${chatMainStyle.message} ${
-                msg.sender === "USER" ? chatMainStyle.user : chatMainStyle.ai
+                msg.sender === "question"
+                  ? chatMainStyle.user
+                  : chatMainStyle.ai
               }`}
               dangerouslySetInnerHTML={{ __html: msg.text }}
             >
@@ -181,10 +202,10 @@ export default function Chat() {
               <img src={`/img/${ai}.svg`} className={chatMainStyle.img} />
               <span
                 style={{
-                  fontSize: "20px",
+                  fontSize: "1.1rem",
                   fontWeight: "600",
                   color: "#CB62FF",
-                  marginLeft: "15px",
+                  marginLeft: "0.83rem",
                 }}
               >
                 {ai}

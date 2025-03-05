@@ -225,7 +225,7 @@ export default function findId() {
         <form onSubmit={findId} className={findIdStyle.findIdForm}>
           <div className={findIdStyle.nameDiv}>
             <label htmlFor="name" className={findIdStyle.label}>
-              이름<span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              이름<span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <input
               id="name"
@@ -240,7 +240,7 @@ export default function findId() {
           <div className={findIdStyle.phoneNumberDiv}>
             <label htmlFor="phoneNumber" className={findIdStyle.label}>
               핸드폰 번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <input
               id="phoneNumber"
@@ -262,7 +262,7 @@ export default function findId() {
           <div className={findIdStyle.phoneNumberDiv}>
             <label htmlFor="phoneNumber">
               핸드폰 번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={findIdStyle.inputContainer}>
@@ -289,7 +289,7 @@ export default function findId() {
           <div className={findIdStyle.phoneAuthDiv}>
             <label htmlFor="phoneAuth">
               핸드폰 인증번호
-              <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={findIdStyle.inputContainer}>
@@ -331,7 +331,8 @@ export default function findId() {
           </div>
           <div className={findIdStyle.emailDiv}>
             <label htmlFor="email">
-              이메일<span style={{ color: "red", marginLeft: "5px" }}>*</span>
+              이메일
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={findIdStyle.inputContainer}>

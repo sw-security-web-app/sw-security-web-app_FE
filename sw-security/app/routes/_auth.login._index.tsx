@@ -38,8 +38,9 @@ export default function Login() {
       if (response.ok) {
         console.log(response);
         const data = await response.json();
-        const { accessToken } = data;
-        login(accessToken); //zustand store에 상태 저장
+        const { accessToken, userName } = data;
+        login(accessToken, userName);
+
         navigate("/main");
       } else {
         const error = await response.json();

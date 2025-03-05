@@ -12,14 +12,14 @@ export default function DefaultButton({
   text,
   size = "medium",
   onClick,
-  fontSize = 17,
+  fontSize = 0.9,
   fontWeight = 400, // 기본값을 500으로 설정
 }: ButtonProps) {
   return (
     <button
       className={`${styles.button} ${styles[size]}`}
       onClick={onClick}
-      style={{ fontSize: `${fontSize}px`, fontWeight }}
+      style={{ fontSize: `${fontSize}rem`, fontWeight }}
     >
       {text}
     </button>

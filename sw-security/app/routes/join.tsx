@@ -28,10 +28,6 @@ export default function Join() {
           <div className={joinStyle.circlePoint}>
             <div className={joinStyle.circle} />
           </div>
-          {/* 다이아몬드 세 개 */}
-          {/* <div className={joinStyle.diamond}></div>
-          <div className={joinStyle.diamond}></div>
-          <div className={joinStyle.diamond}></div> */}
           <div className={joinStyle.selectContainer}>
             <Link to="/individualSignUp" className={joinStyle.select}>
               <div className={joinStyle.tagContainer}>

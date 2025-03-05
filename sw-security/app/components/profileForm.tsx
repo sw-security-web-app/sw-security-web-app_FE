@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@remix-run/react";
+import { Link, useNavigate, useOutletContext } from "@remix-run/react";
 import profileStyle from "../css/profile.module.css";
 import { useEffect, useState } from "react";
 import api from "../api/api";
@@ -20,7 +20,16 @@ export default function ProfileForm() {
   const logout = useStore((state) => state.logout);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [role, setRole] = useState<Role | null>("MANAGER");
+  const [role, setRole] = useState<Role | null>("INDIVIDUAL");
+  const { setIsOpen } = useOutletContext<{
+    setIsOpen: (open: boolean) => void;
+  }>();
+  const { setModalText } = useOutletContext<{
+    setModalText: (text: string) => void;
+  }>();
+  const { setModalTitle } = useOutletContext<{
+    setModalTitle: (title: string) => void;
+  }>();
 
   // const isBrowser = typeof window !== "undefined"; // 브라우저에서만 실행되도록 체크
   // const role = isBrowser ? localStorage.getItem("role") : null; // 브라우저에서만 localStorage 접근
@@ -41,6 +50,11 @@ export default function ProfileForm() {
     }
   };
 
+  const openCautionModal = () => {
+    setIsOpen(true);
+    setModalTitle("정말 탈퇴하시겠어요?");
+    setModalText("회원 탈퇴 시, 계정은 삭제되며 복구되지 않습니다.");
+  };
   //유저 탈퇴 함수
   const handleDelete = () => {};
 
@@ -59,17 +73,17 @@ export default function ProfileForm() {
   };
 
   //로딩아이콘 띄우기
-  // if (userInfo == null) {
-  //   return (
-  //     <div className={profileStyle.profileContainer}>
-  //       <div className={profileStyle.content}>
-  //         <div className={profileStyle.iconContainer}>
-  //           <AiOutlineLoading className={profileStyle.loadingIcon} />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (userInfo == null) {
+    return (
+      <div className={profileStyle.profileContainer}>
+        <div className={profileStyle.content}>
+          <div className={profileStyle.iconContainer}>
+            <AiOutlineLoading className={profileStyle.loadingIcon} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={profileStyle.profileContainer}>
@@ -80,15 +94,15 @@ export default function ProfileForm() {
         <div className={profileStyle.nameContainer}>
           <label>이름</label>
           <div className={profileStyle.nameDiv}>
-            <span className={profileStyle.name}>아년석</span>
-            {/* <span className={profileStyle.name}>{userInfo.name}</span> */}
+            {/* <span className={profileStyle.name}>아년석</span> */}
+            <span className={profileStyle.name}>{userInfo.name}</span>
           </div>
         </div>
         <div className={profileStyle.emailContainer}>
           <label>이메일</label>
           <div className={profileStyle.emailDiv}>
-            <span className={profileStyle.email}>vero1234@naver.com</span>
-            {/* <span className={profileStyle.email}>{userInfo.email}</span> */}
+            {/* <span className={profileStyle.email}>vero1234@naver.com</span> */}
+            <span className={profileStyle.email}>{userInfo.email}</span>
           </div>
         </div>
         {(role === "EMPLOYEE" || role === "MANAGER") && (
@@ -96,28 +110,28 @@ export default function ProfileForm() {
             <div className={profileStyle.companyContainer}>
               <label>회사명</label>
               <div className={profileStyle.companyDiv}>
-                <span className={profileStyle.company}>삼성전자</span>
-                {/* <span className={profileStyle.company}>
+                {/* <span className={profileStyle.company}>삼성전자</span> */}
+                <span className={profileStyle.company}>
                   {userInfo.companyName}
-                </span> */}
+                </span>
               </div>
             </div>
             <div className={profileStyle.deptContainer}>
               <label>부서명</label>
               <div className={profileStyle.deptDiv}>
-                <span className={profileStyle.dept}>SI</span>
-                {/* <span className={profileStyle.dept}>
+                {/* <span className={profileStyle.dept}>SI</span> */}
+                <span className={profileStyle.dept}>
                   {userInfo.companyDept}
-                </span> */}
+                </span>
               </div>
             </div>
             <div className={profileStyle.positionContainer}>
               <label>직책</label>
               <div className={profileStyle.positionDiv}>
-                <span className={profileStyle.position}>BE-1년차</span>
-                {/* <span className={profileStyle.position}>
+                {/* <span className={profileStyle.position}>BE-1년차</span> */}
+                <span className={profileStyle.position}>
                   {userInfo.companyPosition}
-                </span> */}
+                </span>
               </div>
             </div>
           </>
@@ -152,7 +166,11 @@ export default function ProfileForm() {
         </div>
       )}
       <form className={profileStyle.form} onSubmit={handleDelete}>
-        <button type="submit" className={profileStyle.exitBtn}>
+        <button
+          type="button"
+          onClick={openCautionModal}
+          className={profileStyle.exitBtn}
+        >
           탈퇴하기
         </button>
         <button
