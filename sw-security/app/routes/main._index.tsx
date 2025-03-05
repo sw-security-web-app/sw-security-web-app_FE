@@ -6,15 +6,6 @@ import AISelect from "~/components/aiSelect";
 import { useEffect } from "react";
 
 export default function Join() {
-  const navigate = useNavigate();
-  const login = useOutletContext;
-
-  // useEffect(() => {
-  //   if (login) {
-  //     navigate("/login");
-  //     return;
-  //   }
-  // }, [login, navigate]);
   return (
     <div className={defaultStyle.inner}>
       <div className={mainStyle.textContainer}>
