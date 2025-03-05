@@ -10,11 +10,30 @@ import logoStyle from "../css/logo.module.css";
 import { useStore } from "../store/store";
 import { useEffect, useState } from "react";
 import Logo from "~/components/logo";
+import api from "~/api/api";
+import { create } from "zustand";
+import { useAuthRedirect } from "~/Hooks/useAuthRedirect";
 
 export default function ChatMainLayout() {
   const [searchParams] = useSearchParams();
   const { ai2 } = useParams();
   const [ai, setAi] = useState<string>("AI");
+  const [chatList, setChatList] = useState<number[]>([]);
+  useAuthRedirect();
+
+  const fetchChatList = async () => {
+    try {
+      const response = await api.get(`/api/chat-room/get?aiModelType=${ai}`);
+      if (response.status === 200) {
+        setChatList(response.data.map((chat: any) => chat.chatRoomId));
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
 
   useEffect(() => {
     if (ai2) {
@@ -26,6 +45,12 @@ export default function ChatMainLayout() {
       }
     }
   }, [ai2, searchParams]);
+
+  useEffect(() => {
+    if (ai != "AI") {
+      fetchChatList();
+    }
+  }, [ai]);
 
   const logout = useStore((state) => state.logout);
   const navigate = useNavigate();
@@ -61,9 +86,16 @@ export default function ChatMainLayout() {
             </div>
           </div>
           <div className={chatMainStyle.chatHistoryConatainer}>
-            <span className={chatMainStyle.chatTitle}>대화 내용 1</span>
-            <span className={chatMainStyle.chatTitle}>대화 내용 2</span>
-            <span className={chatMainStyle.chatTitle}>대화 내용 3</span>
+            {chatList.map((id, index) => (
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/main/chatMain/${ai}/${id}`}
+                className={chatMainStyle.chatTitle}
+                key={id}
+              >
+                <span>대화 내용 {id}</span>
+              </Link>
+            ))}
           </div>
           <div className={chatMainStyle.bottomItemContainer}>
             <button
@@ -75,16 +107,7 @@ export default function ChatMainLayout() {
               <img src="/img/myProfile.svg" alt="myProfile" />
               <span className={chatMainStyle.itemText2}>내 프로필</span>
             </button>
-            <button
-              className={chatMainStyle.itemDiv2}
-              onClick={handleLogOut}
-              // style={{
-              //   border: "none",
-              //   backgroundColor: "transparent",
-              //   padding: "0",
-              //   cursor: "pointer",
-              // }}
-            >
+            <button className={chatMainStyle.itemDiv2} onClick={handleLogOut}>
               <img src="/img/logout.svg" alt="logout" />
               <span className={chatMainStyle.itemText2}>로그아웃</span>
             </button>

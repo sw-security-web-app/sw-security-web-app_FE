@@ -1,10 +1,21 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import adminStyle from "../css/admin.module.css";
 import api from "../api/api";
+import { useOutletContext } from "@remix-run/react";
 
 export default function LearningAI() {
   const [fileName, setFileName] = useState<string>("");
   const [text, setText] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const { setIsOpen } = useOutletContext<{
+    setIsOpen: (open: boolean) => void;
+  }>();
+  const { setModalText } = useOutletContext<{
+    setModalText: (text: string) => void;
+  }>();
+  const { setModalTitle } = useOutletContext<{
+    setModalTitle: (title: string) => void;
+  }>();
 
   // 파일 선택 시 이름 띄우는 함수
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +28,9 @@ export default function LearningAI() {
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     const formData = new FormData();
     if (text) {
@@ -41,13 +54,24 @@ export default function LearningAI() {
         },
       });
       if (response.status === 200) {
-        alert("학습 데이터 전송이 완료되었습니다!");
+        alert(response.data.message);
+        setIsOpen(true);
+        setModalTitle(response.data.message);
+        setModalText("최대 하루 정도 시간이 걸릴 수 있습니다.");
       } else {
-        const error = await response.data;
-        alert(error.message);
+        const error = await response.data.message;
+        alert(`${error}`);
       }
-    } catch (error) {
-      console.error("학습 데이터 전송 실패", error);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      setIsOpen(true);
+      setModalTitle("학습 데이터 전송 오류");
+      setModalText(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,7 +113,7 @@ export default function LearningAI() {
                 <input
                   id="fileUpload"
                   type="file"
-                  accept=".txt"
+                  accept=".txt, .csv, .pdf"
                   style={{ display: "none" }}
                   onChange={handleFileChange}
                 />
