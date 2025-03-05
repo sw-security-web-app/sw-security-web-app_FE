@@ -7,20 +7,12 @@ import modalStyle from "../css/modal.module.css";
 import { useStore } from "../store/store";
 import { useEffect, useState } from "react";
 import CautionModal from "~/components/cautionModal";
+import { useAuthRedirect } from "~/Hooks/useAuthRedirect";
 export default function MainLayout() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-  const { isLogin } = useStore();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(isLogin);
-    if (!isLogin) {
-      navigate("/login");
-      return;
-    }
-  }, [isLogin, navigate]);
+  useAuthRedirect();
 
   return (
     <>
@@ -41,7 +33,6 @@ export default function MainLayout() {
               setIsOpen,
               setModalText,
               setModalTitle,
-              isLogin,
             }}
           />
         </div>

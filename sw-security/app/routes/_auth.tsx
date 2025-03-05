@@ -15,7 +15,12 @@ export default function Join() {
     <>
       {isOpen && (
         <div className={modalStyle.overlay}>
-          <Modal setIsOpen={setIsOpen} text={modalText} title={modalTitle} />
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            btnColor="#2a2c2f"
+          />
         </div>
       )}
       <div className={authStyle.container}>

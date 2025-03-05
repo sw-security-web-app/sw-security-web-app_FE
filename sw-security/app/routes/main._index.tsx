@@ -7,14 +7,14 @@ import { useEffect } from "react";
 
 export default function Join() {
   const navigate = useNavigate();
-  const isLogin = useOutletContext;
+  const login = useOutletContext;
 
-  useEffect(() => {
-    if (!isLogin) {
-      navigate("/login");
-      return;
-    }
-  }, [isLogin, navigate]);
+  // useEffect(() => {
+  //   if (login) {
+  //     navigate("/login");
+  //     return;
+  //   }
+  // }, [login, navigate]);
   return (
     <div className={defaultStyle.inner}>
       <div className={mainStyle.textContainer}>

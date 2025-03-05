@@ -1,13 +1,21 @@
-import { useSearchParams, Link, useNavigate } from "@remix-run/react";
+import {
+  useSearchParams,
+  Link,
+  useNavigate,
+  useOutletContext,
+} from "@remix-run/react";
 import chatMainStyle from "../css/chatMain.module.css";
 import api from "~/api/api";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ChatMain() {
   const [searchParams] = useSearchParams();
   const ai = searchParams.get("ai") || "AI"; // 기본값 설정
   const navigate = useNavigate();
+  const [chatDiv, setChatDiv] = useState<
+    { chatRoomId: number; latestAnswer: string; latestCreatedAt: string }[]
+  >([]);
 
   const createChatRoom = async () => {
     try {
@@ -22,18 +30,25 @@ export default function ChatMain() {
     } catch (error) {
       console.error("채팅방 생성 실패:", error);
       alert("새 대화 생성에 실패했습니다."); // 에러 처리
+    } finally {
+    }
+  };
+  const fetchChatDiv = async () => {
+    try {
+      const response = await api.get(`/api/chat-room/latest?aiModelType=${ai}`);
+      if (response.status === 200) {
+        setChatDiv(response.data);
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
-  const fetchChatList = async () => {
-    try {
-      const response = await api.get("api/chat-room/latest");
-    } catch (error: any) {
-      console.error(error.message);
-    }
-  };
   useEffect(() => {
-    fetchChatList;
+    fetchChatDiv();
   }, []);
 
   return (
@@ -50,66 +65,26 @@ export default function ChatMain() {
           </div>
         </div>
         <div className={chatMainStyle.chatSelectGrid}>
-          <div className={chatMainStyle.child}>
-            <div className={chatMainStyle.dateDiv}>
-              <span>2024.11.11</span>
-              <FaRegTrashAlt
-                style={{ color: "white" }}
-                className={chatMainStyle.trashIcon}
-              />
-            </div>
-            <div className={chatMainStyle.contentDiv}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-              minima quibusdam, nobis, illum omnis natus hic odit laudantium
-              laboriosam animi aut aspernatur fuga est. Totam delectus
-              perferendis est iusto exercitationem?
-            </div>
-          </div>
-          <div className={chatMainStyle.child}>
-            <div className={chatMainStyle.dateDiv}>
-              <span>2024.11.11</span>
-              <FaRegTrashAlt
-                style={{ color: "white" }}
-                className={chatMainStyle.trashIcon}
-              />
-            </div>
-            <div className={chatMainStyle.contentDiv}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-              minima quibusdam, nobis, illum omnis natus hic odit laudantium
-              laboriosam animi aut aspernatur fuga est. Totam delectus
-              perferendis est iusto exercitationem?
-            </div>
-          </div>
-          <div className={chatMainStyle.child}>
-            <div className={chatMainStyle.dateDiv}>
-              <span>2024.11.11</span>
-              <FaRegTrashAlt
-                style={{ color: "white" }}
-                className={chatMainStyle.trashIcon}
-              />
-            </div>
-            <div className={chatMainStyle.contentDiv}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-              minima quibusdam, nobis, illum omnis natus hic odit laudantium
-              laboriosam animi aut aspernatur fuga est. Totam delectus
-              perferendis est iusto exercitationem?
-            </div>
-          </div>
-          <div className={chatMainStyle.child}>
-            <div className={chatMainStyle.dateDiv}>
-              <span>2024.11.11</span>
-              <FaRegTrashAlt
-                style={{ color: "white" }}
-                className={chatMainStyle.trashIcon}
-              />
-            </div>
-            <div className={chatMainStyle.contentDiv}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-              minima quibusdam, nobis, illum omnis natus hic odit laudantium
-              laboriosam animi aut aspernatur fuga est. Totam delectus
-              perferendis est iusto exercitationem?
-            </div>
-          </div>
+          {chatDiv.map((chat) => (
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/main/chatMain/${ai}/${chat.chatRoomId}`}
+              className={chatMainStyle.child}
+            >
+              <div key={chat.chatRoomId}>
+                <div className={chatMainStyle.dateDiv}>
+                  <span>{chat.latestCreatedAt}</span>
+                  {/* <FaRegTrashAlt
+                  style={{ color: "white" }}
+                  className={chatMainStyle.trashIcon}
+                /> */}
+                </div>
+                <div className={chatMainStyle.contentDiv}>
+                  {chat.latestAnswer}
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
