@@ -6,7 +6,8 @@ import { useOutletContext } from "@remix-run/react";
 export default function LearningAI() {
   const [fileName, setFileName] = useState<string>("");
   const [text, setText] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
   const { setIsOpen } = useOutletContext<{
     setIsOpen: (open: boolean) => void;
   }>();
@@ -16,17 +17,27 @@ export default function LearningAI() {
   const { setModalTitle } = useOutletContext<{
     setModalTitle: (title: string) => void;
   }>();
+  const { setLoading } = useOutletContext<{
+    setLoading: (loading: boolean) => void;
+  }>();
 
   // 파일 선택 시 이름 띄우는 함수
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setCanSubmit(false);
       setFileName(file.name);
     }
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
+    if (event.target.value !== "") {
+      setCanSubmit(false);
+    }
+    if (event.target.value == "") {
+      setCanSubmit(true);
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -125,7 +136,11 @@ export default function LearningAI() {
               )}
             </div>
             <div className={adminStyle.btnContainer}>
-              <button type="submit" className={adminStyle.dataSubmitBtn}>
+              <button
+                disabled={canSubmit}
+                type="submit"
+                className={adminStyle.dataSubmitBtn}
+              >
                 학습된 AI 제출하기
               </button>
             </div>

@@ -19,7 +19,7 @@ export default function ChatMainLayout() {
   const { ai2 } = useParams();
   const [ai, setAi] = useState<string>("AI");
   const [chatList, setChatList] = useState<number[]>([]);
-  useAuthRedirect();
+  // useAuthRedirect();
 
   const fetchChatList = async () => {
     try {

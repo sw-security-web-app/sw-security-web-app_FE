@@ -19,7 +19,7 @@ export default function Join() {
             setIsOpen={setIsOpen}
             text={modalText}
             title={modalTitle}
-            btnColor="#2a2c2f"
+            // btnColor="#2a2c2f"
           />
         </div>
       )}
