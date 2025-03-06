@@ -65,6 +65,16 @@ export default function ChatMain() {
           </div>
         </div>
         <div className={chatMainStyle.chatSelectGrid}>
+          {/* <Link
+            to=""
+            style={{ textDecoration: "none" }}
+            className={chatMainStyle.child}
+          >
+            <div className={chatMainStyle.dateDiv}>
+              <span>aaa</span>
+            </div>
+            <div className={chatMainStyle.contentDiv}>sss</div>
+          </Link> */}
           {chatDiv.map((chat) => (
             <Link
               style={{ textDecoration: "none" }}
@@ -73,14 +83,14 @@ export default function ChatMain() {
             >
               <div key={chat.chatRoomId}>
                 <div className={chatMainStyle.dateDiv}>
-                  <span>{chat.latestCreatedAt}</span>
+                  <span>{chat.latestCreatedAt}aaa</span>
                   {/* <FaRegTrashAlt
                   style={{ color: "white" }}
                   className={chatMainStyle.trashIcon}
                 /> */}
                 </div>
                 <div className={chatMainStyle.contentDiv}>
-                  {chat.latestAnswer}
+                  {chat.latestAnswer}sss
                 </div>
               </div>
             </Link>
