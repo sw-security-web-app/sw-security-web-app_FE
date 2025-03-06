@@ -45,8 +45,12 @@ export default function ProfileForm() {
         const error = await response.data;
         alert(error.message);
       }
-    } catch (error) {
-      console.error("사용자 정보 가져오기 실패", error);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     }
   };
 
@@ -55,8 +59,6 @@ export default function ProfileForm() {
     setModalTitle("정말 탈퇴하시겠어요?");
     setModalText("회원 탈퇴 시, 계정은 삭제되며 복구되지 않습니다.");
   };
-  //유저 탈퇴 함수
-  const handleDelete = () => {};
 
   useEffect(() => {
     if (!isLogin) {
@@ -165,7 +167,7 @@ export default function ProfileForm() {
           </div>
         </div>
       )}
-      <form className={profileStyle.form} onSubmit={handleDelete}>
+      <div className={profileStyle.form}>
         <button
           type="button"
           onClick={openCautionModal}
@@ -180,7 +182,7 @@ export default function ProfileForm() {
         >
           로그아웃
         </button>
-      </form>
+      </div>
     </div>
   );
 }

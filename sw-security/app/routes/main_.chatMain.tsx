@@ -19,9 +19,11 @@ export default function ChatMainLayout() {
   const { ai2 } = useParams();
   const [ai, setAi] = useState<string>("AI");
   const [chatList, setChatList] = useState<number[]>([]);
+  const [renderList, setRenderList] = useState(false);
   // useAuthRedirect();
 
   const fetchChatList = async () => {
+    console.log("fetchChatList실행");
     try {
       const response = await api.get(`/api/chat-room/get?aiModelType=${ai}`);
       if (response.status === 200) {
@@ -31,7 +33,11 @@ export default function ChatMainLayout() {
         alert(error.message);
       }
     } catch (error: any) {
-      alert(error.message);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     }
   };
 
@@ -50,7 +56,7 @@ export default function ChatMainLayout() {
     if (ai != "AI") {
       fetchChatList();
     }
-  }, [ai]);
+  }, [ai, renderList]);
 
   const logout = useStore((state) => state.logout);
   const navigate = useNavigate();
@@ -114,7 +120,7 @@ export default function ChatMainLayout() {
           </div>
         </div>
         <div className={chatMainStyle.contentContainer}>
-          <Outlet />
+          <Outlet context={setRenderList} />
         </div>
       </div>
     </div>

@@ -16,21 +16,25 @@ export default function ChatMain() {
   const [chatDiv, setChatDiv] = useState<
     { chatRoomId: number; latestAnswer: string; latestCreatedAt: string }[]
   >([]);
+  const setRenderList =
+    useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
 
   const createChatRoom = async () => {
+    setRenderList(true);
     try {
       const response = await api.post("api/chat-room/create");
       if (response.status === 200) {
         const chatRoomId = response.data.chatRoomId; // 응답에서 채팅방 ID 추출
         navigate(`/main/chatMain/${ai}/${chatRoomId}`); // 채팅방으로 이동
-      } else {
-        const error = await response.data;
-        alert(error.message);
       }
-    } catch (error) {
-      console.error("채팅방 생성 실패:", error);
-      alert("새 대화 생성에 실패했습니다."); // 에러 처리
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     } finally {
+      setRenderList(false);
     }
   };
   const fetchChatDiv = async () => {
@@ -38,12 +42,13 @@ export default function ChatMain() {
       const response = await api.get(`/api/chat-room/latest?aiModelType=${ai}`);
       if (response.status === 200) {
         setChatDiv(response.data);
-      } else {
-        const error = await response.data;
-        alert(error.message);
       }
     } catch (error: any) {
-      alert(error.message);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     }
   };
 
@@ -65,33 +70,22 @@ export default function ChatMain() {
           </div>
         </div>
         <div className={chatMainStyle.chatSelectGrid}>
-          {/* <Link
-            to=""
-            style={{ textDecoration: "none" }}
-            className={chatMainStyle.child}
-          >
-            <div className={chatMainStyle.dateDiv}>
-              <span>aaa</span>
-            </div>
-            <div className={chatMainStyle.contentDiv}>sss</div>
-          </Link> */}
           {chatDiv.map((chat) => (
             <Link
               style={{ textDecoration: "none" }}
               to={`/main/chatMain/${ai}/${chat.chatRoomId}`}
               className={chatMainStyle.child}
+              key={chat.chatRoomId}
             >
-              <div key={chat.chatRoomId}>
-                <div className={chatMainStyle.dateDiv}>
-                  <span>{chat.latestCreatedAt}aaa</span>
-                  {/* <FaRegTrashAlt
+              <div className={chatMainStyle.dateDiv}>
+                <span>{chat.latestCreatedAt}</span>
+                {/* <FaRegTrashAlt
                   style={{ color: "white" }}
                   className={chatMainStyle.trashIcon}
                 /> */}
-                </div>
-                <div className={chatMainStyle.contentDiv}>
-                  {chat.latestAnswer}sss
-                </div>
+              </div>
+              <div className={chatMainStyle.contentDiv}>
+                {chat.latestAnswer}
               </div>
             </Link>
           ))}

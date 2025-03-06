@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from "@remix-run/react";
+import { useOutletContext, useParams, useSearchParams } from "@remix-run/react";
 import api from "../api/api";
 import { useEffect, useRef, useState } from "react";
 import chatMainStyle from "../css/chatMain.module.css";
@@ -20,16 +20,20 @@ export default function Chat() {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<Message | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [lastIndex, setLastIndex] = useState<Long>();
   const [apiName, setAPIName] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const setRenderList =
+    useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
 
   const fetchMessages = async (lastIndex: Long) => {
+    // setRenderList(true);
+    // setIsFetching(true);
     if (loading) return;
     setLoading(true);
-    console.log(lastIndex);
     try {
       const response = await api.get(`/api/chat/detail/${id}`, {
         params: { size: 10, id: lastIndex, type: ai },
@@ -45,44 +49,59 @@ export default function Chat() {
             const question = chat.message.question;
             const answer = chat.message.answer;
 
-            if (question) {
-              newMessages.push({ sender: "question", text: question });
-            }
             if (answer) {
               newMessages.push({ sender: "answer", text: answer });
             }
+            if (question) {
+              newMessages.push({ sender: "question", text: question });
+            }
           }
         });
-
-        setMessages((prev) => [...newMessages, ...prev]);
+        setMessages((prev) => [...newMessages.reverse(), ...prev]);
       }
-    } catch (error) {
-      console.error("이전 메시지 불러오기 실패:", error);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     } finally {
       setLoading(false);
+      // setIsFetching(false);
+      // setRenderList(false);
     }
   };
 
-  const chatContainerRef = useRef<HTMLDivElement>(null);
-
+  // const handleScroll = () => {
+  //   if (chatContainerRef.current) {
+  //     if (chatContainerRef.current.scrollTop === 0 && !loading) {
+  //       setIsUserScrolling(true);
+  //       fetchMessages(lastIndex as Long);
+  //     }
+  //   }
+  // };
   const handleScroll = () => {
     if (chatContainerRef.current) {
       if (chatContainerRef.current.scrollTop === 0 && !loading) {
-        setIsUserScrolling(true);
+        setIsUserScrolling(true); // 사용자가 스크롤을 올렸음 → 자동 스크롤 방지
         fetchMessages(lastIndex as Long);
       }
     }
   };
-  useEffect(() => {
-    if (ai == "ChatGPT") {
-      setAPIName("chat-gpt");
-    } else if (ai == "Claude") {
-      setAPIName("claude");
-    } else {
-      setAPIName("gemini");
+  const handleUserScroll = () => {
+    if (chatContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } =
+        chatContainerRef.current;
+      // 사용자가 맨 아래로 스크롤하면 자동 스크롤 다시 활성화
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        setIsUserScrolling(false);
+      }
     }
-  }, []);
+  };
+
   const handleSendMessage = async () => {
+    console.log("보내기");
+    setRenderList(true);
     if (!userInput.trim()) return;
     setLoading(true);
 
@@ -134,6 +153,7 @@ export default function Chat() {
     } finally {
       setLoading(false);
       setPendingMessage(null);
+      setRenderList(false);
     }
   };
 
@@ -142,25 +162,46 @@ export default function Chat() {
       handleSendMessage();
     }
   };
+  // useEffect(() => {
+  //   const chatDiv = chatContainerRef.current;
+  //   if (chatDiv) {
+  //     chatDiv.addEventListener("scroll", handleScroll);
+  //   }
+  //   return () => {
+  //     if (chatDiv) {
+  //       chatDiv.removeEventListener("scroll", handleScroll);
+  //     }
+  //   };
+  // }, [lastIndex]);
   useEffect(() => {
     const chatDiv = chatContainerRef.current;
     if (chatDiv) {
       chatDiv.addEventListener("scroll", handleScroll);
+      chatDiv.addEventListener("scroll", handleUserScroll);
     }
     return () => {
       if (chatDiv) {
         chatDiv.removeEventListener("scroll", handleScroll);
+        chatDiv.removeEventListener("scroll", handleUserScroll);
       }
     };
   }, [lastIndex]);
 
   useEffect(() => {
-    if (!isFetching) {
+    if (!isFetching && !isUserScrolling) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isFetching]);
 
   useEffect(() => {
+    setRenderList(true);
+    if (ai == "ChatGPT") {
+      setAPIName("chat-gpt");
+    } else if (ai == "Claude") {
+      setAPIName("claude");
+    } else {
+      setAPIName("gemini");
+    }
     fetchMessages(lastIndex as Long); // 첫 번째 페이지 메시지 불러오기
   }, []);
 

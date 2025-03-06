@@ -37,8 +37,12 @@ export default function EmployeeList() {
         setTotalElements(response.data.totalElements);
         // setCurrentEmployees(newList);
       }
-    } catch (error) {
-      console.error("이전 메시지 불러오기 실패:", error);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }

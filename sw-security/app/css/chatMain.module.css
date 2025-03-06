@@ -50,6 +50,7 @@
   /* background-color: blue; */
   padding-top: 1.7rem;
   /* border-bottom: 0.1rem #323232 solid; */
+  overflow-y: auto;
 }
 .bottomItemContainer {
   border-top: 0.1rem #323232 solid;
