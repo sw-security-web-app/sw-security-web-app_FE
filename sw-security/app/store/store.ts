@@ -5,8 +5,9 @@ import { create } from "zustand";
 interface Store {
   accessToken: string | null;
   userName: string | null;
+  role: string | null;
 
-  login: (accessToken: string, userName: string) => void;
+  login: (accessToken: string, userName: string, role: string) => void;
   logout: () => void;
   isLogin: () => boolean;
 }
@@ -15,16 +16,19 @@ interface Store {
 const useStore = create<Store>((set, get) => ({
   accessToken: null,
   userName: null,
+  role: null,
 
-  login: (accessToken, userName) => {
+  login: (accessToken, userName, role) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userName", userName);
+      localStorage.setItem("role", role);
     }
 
     set(() => ({
       accessToken,
       userName,
+      role,
     }));
   },
 
@@ -32,11 +36,13 @@ const useStore = create<Store>((set, get) => ({
     if (typeof window !== "undefined") {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userName");
+      localStorage.removeItem("role");
     }
 
     set(() => ({
       accessToken: null,
       userName: null,
+      role: null,
     }));
   },
 
@@ -55,10 +61,12 @@ const useLocalStorage = () => {
     if (isClient) {
       const accessToken = localStorage.getItem("accessToken");
       const userName = localStorage.getItem("userName");
+      const role = localStorage.getItem("role");
 
       useStore.setState({
         accessToken,
         userName,
+        role,
       });
     }
   }, [isClient]);

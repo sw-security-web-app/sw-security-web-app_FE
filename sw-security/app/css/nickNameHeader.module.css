@@ -36,6 +36,8 @@
 
 .profileContainer {
   position: relative;
+  display: flex;
+  flex-direction: row;
 }
 
 .modal {
@@ -81,4 +83,25 @@
 
 ul {
   margin: 0;
+}
+
+.compnayCodeBtn {
+  border: none;
+  margin-right: 1rem;
+  width: 6rem;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  font-size: 0.9rem;
+  text-align: center;
+  border-radius: 1rem;
+  /* background-color: #0d0d0d; */
+  /* box-shadow: 0 0 0.83rem 0.06rem #cb62ff; */
+  /* border: 1px solid #cb62ff;
+  font-weight: 600;
+  color: #cb62ff; */
+}
+.rightItem {
+  display: flex;
+  flex-direction: row;
 }
