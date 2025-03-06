@@ -23,7 +23,11 @@ export default function Profile({ nickNameColor, profileColor }: Props) {
         className={nickNameHeader.profile}
         style={{ backgroundColor: profileColor }}
       >
-        <GoPerson style={{ width: "2.8rem", height: "2.8rem" }} />
+        <img
+          src="img/profile.png"
+          alt="profile"
+          style={{ width: "2.8rem", height: "2.8rem", borderRadius: "100%" }}
+        />
       </div>
     </div>
   );

@@ -63,8 +63,13 @@ export default function ChangePwForm() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("에러 발생:", error);
-      alert(error.message);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      setModalTitle("비밀번호 변경 오류");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
   return (
