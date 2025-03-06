@@ -38,8 +38,8 @@ export default function Login() {
       if (response.ok) {
         console.log(response);
         const data = await response.json();
-        const { accessToken, userName } = data;
-        login(accessToken, userName);
+        const { accessToken, userName, role } = data;
+        login(accessToken, userName, role);
 
         navigate("/main");
       } else {
