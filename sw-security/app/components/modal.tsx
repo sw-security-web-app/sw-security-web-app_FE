@@ -17,7 +17,7 @@ export default function Modal({ setIsOpen, text, title }: Props) {
           onClick={() => setIsOpen(false)}
         >
           <img
-            src="../../img/modalClose.svg"
+            src="/img/modalClose.svg"
             alt="close"
             onClick={() => setIsOpen(false)}
           />

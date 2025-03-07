@@ -4,30 +4,34 @@ import NickNameHeader from "~/components/nickNameHeader";
 import signupStyle from "../css/signup.module.css";
 import "../css/styles.module.css";
 import modalStyle from "../css/modal.module.css";
-import { useStore } from "../store/store";
+import { useLocalStorage, useStore } from "../store/store";
 import { useEffect, useState } from "react";
 import CautionModal from "~/components/cautionModal";
-import { useAuthRedirect } from "~/Hooks/useAuthRedirect";
 import Modal from "~/components/modal";
 import CodeModal from "~/components/codeModal";
 export default function MainLayout() {
   const [isOpen, setIsOpen] = useState(false);
+  const [cautionOpen, setCautionOpen] = useState(false);
   const [codeOpen, setCodeOpen] = useState(false);
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-  // useAuthRedirect();
-
+  useLocalStorage();
   return (
     <>
-      {isOpen && (
+      {cautionOpen && (
         <div className={modalStyle.overlay}>
           <CautionModal
-            setIsOpen={setIsOpen}
+            setCautionOpen={setCautionOpen}
             text={modalText}
             title={modalTitle}
           />
+        </div>
+      )}
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal setIsOpen={setIsOpen} text={modalText} title={modalTitle} />
         </div>
       )}
       {codeOpen && (
@@ -48,6 +52,7 @@ export default function MainLayout() {
               setIsOpen,
               setModalText,
               setModalTitle,
+              setCautionOpen,
             }}
           />
         </div>

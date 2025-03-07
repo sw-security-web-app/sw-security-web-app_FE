@@ -20,9 +20,9 @@ export default function ProfileForm() {
   const logout = useStore((state) => state.logout);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [role, setRole] = useState<Role | null>("MANAGER");
-  const { setIsOpen } = useOutletContext<{
-    setIsOpen: (open: boolean) => void;
+  const [role, setRole] = useState<Role | null>(null);
+  const { setCautionOpen } = useOutletContext<{
+    setCautionOpen: (open: boolean) => void;
   }>();
   const { setModalText } = useOutletContext<{
     setModalText: (text: string) => void;
@@ -30,10 +30,6 @@ export default function ProfileForm() {
   const { setModalTitle } = useOutletContext<{
     setModalTitle: (title: string) => void;
   }>();
-
-  // const isBrowser = typeof window !== "undefined"; // 브라우저에서만 실행되도록 체크
-  // const role = isBrowser ? localStorage.getItem("role") : null; // 브라우저에서만 localStorage 접근
-  // const role = "MANAGER";
 
   const fetchUserInfo = async () => {
     try {
@@ -55,7 +51,7 @@ export default function ProfileForm() {
   };
 
   const openCautionModal = () => {
-    setIsOpen(true);
+    setCautionOpen(true);
     setModalTitle("정말 탈퇴하시겠어요?");
     setModalText("회원 탈퇴 시, 계정은 삭제되며 복구되지 않습니다.");
   };
@@ -71,7 +67,7 @@ export default function ProfileForm() {
 
   const handleLogOut = () => {
     logout();
-    navigate("/login");
+    navigate("/login", { replace: true });
   };
 
   //로딩아이콘 띄우기

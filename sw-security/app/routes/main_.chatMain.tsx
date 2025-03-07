@@ -7,12 +7,11 @@ import {
 } from "@remix-run/react";
 import chatMainStyle from "../css/chatMain.module.css";
 import logoStyle from "../css/logo.module.css";
-import { useStore } from "../store/store";
+import { useLocalStorage, useStore } from "../store/store";
 import { useEffect, useState } from "react";
 import Logo from "~/components/logo";
 import api from "~/api/api";
 import { create } from "zustand";
-import { useAuthRedirect } from "~/Hooks/useAuthRedirect";
 
 export default function ChatMainLayout() {
   const [searchParams] = useSearchParams();
@@ -24,10 +23,9 @@ export default function ChatMainLayout() {
 
   const [renderList, setRenderList] = useState(false);
   const [previewQuestion, setPreviewQuestion] = useState("");
-  // useAuthRedirect();
+  useLocalStorage();
 
   const fetchChatList = async () => {
-    console.log("fetchChatList실행");
     try {
       const response = await api.get(`/api/chat-room/get?aiModelType=${ai}`);
       if (response.status === 200) {
@@ -63,7 +61,6 @@ export default function ChatMainLayout() {
   }, [ai, ai2, searchParams]);
 
   useEffect(() => {
-    console.log(ai);
     if (ai != "AI") {
       fetchChatList();
     }

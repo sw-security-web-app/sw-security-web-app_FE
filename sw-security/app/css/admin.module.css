@@ -258,10 +258,17 @@ td {
   /* justify-content: space-between; */
   /* background-color: red; */
 }
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  height: 15%;
+  align-items: center;
+  justify-content: space-between;
+}
 .titleDiv {
   display: felx;
   flex-direction: column;
-  height: 15%;
+
   /* background-color: blue; */
 }
 .mainTitle {
@@ -277,6 +284,29 @@ td {
 .subTitle {
   font-size: 1.2rem;
   font-weight: 500;
+}
+.informationDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.informationDiv span {
+  text-decoration: underline;
+  color: #484b50;
+}
+.informationIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  color: red;
+}
+.informationIcon:hover {
+  transform: scale(1.05);
+}
+.informationIcon:active {
+  transform: scale(0.98);
 }
 .form {
   display: flex;
@@ -307,7 +337,7 @@ textarea {
 }
 textarea:focus {
   /* border-color: rgb(203, 98, 255, 0.5); */
-  border-color: #62b8ff;
+  border-color: #cb62ff;
 }
 textarea::placeholder {
   font-size: 1.1rem;
@@ -315,7 +345,7 @@ textarea::placeholder {
   font-weight: 500;
 }
 .uploadBtnDiv {
-  width: 14rem;
+  width: 12rem;
   height: 3rem;
   background-color: #ffffff;
   border-radius: 0.6rem;

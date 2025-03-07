@@ -1,17 +1,17 @@
-html {
+.html {
   font-size: 18px;
 }
 a {
   text-decoration: none;
 }
 
-/* @media (max-width: 768px) {
-  html {
+@media (max-width: 768px) {
+  .html {
     font-size: 14px;
   }
 }
 @media (max-width: 480px) {
-  html {
+  .html {
     font-size: 10px;
   }
-} */
+}

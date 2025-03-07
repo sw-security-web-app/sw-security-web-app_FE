@@ -29,7 +29,6 @@ export default function EmployeeList() {
       const response = await api.get(url);
 
       if (response.status === 200) {
-        console.log(response.data.totalPages);
         const newList = response.data.content;
         setTotalPages(response.data.totalPages);
         setEmployees(newList);
@@ -56,8 +55,12 @@ export default function EmployeeList() {
         setCompanyName(response.data.companyName);
         setCompanyDept(response.data.companyDept);
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }

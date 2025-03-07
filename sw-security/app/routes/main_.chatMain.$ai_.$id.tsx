@@ -30,9 +30,6 @@ export default function Chat() {
   }>();
 
   const fetchMessages = async (lastIndex?: number | null) => {
-    console.log("fetchMessages실행");
-    // setRenderList(true);
-    // setIsFetching(true);
     if (loading) return;
     setLoading(true);
     try {
@@ -68,19 +65,9 @@ export default function Chat() {
       alert(errorMessage);
     } finally {
       setLoading(false);
-      // setIsFetching(false);
-      // setRenderList(false);
     }
   };
 
-  // const handleScroll = () => {
-  //   if (chatContainerRef.current) {
-  //     if (chatContainerRef.current.scrollTop === 0 && !loading) {
-  //       setIsUserScrolling(true);
-  //       fetchMessages(lastIndex as number);
-  //     }
-  //   }
-  // };
   const handleScroll = () => {
     if (chatContainerRef.current) {
       if (chatContainerRef.current.scrollTop === 0 && !loading) {
@@ -101,7 +88,6 @@ export default function Chat() {
   };
 
   const handleSendMessage = async () => {
-    console.log("보내기");
     setRenderList(true);
     if (!userInput.trim()) return;
     setLoading(true);
@@ -119,13 +105,9 @@ export default function Chat() {
           : { chatRoomId: id, prompt: userInput };
       const header = ai === "ChatGPT" ? { "X-ChatRoom-Id": id } : {};
 
-      const response = await api.post(
-        `/api/${apiName}/ask`,
-        requestBody,
-        { headers: header }
-
-        // { prompt: userInput },
-      );
+      const response = await api.post(`/api/${apiName}/ask`, requestBody, {
+        headers: header,
+      });
       if (response.status === 200) {
         if (typeof response.data.prompt === "string") {
           // response.data.prompt가 문자열인지 확인
@@ -166,17 +148,7 @@ export default function Chat() {
       handleSendMessage();
     }
   };
-  // useEffect(() => {
-  //   const chatDiv = chatContainerRef.current;
-  //   if (chatDiv) {
-  //     chatDiv.addEventListener("scroll", handleScroll);
-  //   }
-  //   return () => {
-  //     if (chatDiv) {
-  //       chatDiv.removeEventListener("scroll", handleScroll);
-  //     }
-  //   };
-  // }, [lastIndex]);
+
   useEffect(() => {
     const chatDiv = chatContainerRef.current;
     if (chatDiv) {
@@ -198,12 +170,10 @@ export default function Chat() {
   }, [messages, isFetching]);
 
   useEffect(() => {
-    console.log("id바뀜");
     setMessages([]);
     setLastIndex(null);
     setAi(ai);
     setRenderList((prev) => !prev);
-    console.log("!!!!!!!!!!!!!!");
     setAPIName(
       ai === "ChatGPT" ? "chat-gpt" : ai === "Claude" ? "claude" : "gemini"
     );

@@ -61,8 +61,21 @@
   flex-direction: row;
 }
 .nameDiv input,
-.phoneNumberDiv input {
+.phoneNumberDiv input,
+.inputContainer input {
   width: 100%;
+  border-radius: 0.67rem;
+  /* height: 4.5vh; */
+  height: 2.33rem;
+  /* width: 100%; */
+  box-sizing: border-box;
+  flex-grow: 1;
+  border: none;
+  background-color: #2a2c2f;
+  caret-color: #ffffff;
+  /* padding-left: 0.8vw; */
+  padding-left: 0.89rem;
+  color: #ffffff;
 }
 
 .idBtn,

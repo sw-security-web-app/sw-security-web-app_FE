@@ -3,7 +3,6 @@ import changePwStyle from "../css/changePw.module.css";
 import { useOutletContext } from "@remix-run/react";
 import api from "~/api/api";
 export default function ChangePwForm() {
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const { setIsOpen } = useOutletContext<{
     setIsOpen: (open: boolean) => void;
   }>();
@@ -43,7 +42,6 @@ export default function ChangePwForm() {
   };
 
   const changePw = async (e: FormEvent<HTMLFormElement>) => {
-    console.log(formData);
     e.preventDefault();
     try {
       const response = await api.put("/api/auth/change-password", formData, {

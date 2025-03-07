@@ -202,6 +202,8 @@
   justify-content: center;
 }
 .img {
+  height: 15.5rem;
+  width: 22rem;
   position: absolute;
   bottom: 0;
 }

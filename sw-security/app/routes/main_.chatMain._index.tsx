@@ -1,7 +1,6 @@
 import { useSearchParams, Link, useNavigate } from "@remix-run/react";
 import chatMainStyle from "../css/chatMain.module.css";
 import api from "~/api/api";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 export default function ChatMain() {
@@ -70,10 +69,6 @@ export default function ChatMain() {
             >
               <div className={chatMainStyle.dateDiv}>
                 <span>{chat.latestCreatedAt}</span>
-                {/* <FaRegTrashAlt
-                  style={{ color: "white" }}
-                  className={chatMainStyle.trashIcon}
-                /> */}
               </div>
               <div className={chatMainStyle.contentDiv}>
                 {chat.latestAnswer}
