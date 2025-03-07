@@ -1,9 +1,4 @@
-import {
-  useSearchParams,
-  Link,
-  useNavigate,
-  useOutletContext,
-} from "@remix-run/react";
+import { useSearchParams, Link, useNavigate } from "@remix-run/react";
 import chatMainStyle from "../css/chatMain.module.css";
 import api from "~/api/api";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -16,11 +11,8 @@ export default function ChatMain() {
   const [chatDiv, setChatDiv] = useState<
     { chatRoomId: number; latestAnswer: string; latestCreatedAt: string }[]
   >([]);
-  const setRenderList =
-    useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
 
   const createChatRoom = async () => {
-    setRenderList(true);
     try {
       const response = await api.post("api/chat-room/create");
       if (response.status === 200) {
@@ -34,7 +26,6 @@ export default function ChatMain() {
         "알 수 없는 오류 발생";
       alert(errorMessage);
     } finally {
-      setRenderList(false);
     }
   };
   const fetchChatDiv = async () => {

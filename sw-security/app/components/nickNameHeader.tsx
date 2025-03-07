@@ -5,6 +5,7 @@ import Profile from "./profile";
 import ProfileModal from "./ProfileModal";
 import { useEffect, useState } from "react";
 import api from "~/api/api";
+import { GrUserAdmin } from "react-icons/gr";
 
 type Props = {
   color: string;
@@ -37,8 +38,8 @@ export default function NickNameHeader({
   const [role, setRole] = useState<string | null>("");
   const nickNameColor: "#B7BDC7" | string =
     color === "#0d0d0d" ? "#B7BDC7" : "#484B50";
-  const profileColor: "#FFFFFF" | string =
-    color === "#0d0d0d" ? "#FFFFFF" : "#8C919B";
+  // const profileColor: "#FFFFFF" | string =
+  //   color === "#0d0d0d" ? "#FFFFFF" : "#8C919B";
   useEffect(() => {
     const stroedRole = localStorage.getItem("role");
     setRole(stroedRole);
@@ -53,13 +54,15 @@ export default function NickNameHeader({
               onClick={fetchCode}
               className={nickNameHeader.compnayCodeBtn}
             >
-              회사 코드
+              <GrUserAdmin
+                style={{ width: "3rem", height: "3rem", color: "white" }}
+              />
             </button>
           ) : null}
           <div className={nickNameHeader.profileContainer}>
             <Profile
               nickNameColor={nickNameColor}
-              profileColor={profileColor}
+              // profileColor={profileColor}
             />
             <ProfileModal />
           </div>

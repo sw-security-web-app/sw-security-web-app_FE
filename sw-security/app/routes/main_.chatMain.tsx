@@ -18,8 +18,12 @@ export default function ChatMainLayout() {
   const [searchParams] = useSearchParams();
   const { ai2 } = useParams();
   const [ai, setAi] = useState<string>("AI");
-  const [chatList, setChatList] = useState<number[]>([]);
+  const [chatList, setChatList] = useState<
+    { chatRoomId: number; previewQuestion: string }[]
+  >([]);
+
   const [renderList, setRenderList] = useState(false);
+  const [previewQuestion, setPreviewQuestion] = useState("");
   // useAuthRedirect();
 
   const fetchChatList = async () => {
@@ -27,7 +31,13 @@ export default function ChatMainLayout() {
     try {
       const response = await api.get(`/api/chat-room/get?aiModelType=${ai}`);
       if (response.status === 200) {
-        setChatList(response.data.map((chat: any) => chat.chatRoomId));
+        setChatList(
+          response.data.map((chat: any) => ({
+            chatRoomId: chat.chatRoomId,
+            previewQuestion: chat.previewQuestion,
+          }))
+        );
+        setPreviewQuestion(response.data.previewQuestion);
       } else {
         const error = await response.data;
         alert(error.message);
@@ -50,9 +60,10 @@ export default function ChatMainLayout() {
         setAi(aiQuery);
       }
     }
-  }, [ai2, searchParams]);
+  }, [ai, ai2, searchParams]);
 
   useEffect(() => {
+    console.log(ai);
     if (ai != "AI") {
       fetchChatList();
     }
@@ -82,24 +93,24 @@ export default function ChatMainLayout() {
               <img src="/img/home.svg" alt="home" />
               <span className={chatMainStyle.itemText}>홈</span>
             </Link>
-            <div className={chatMainStyle.itemDiv}>
+            {/* <div className={chatMainStyle.itemDiv}>
               <img src="/img/alarm.svg" alt="alarm" />
               <span className={chatMainStyle.itemText}>알림</span>
             </div>
             <div className={chatMainStyle.itemDiv}>
               <img src="/img/chatHistory.svg" alt="chatHistory" />
               <span className={chatMainStyle.itemText}>대화 기록</span>
-            </div>
+            </div> */}
           </div>
           <div className={chatMainStyle.chatHistoryConatainer}>
-            {chatList.map((id, index) => (
+            {chatList.map((chat, index) => (
               <Link
                 style={{ textDecoration: "none" }}
-                to={`/main/chatMain/${ai}/${id}`}
+                to={`/main/chatMain/${ai}/${chat.chatRoomId}`}
                 className={chatMainStyle.chatTitle}
-                key={id}
+                key={chat.chatRoomId}
               >
-                <span>대화 내용 {id}</span>
+                <span>{chat.previewQuestion}</span>
               </Link>
             ))}
           </div>
@@ -120,7 +131,7 @@ export default function ChatMainLayout() {
           </div>
         </div>
         <div className={chatMainStyle.contentContainer}>
-          <Outlet context={setRenderList} />
+          <Outlet context={{ setRenderList, setAi }} />
         </div>
       </div>
     </div>
