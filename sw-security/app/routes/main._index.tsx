@@ -6,6 +6,15 @@ import AISelect from "~/components/aiSelect";
 import { useEffect } from "react";
 
 export default function Join() {
+  const { setIsOpen } = useOutletContext<{
+    setIsOpen: (open: boolean) => void;
+  }>();
+  const { setModalText } = useOutletContext<{
+    setModalText: (text: string) => void;
+  }>();
+  const { setModalTitle } = useOutletContext<{
+    setModalTitle: (title: string) => void;
+  }>();
   return (
     <div className={defaultStyle.inner}>
       <div className={mainStyle.textContainer}>
@@ -21,9 +30,24 @@ export default function Join() {
         </div>
       </div>
       <div className={mainStyle.aiSelectContainer}>
-        <AISelect aiName="Gemini" />
-        <AISelect aiName="Claude" />
-        <AISelect aiName="ChatGPT" />
+        <AISelect
+          aiName="Gemini"
+          setIsOpen={setIsOpen}
+          setModalText={setModalText}
+          setModalTitle={setModalTitle}
+        />
+        <AISelect
+          aiName="Claude"
+          setIsOpen={setIsOpen}
+          setModalText={setModalText}
+          setModalTitle={setModalTitle}
+        />
+        <AISelect
+          aiName="ChatGPT"
+          setIsOpen={setIsOpen}
+          setModalText={setModalText}
+          setModalTitle={setModalTitle}
+        />
       </div>
       <div className={mainStyle.eclipseDiv}>
         <div className={mainStyle.eclipseBlur} />

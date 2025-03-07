@@ -104,14 +104,19 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: #0d0d0d; */
-  /* box-shadow: 0 0 0.83rem 0.06rem #cb62ff; */
-  /* border: 1px solid #cb62ff;
-  font-weight: 600;
-  color: #cb62ff; */
 }
 .rightItem {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.codeAicon {
+  width: 3rem;
+  height: 3rem;
+}
+.codeAicon:hover {
+  transform: scale(1.1);
+}
+.codeAicon:active {
+  transform: scale(0.98);
 }

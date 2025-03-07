@@ -24,10 +24,9 @@ export default function ChatMainLayout() {
 
   const [renderList, setRenderList] = useState(false);
   const [previewQuestion, setPreviewQuestion] = useState("");
-  // useAuthRedirect();
+  useAuthRedirect();
 
   const fetchChatList = async () => {
-    console.log("fetchChatList실행");
     try {
       const response = await api.get(`/api/chat-room/get?aiModelType=${ai}`);
       if (response.status === 200) {
@@ -63,7 +62,6 @@ export default function ChatMainLayout() {
   }, [ai, ai2, searchParams]);
 
   useEffect(() => {
-    console.log(ai);
     if (ai != "AI") {
       fetchChatList();
     }

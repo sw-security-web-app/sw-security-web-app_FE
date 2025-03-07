@@ -43,7 +43,6 @@ export default function ChangePwForm() {
   };
 
   const changePw = async (e: FormEvent<HTMLFormElement>) => {
-    console.log(formData);
     e.preventDefault();
     try {
       const response = await api.put("/api/auth/change-password", formData, {

@@ -1,10 +1,20 @@
-import { Link, useNavigate } from "@remix-run/react";
+import { useNavigate } from "@remix-run/react";
 import mainStyle from "../css/main.module.css";
 import api from "~/api/api";
 
-type Prop = { aiName: string };
+type Prop = {
+  aiName: string;
+  setIsOpen: (isOpen: boolean) => void;
+  setModalText: (text: string) => void;
+  setModalTitle: (title: string) => void;
+};
 
-export default function AISelect({ aiName }: Prop) {
+export default function AISelect({
+  aiName,
+  setIsOpen,
+  setModalText,
+  setModalTitle,
+}: Prop) {
   const navigate = useNavigate();
   const confirmLearning = async () => {
     try {
@@ -17,27 +27,13 @@ export default function AISelect({ aiName }: Prop) {
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
+      setIsOpen(true);
+      setModalTitle("검열 AI학습 오류");
+      setModalText(errorMessage);
     }
   };
 
   return (
-    // <Link
-    //   to={`/main/chatMain?ai=${aiName}`}
-    //   style={{ textDecoration: "none" }}
-    //   className={mainStyle.aiSelect}
-    // >
-    //   <div className={mainStyle.imgContainer}>
-    //     <img
-    //       src={`/img/${aiName}.svg`}
-    //       className={mainStyle.img}
-    //       alt={aiName}
-    //     />
-    //   </div>
-    //   <div className={mainStyle.tagContainer}>
-    //     <span className={mainStyle.tag}>{aiName}</span>
-    //   </div>
-    // </Link>
     <div className={mainStyle.aiSelect} onClick={confirmLearning}>
       <div className={mainStyle.imgContainer}>
         <img

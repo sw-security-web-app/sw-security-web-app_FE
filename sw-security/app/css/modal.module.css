@@ -44,14 +44,14 @@
 }
 .modalContent {
   display: flex;
-  flex: 1;
+  flex: 1.5;
   padding-left: 1.1rem;
   align-items: center;
   /* background-color: red; */
 }
 .modalContent2 {
   display: flex;
-  flex: 1;
+  flex: 1.5;
   padding-left: 1.1rem;
   align-items: center;
   /* background-color: red; */
@@ -61,6 +61,7 @@
   color: #484b50;
   font-size: 0.85rem;
   font-weight: 500;
+  white-space: pre-line;
 }
 .contentText2 {
   color: #484b50;

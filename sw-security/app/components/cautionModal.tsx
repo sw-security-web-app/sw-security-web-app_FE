@@ -2,12 +2,12 @@ import api from "~/api/api";
 import modalStyle from "../css/modal.module.css";
 import { useNavigate } from "@remix-run/react";
 type Props = {
-  setIsOpen: (isOpen: boolean) => void;
+  setCautionOpen: (isOpen: boolean) => void;
   text: string;
   title: string;
 };
 
-export default function CautionModal({ setIsOpen, text, title }: Props) {
+export default function CautionModal({ setCautionOpen, text, title }: Props) {
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
@@ -26,7 +26,7 @@ export default function CautionModal({ setIsOpen, text, title }: Props) {
         "알 수 없는 오류 발생";
       alert(errorMessage);
     } finally {
-      setIsOpen(false);
+      setCautionOpen(false);
     }
   };
   return (
@@ -35,12 +35,12 @@ export default function CautionModal({ setIsOpen, text, title }: Props) {
         <span className={modalStyle.headerText}>{title}</span>
         <button
           className={modalStyle.closeBtn}
-          onClick={() => setIsOpen(false)}
+          onClick={() => setCautionOpen(false)}
         >
           <img
             src="../../img/modalClose.svg"
             alt="close"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setCautionOpen(false)}
           />
         </button>
       </div>
@@ -50,7 +50,7 @@ export default function CautionModal({ setIsOpen, text, title }: Props) {
       <div className={modalStyle.modalBtnDiv}>
         <button
           className={modalStyle.cancelModalBtn}
-          onClick={() => setIsOpen(false)}
+          onClick={() => setCautionOpen(false)}
         >
           취소
         </button>

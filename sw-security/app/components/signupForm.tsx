@@ -26,15 +26,6 @@ export default function SignUpForm() {
   const [isEmailConfirm, setIsEmailConfirm] = useState(false);
   const [isPhoneConfirm, setIsPhoneConfirm] = useState(false);
 
-  // useEffect(() => {
-  //   if (isAdmin) {
-  //     setRole("MANAGER");
-  //   } else if (isEmployee) {
-  //     setRole("EMPLOYEE");
-  //   } else {
-  //     setRole("GENERAL");
-  //   }
-  // }, [location.pathname]);// 경로에 따른 역할 설정
   const role = useMemo(() => {
     if (location.pathname.startsWith("/adminSignUp")) return "MANAGER";
     if (location.pathname.startsWith("/employeeSignUp")) return "EMPLOYEE";
@@ -53,7 +44,6 @@ export default function SignUpForm() {
     invitationCode: "", // 직원 폼에서 회사 코드
     memberStatus: "",
   });
-  // console.log(formData);
 
   //checkData:확인 필요한 정보들!
   const [checkData, setCheckData] = useState({
@@ -66,7 +56,6 @@ export default function SignUpForm() {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    // console.log(name, value); // 콘솔 로그 추가하여 값 확인
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -106,7 +95,6 @@ export default function SignUpForm() {
       ])
     );
 
-    console.log(transformedData);
     // 비밀번호 확인
     if (formData.password !== checkData.passwordConfirm) {
       // alert("비밀번호가 일치하지 않습니다.");
@@ -142,16 +130,14 @@ export default function SignUpForm() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("에러 발생:", error);
-      alert(error.message);
+      setModalTitle("회원가입 오류");
+      setModalText(`${error.message}`);
+      setIsOpen(true);
     }
   };
 
   //이메일 전송
   async function sendEmailCode() {
-    // setModalTitle("이메일 인증");
-    // setModalText("입력하신 이메일로 인증번호를 전송했습니다.");
-    // setIsOpen(true);
     if (!formData.email) {
       setModalTitle("이메일 인증");
       setModalText("이메일을 먼저 입력해주세요.");
@@ -178,16 +164,14 @@ export default function SignUpForm() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("인증번호 전송 중 오류 발생:", error);
-      alert(error.message);
+      setModalTitle("이메일 인증 오류");
+      setModalText(`${error.message}`);
+      setIsOpen(true);
     }
   }
 
   //핸드폰번호 전송
   async function sendPhoneCode() {
-    // setModalTitle("핸드폰 인증");
-    // setModalText("입력하신 핸드폰으로 인증번호를 전송했습니다.");
-    // setIsOpen(true);
     if (!formData.phoneNumber) {
       setModalTitle("핸드폰 인증");
       setModalText("핸드폰 번호를 먼저 입력해주세요.");
@@ -217,8 +201,9 @@ export default function SignUpForm() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("인증번호 전송 중 오류 발생:", error);
-      alert(error.message);
+      setModalTitle("핸드폰 인증 오류");
+      setModalText(`${error.message}`);
+      setIsOpen(true);
     }
   }
 
@@ -232,7 +217,6 @@ export default function SignUpForm() {
       return;
     }
     try {
-      console.log(checkData.emailCodeConfirm);
       const response = await fetch(
         BASE_URL +
           "/api/mail-check?email=" +
@@ -257,7 +241,9 @@ export default function SignUpForm() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      alert(error.message);
+      setModalTitle("인증번호 오류");
+      setModalText(`${error.message}`);
+      setIsOpen(true);
     }
   }
 
@@ -296,8 +282,9 @@ export default function SignUpForm() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("인증번호 확인 중 오류 발생", error);
-      alert(error.message);
+      setModalTitle("인증번호 오류");
+      setModalText(`${error.message}`);
+      setIsOpen(true);
     }
   }
 
@@ -324,7 +311,8 @@ export default function SignUpForm() {
           </div>
           <div className={signupStyle.emailDiv}>
             <label htmlFor="email">
-              이메일<span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
+              이메일
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <div>
               <div className={signupStyle.inputContainer}>
@@ -462,7 +450,8 @@ export default function SignUpForm() {
           </div>
           <div className={signupStyle.passwordDiv}>
             <label htmlFor="password">
-              비밀번호<span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
+              비밀번호
+              <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
             <input
               id="password"
@@ -525,7 +514,9 @@ export default function SignUpForm() {
                 <div className={signupStyle.departmentDiv}>
                   <label htmlFor="departmentName">
                     부서명 입력
-                    <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
+                    <span style={{ color: "red", marginLeft: "0.28rem" }}>
+                      *
+                    </span>
                   </label>
                   <input
                     id="departmentName"
@@ -540,7 +531,9 @@ export default function SignUpForm() {
                 <div className={signupStyle.positionDiv}>
                   <label htmlFor="position">
                     직책 선택
-                    <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
+                    <span style={{ color: "red", marginLeft: "0.28rem" }}>
+                      *
+                    </span>
                   </label>
                   <select
                     id="position"
@@ -617,35 +610,8 @@ export default function SignUpForm() {
           <button className={signupStyle.signUpBtn} type="submit">
             회원가입
           </button>
-          {/* <button
-        className={signupStyle.signUpBtn}
-        type="button"
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        회원가입
-      </button> */}
         </form>
       </div>
     </>
   );
 }
-// const test = async () => {
-//   try {
-//     // 서버로 데이터 전송
-//     const response = await axios.get("http://192.168.201.133:8080/api/hello");
-
-//     if (response.status === 200) {
-//       alert(response.data);
-//     } else {
-//     }
-//   } catch (error: any) {
-//     console.error("에러 발생:", error);
-//     alert(error.message);
-//   }
-// };
-
-// export default function Test() {
-//   return <button onClick={test}>제에에ㅔ에에ㅔ발발</button>;
-// }

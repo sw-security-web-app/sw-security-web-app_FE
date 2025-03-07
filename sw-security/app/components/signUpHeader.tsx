@@ -8,7 +8,6 @@ export default function SignUpHeader() {
     <div className={loginHeaderStyle.header}>
       <div className={loginHeaderStyle.headerItems}>
         <Logo to="/" />
-        {/* <div className={loginHeaderStyle.none}>none</div> */}
       </div>
     </div>
   );

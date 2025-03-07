@@ -35,7 +35,7 @@ export default function NickNameHeader({
       alert(errorMessage);
     }
   };
-  const [role, setRole] = useState<string | null>("");
+  const [role, setRole] = useState<string | null>("MANAGER");
   const nickNameColor: "#B7BDC7" | string =
     color === "#0d0d0d" ? "#B7BDC7" : "#484B50";
   // const profileColor: "#FFFFFF" | string =
@@ -55,7 +55,8 @@ export default function NickNameHeader({
               className={nickNameHeader.compnayCodeBtn}
             >
               <GrUserAdmin
-                style={{ width: "3rem", height: "3rem", color: "white" }}
+                style={{ color: nickNameColor }}
+                className={nickNameHeader.codeAicon}
               />
             </button>
           ) : null}

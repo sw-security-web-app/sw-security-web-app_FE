@@ -21,7 +21,6 @@ export default function Login() {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    console.log(formData);
     e.preventDefault();
     try {
       const response = await fetch(BASE_URL + "/api/auth/login", {
@@ -36,7 +35,6 @@ export default function Login() {
       });
 
       if (response.ok) {
-        console.log(response);
         const data = await response.json();
         const { accessToken, userName, role } = data;
         login(accessToken, userName, role);
@@ -45,12 +43,9 @@ export default function Login() {
       } else {
         const error = await response.json();
         setErrorMessage(error.message);
-        // alert(`${error.message}`); //서버에서 보내주는 오류값 알림창으로 띄우기
       }
     } catch (error: any) {
-      console.error("에러 발생:", error);
       setErrorMessage(error.message);
-      // alert(`${error.message}`);
     }
   };
 

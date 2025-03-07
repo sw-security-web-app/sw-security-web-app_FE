@@ -1,7 +1,8 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import adminStyle from "../css/admin.module.css";
 import api from "../api/api";
 import { useOutletContext } from "@remix-run/react";
+import { FiAlertTriangle } from "react-icons/fi";
 
 export default function LearningAI() {
   const [fileName, setFileName] = useState<string>("");
@@ -25,21 +26,39 @@ export default function LearningAI() {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setCanSubmit(false);
-      setFileName(file.name);
+      if (text !== "") {
+        setCanSubmit(true);
+      } else {
+        setCanSubmit(false);
+        setFileName(file.name);
+      }
     }
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
     if (event.target.value !== "") {
-      setCanSubmit(false);
+      if (fileName) {
+        setCanSubmit(true);
+      } else {
+        setCanSubmit(false);
+      }
     }
     if (event.target.value == "") {
-      setCanSubmit(true);
+      if (fileName) {
+        setCanSubmit(false);
+      } else {
+        setCanSubmit(true);
+      }
     }
   };
-
+  const openInformation = () => {
+    setIsOpen(true);
+    setModalTitle("주의 사항");
+    setModalText(
+      "1. 텍스트, 파일 중 한가지만 제출할 수 있습니다.\n2. 파일은 txt, pdf파일만 가능하고, 코드는 학습이 불가능합니다.\n3. 학습할 데이터가 적으면 성능이 좋지 않을 수 있습니다."
+    );
+  };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
@@ -89,14 +108,23 @@ export default function LearningAI() {
     <div className={adminStyle.content}>
       <div className={adminStyle.inner}>
         <div className={adminStyle.learningConatainer}>
-          <div className={adminStyle.titleDiv}>
-            <div className={adminStyle.mainTitle}>
-              <img src="../../img/learning.svg" alt="learning" />
-              <span>AI 학습시키기</span>
+          <div className={adminStyle.titleContainer}>
+            <div className={adminStyle.titleDiv}>
+              <div className={adminStyle.mainTitle}>
+                <img src="../../img/learning.svg" alt="learning" />
+                <span>AI 학습시키기</span>
+              </div>
+              <span className={adminStyle.subTitle}>
+                검열할 데이터를 학습시키세요
+              </span>
             </div>
-            <span className={adminStyle.subTitle}>
-              검열할 데이터를 학습시키세요
-            </span>
+            <div className={adminStyle.informationDiv}>
+              <span>주의 사항</span>
+              <FiAlertTriangle
+                className={adminStyle.informationIcon}
+                onClick={openInformation}
+              />
+            </div>
           </div>
           <form className={adminStyle.form} onSubmit={handleSubmit}>
             <div className={adminStyle.inputDiv}>
@@ -118,12 +146,12 @@ export default function LearningAI() {
               <div className={adminStyle.uploadBtnDiv}>
                 <label htmlFor="fileUpload" className={adminStyle.uploadBtn}>
                   <img src="../../img/upload.svg" />
-                  텍스트 파일 업로드
+                  파일 업로드
                 </label>
                 <input
                   id="fileUpload"
                   type="file"
-                  accept=".txt, .csv, .pdf"
+                  accept=".txt, .pdf"
                   style={{ display: "none" }}
                   onChange={handleFileChange}
                 />

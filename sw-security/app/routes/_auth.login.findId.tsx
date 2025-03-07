@@ -92,7 +92,6 @@ export default function findId() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("인증번호 전송 중 오류 발생:", error);
       alert(error.message);
     }
   }
@@ -129,8 +128,9 @@ export default function findId() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("인증번호 확인 중 오류 발생", error);
-      alert(error.message);
+      setModalTitle("인증번호 오류");
+      setModalText(`${error.message}`);
+      setIsOpen(true);
     }
   }
 
@@ -160,7 +160,6 @@ export default function findId() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("에러 발생:", error);
       alert(error.message);
     }
   };
@@ -191,7 +190,6 @@ export default function findId() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      console.error("에러 발생:", error);
       alert(error.message);
     }
   };
