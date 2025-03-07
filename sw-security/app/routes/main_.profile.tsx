@@ -32,7 +32,12 @@ export default function ProfileLayout() {
         </div>
       )}
       <div className={adminStyle.container}>
-        <NickNameHeader color="#FFFFFF" />
+        <NickNameHeader
+          color="#FFFFFF"
+          setCodeOpen={() => {}}
+          setTitle={() => {}}
+          setText={() => {}}
+        />
         <Outlet
           context={{
             setIsOpen,

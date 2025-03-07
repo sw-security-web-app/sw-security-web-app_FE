@@ -20,6 +20,10 @@
   /* object-fit: cover; */
   border-radius: 100%;
   background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 0.1rem black;
 }
 .container {
   display: flex;
@@ -88,13 +92,18 @@ ul {
 .compnayCodeBtn {
   border: none;
   margin-right: 1rem;
-  width: 6rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
   cursor: pointer;
-  background-color: white;
+  /* background-color: rgb(203, 98, 255, 0.6); */
   color: black;
   font-size: 0.9rem;
   text-align: center;
   border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* background-color: #0d0d0d; */
   /* box-shadow: 0 0 0.83rem 0.06rem #cb62ff; */
   /* border: 1px solid #cb62ff;
@@ -104,4 +113,5 @@ ul {
 .rightItem {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }

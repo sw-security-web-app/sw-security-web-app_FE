@@ -13,23 +13,24 @@ interface Message {
 }
 
 export default function Chat() {
-  const { ai } = useParams();
-  const { id } = useParams();
-
+  const { ai, id } = useParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<Message | null>(null);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-  const [lastIndex, setLastIndex] = useState<Long>();
+  const [lastIndex, setLastIndex] = useState<number | null>(null);
   const [apiName, setAPIName] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const setRenderList =
-    useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
+  const { setRenderList, setAi } = useOutletContext<{
+    setRenderList: React.Dispatch<React.SetStateAction<boolean>>;
+    setAi: React.Dispatch<React.SetStateAction<string | undefined>>;
+  }>();
 
-  const fetchMessages = async (lastIndex: Long) => {
+  const fetchMessages = async (lastIndex?: number | null) => {
+    console.log("fetchMessages실행");
     // setRenderList(true);
     // setIsFetching(true);
     if (loading) return;
@@ -41,22 +42,22 @@ export default function Chat() {
 
       if (response.status === 200) {
         setLastIndex(response.data.lastChatId);
-
-        // 각 채팅 항목에 대해 메시지를 처리
         const newMessages: Message[] = [];
-        response.data.array.forEach((chat: any) => {
+        for (const chat of response.data.array) {
           if (chat.message) {
             const question = chat.message.question;
             const answer = chat.message.answer;
-
             if (answer) {
-              newMessages.push({ sender: "answer", text: answer });
+              // 마크다운 처리
+              const result = await marked(answer); // 마크다운 변환
+              const sanitizedHtml = DOMPurify.sanitize(result); // HTML sanitize
+              newMessages.push({ sender: "answer", text: sanitizedHtml });
             }
             if (question) {
               newMessages.push({ sender: "question", text: question });
             }
           }
-        });
+        }
         setMessages((prev) => [...newMessages.reverse(), ...prev]);
       }
     } catch (error: any) {
@@ -76,7 +77,7 @@ export default function Chat() {
   //   if (chatContainerRef.current) {
   //     if (chatContainerRef.current.scrollTop === 0 && !loading) {
   //       setIsUserScrolling(true);
-  //       fetchMessages(lastIndex as Long);
+  //       fetchMessages(lastIndex as number);
   //     }
   //   }
   // };
@@ -84,7 +85,7 @@ export default function Chat() {
     if (chatContainerRef.current) {
       if (chatContainerRef.current.scrollTop === 0 && !loading) {
         setIsUserScrolling(true); // 사용자가 스크롤을 올렸음 → 자동 스크롤 방지
-        fetchMessages(lastIndex as Long);
+        fetchMessages(lastIndex as number);
       }
     }
   };
@@ -143,11 +144,14 @@ export default function Chat() {
         const error = await response.data;
         alert(error.message);
       }
-    } catch (error) {
-      console.error("에러 발생");
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
       const aiMessage: Message = {
         sender: "answer",
-        text: "적합하지 않은 질문입니다. 다른 질문을 입력해주세요.",
+        text: errorMessage,
       };
       setMessages((prev) => [...prev, aiMessage]);
     } finally {
@@ -194,16 +198,18 @@ export default function Chat() {
   }, [messages, isFetching]);
 
   useEffect(() => {
-    setRenderList(true);
-    if (ai == "ChatGPT") {
-      setAPIName("chat-gpt");
-    } else if (ai == "Claude") {
-      setAPIName("claude");
-    } else {
-      setAPIName("gemini");
-    }
-    fetchMessages(lastIndex as Long); // 첫 번째 페이지 메시지 불러오기
-  }, []);
+    console.log("id바뀜");
+    setMessages([]);
+    setLastIndex(null);
+    setAi(ai);
+    setRenderList((prev) => !prev);
+    console.log("!!!!!!!!!!!!!!");
+    setAPIName(
+      ai === "ChatGPT" ? "chat-gpt" : ai === "Claude" ? "claude" : "gemini"
+    );
+
+    fetchMessages();
+  }, [id, ai]);
 
   return (
     <div className={chatMainStyle.aiContainer}>

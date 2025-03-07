@@ -65,7 +65,6 @@ export default function LearningAI() {
         },
       });
       if (response.status === 200) {
-        alert(response.data.message);
         setIsOpen(true);
         setModalTitle(response.data.message);
         setModalText("최대 하루 정도 시간이 걸릴 수 있습니다.");
