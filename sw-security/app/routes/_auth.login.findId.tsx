@@ -138,7 +138,7 @@ export default function findId() {
   const findId = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch(BASE_URL + "/api/signup", {
+      const response = await fetch(BASE_URL + "/api/find-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -160,7 +160,9 @@ export default function findId() {
         setIsOpen(true);
       }
     } catch (error: any) {
-      alert(error.message);
+      setModalTitle("아이디 찾기 오류");
+      setModalText(`${error.message}`);
+      setIsOpen(true);
     }
   };
 
@@ -168,7 +170,7 @@ export default function findId() {
   const findPw = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch(BASE_URL + "/api/signup", {
+      const response = await fetch(BASE_URL + "/api/send-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -258,7 +260,7 @@ export default function findId() {
       ) : (
         <form onSubmit={findPw} className={findIdStyle.findPwForm}>
           <div className={findIdStyle.phoneNumberDiv}>
-            <label htmlFor="phoneNumber">
+            <label htmlFor="phoneNumber" className={findIdStyle.label}>
               핸드폰 번호
               <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
@@ -285,7 +287,7 @@ export default function findId() {
             </div>
           </div>
           <div className={findIdStyle.phoneAuthDiv}>
-            <label htmlFor="phoneAuth">
+            <label htmlFor="phoneAuth" className={findIdStyle.label}>
               핸드폰 인증번호
               <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>
@@ -316,6 +318,7 @@ export default function findId() {
                       flexDirection: "row",
                       width: "100%",
                       justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
                     <span style={{ color: "#00FF80", fontSize: "0.78rem" }}>
@@ -328,7 +331,7 @@ export default function findId() {
             </div>
           </div>
           <div className={findIdStyle.emailDiv}>
-            <label htmlFor="email">
+            <label htmlFor="email" className={findIdStyle.label}>
               이메일
               <span style={{ color: "red", marginLeft: "0.28rem" }}>*</span>
             </label>

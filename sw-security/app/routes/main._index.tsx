@@ -5,7 +5,7 @@ import NickNameHeader from "~/components/nickNameHeader";
 import AISelect from "~/components/aiSelect";
 import { useEffect } from "react";
 
-export default function Join() {
+export default function Main() {
   const { setIsOpen } = useOutletContext<{
     setIsOpen: (open: boolean) => void;
   }>();

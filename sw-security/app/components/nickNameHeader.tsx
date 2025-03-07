@@ -35,7 +35,7 @@ export default function NickNameHeader({
       alert(errorMessage);
     }
   };
-  const [role, setRole] = useState<string | null>("MANAGER");
+  const [role, setRole] = useState<string | null>("INDIVIDUAL");
   const nickNameColor: "#B7BDC7" | string =
     color === "#0d0d0d" ? "#B7BDC7" : "#484B50";
   // const profileColor: "#FFFFFF" | string =

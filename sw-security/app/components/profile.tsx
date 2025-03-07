@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@remix-run/react";
 import nickNameHeader from "../css/nickNameHeader.module.css";
-import { GoPerson } from "react-icons/go";
+import { BsPersonFill } from "react-icons/bs";
 
 type Props = { nickNameColor: string };
 
@@ -21,12 +21,11 @@ export default function Profile({ nickNameColor }: Props) {
       </div>
       <div
         className={nickNameHeader.profile}
-        // style={{ backgroundColor: profileColor }}
+        style={{ border: "0.1rem solid", borderColor: nickNameColor }}
       >
-        <img
-          src="/img/profile.svg"
-          alt="profile"
-          style={{ width: "2.5rem", height: "2.5rem", borderRadius: "100%" }}
+        <BsPersonFill
+          className={nickNameHeader.profileIcon}
+          style={{ color: nickNameColor }}
         />
       </div>
     </div>

@@ -1,13 +1,12 @@
 import { Outlet } from "@remix-run/react";
 import NickNameHeader from "~/components/nickNameHeader";
 import adminStyle from "../css/admin.module.css";
-import "../css/styles.module.css";
 import { useState } from "react";
 import modalStyle from "../css/modal.module.css";
 import Modal from "~/components/modal";
-import { useAuthRedirect } from "~/Hooks/useAuthRedirect";
 import { AiOutlineLoading } from "react-icons/ai";
 import CodeModal from "~/components/codeModal";
+import { useLocalStorage } from "~/store/store";
 
 export default function ProfileLayout() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +16,7 @@ export default function ProfileLayout() {
   const [codeOpen, setCodeOpen] = useState(false);
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
-  useAuthRedirect();
+  useLocalStorage();
   return (
     <>
       {isOpen && (

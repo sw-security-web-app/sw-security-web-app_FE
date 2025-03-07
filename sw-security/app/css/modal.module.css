@@ -79,6 +79,10 @@
   background-color: transparent;
   cursor: pointer;
 }
+.closeBtn img {
+  height: 2.1rem;
+  width: 2.1rem;
+}
 .modalBtn {
   border: none;
   background-color: #2a2c2f;

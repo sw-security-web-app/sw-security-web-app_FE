@@ -4,10 +4,9 @@ import NickNameHeader from "~/components/nickNameHeader";
 import signupStyle from "../css/signup.module.css";
 import "../css/styles.module.css";
 import modalStyle from "../css/modal.module.css";
-import { useStore } from "../store/store";
+import { useLocalStorage, useStore } from "../store/store";
 import { useEffect, useState } from "react";
 import CautionModal from "~/components/cautionModal";
-import { useAuthRedirect } from "~/Hooks/useAuthRedirect";
 import Modal from "~/components/modal";
 import CodeModal from "~/components/codeModal";
 export default function MainLayout() {
@@ -18,8 +17,7 @@ export default function MainLayout() {
   const [title, setTitle] = useState("");
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-  useAuthRedirect();
-
+  useLocalStorage();
   return (
     <>
       {cautionOpen && (

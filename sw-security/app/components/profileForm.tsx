@@ -67,7 +67,7 @@ export default function ProfileForm() {
 
   const handleLogOut = () => {
     logout();
-    navigate("/login");
+    navigate("/login", { replace: true });
   };
 
   //로딩아이콘 띄우기

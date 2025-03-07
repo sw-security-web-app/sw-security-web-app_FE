@@ -19,11 +19,15 @@
   height: 2.8rem;
   /* object-fit: cover; */
   border-radius: 100%;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 0.1rem black;
+}
+.profileIcon {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 100%;
 }
 .container {
   display: flex;

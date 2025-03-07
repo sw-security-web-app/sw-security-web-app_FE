@@ -7,16 +7,7 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import { useLocalStorage } from "./store/store";
-
-// export const links: LinksFunction = () => [
-//   { rel: "preconnect", href: "https://cdn.jsdelivr.net" },
-//   {
-//     rel: "stylesheet",
-//     href: "https://cdn.jsdelivr.net/gh/orioncactus/Pretendard/dist/web/static/pretendard.css",
-//     as: "style",
-//     crossOrigin: "anonymous",
-//   },
-// ];
+import style from "./css/styles.module.css";
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -31,9 +22,12 @@ export const links: LinksFunction = () => [
 ];
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" style={{ margin: 0, padding: 0, height: "100%" }}>
+    <html
+      lang="en"
+      className={style.html}
+      style={{ margin: 0, padding: 0, height: "100%" }}
+    >
       <head>
-        {/* <link rel="stylesheet" href="../css/styles.module.css" /> */}
         <link rel="icon" type="image/ico" href="/favicon.ico" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

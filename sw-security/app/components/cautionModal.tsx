@@ -1,6 +1,7 @@
 import api from "~/api/api";
 import modalStyle from "../css/modal.module.css";
 import { useNavigate } from "@remix-run/react";
+import { useStore } from "../store/store";
 type Props = {
   setCautionOpen: (isOpen: boolean) => void;
   text: string;
@@ -8,13 +9,15 @@ type Props = {
 };
 
 export default function CautionModal({ setCautionOpen, text, title }: Props) {
+  const logout = useStore((state) => state.logout);
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
       const response = await api.delete("/api/auth/secession");
       if (response.status === 200) {
         alert("탈퇴가 완료됐습니다.");
-        navigate("/login");
+        logout();
+        navigate("/login", { replace: true });
       } else {
         const error = await response.data;
         alert(error.message);
@@ -38,7 +41,7 @@ export default function CautionModal({ setCautionOpen, text, title }: Props) {
           onClick={() => setCautionOpen(false)}
         >
           <img
-            src="../../img/modalClose.svg"
+            src="/img/modalClose.svg"
             alt="close"
             onClick={() => setCautionOpen(false)}
           />

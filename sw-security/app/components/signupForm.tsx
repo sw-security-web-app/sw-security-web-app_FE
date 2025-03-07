@@ -367,6 +367,7 @@ export default function SignUpForm() {
                       flexDirection: "row",
                       width: "100%",
                       justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
                     <span style={{ color: "#00FF80", fontSize: "0.78rem" }}>
@@ -437,6 +438,7 @@ export default function SignUpForm() {
                       flexDirection: "row",
                       width: "100%",
                       justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
                     <span style={{ color: "#00FF80", fontSize: "0.78rem" }}>

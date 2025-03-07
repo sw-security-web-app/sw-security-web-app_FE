@@ -2,7 +2,6 @@ import { Link } from "@remix-run/react";
 import joinStyle from "../css/join.module.css";
 import defaultStyle from "../css/default.module.css";
 import LoginHeader from "~/components/loginHeader";
-import "../css/styles.module.css";
 
 export default function Join() {
   return (

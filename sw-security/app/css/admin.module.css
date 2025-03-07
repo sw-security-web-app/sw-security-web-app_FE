@@ -300,7 +300,7 @@ td {
   transition: all 0.2s ease;
   cursor: pointer;
   margin-left: 0.5rem;
-  color: #484b50;
+  color: red;
 }
 .informationIcon:hover {
   transform: scale(1.05);
