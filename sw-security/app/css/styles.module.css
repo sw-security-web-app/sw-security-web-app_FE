@@ -5,7 +5,7 @@ a {
   text-decoration: none;
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   html {
     font-size: 14px;
   }
@@ -14,4 +14,4 @@ a {
   html {
     font-size: 10px;
   }
-} */
+}

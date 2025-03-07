@@ -31,10 +31,7 @@ export const links: LinksFunction = () => [
 ];
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      style={{ margin: 0, padding: 0, height: "100%", fontSize: "18px" }}
-    >
+    <html lang="en" style={{ margin: 0, padding: 0, height: "100%" }}>
       <head>
         {/* <link rel="stylesheet" href="../css/styles.module.css" /> */}
         <link rel="icon" type="image/ico" href="/favicon.ico" />
