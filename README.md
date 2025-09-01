@@ -3,7 +3,8 @@
 > **VERO**의 프론트엔드 레포지토리입니다.  
 > 정보 보안을 실현하며,  **Remix** 기반으로 사용자 친화적인 UI/UX를 통해 효과적인 솔루션을 제공합니다.
 ---
-
+ <img src="https://github.com/user-attachments/assets/3971e081-340d-4853-ac38-564618c4a325"/>
+ 
 ## 📌 목차
 
 - 소개
